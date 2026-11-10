@@ -9,6 +9,7 @@
     "test": "node factory/test.mjs",
     "pack": "node factory/pack.mjs",
     "publish:docs": "node factory/publish.mjs",
+    "indexnow": "node factory/indexnow.mjs",
     "ship": "node factory/build.mjs && node factory/test.mjs && node factory/publish.mjs",
     "push:api": "node factory/push-api.mjs"
   }

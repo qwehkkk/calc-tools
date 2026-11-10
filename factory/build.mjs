@@ -443,6 +443,11 @@ if (MODE === 'domain' && SITE.customDomain && !BASE) {
   fs.unlinkSync(cnamePath);   // 域名未就绪时必须删掉，否则 Pages 部署会失败
 }
 
+// IndexNow key 文件：Bing/Yandex 验证站点所有权用，内容必须等于文件名（不含 .txt）
+if (SITE.indexNowKey) {
+  fs.writeFileSync(path.join(DIRS.web, `${SITE.indexNowKey}.txt`), SITE.indexNowKey + '\n', 'utf8');
+}
+
 // 404：Pages 找不到路径时用它，把流量接回首页，而不是白屏
 const nf = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
