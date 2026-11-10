@@ -9,7 +9,9 @@
 | 项目 | 状态 |
 |---|---|
 | 仓库 | ✅ <https://github.com/qwehkkk/calc-tools>（public，Issues 已开） |
-| 代码 | ✅ 48 个文件已推送，`docs/` 24 个页面文件（含 `CNAME`） |
+| 代码 | ✅ 68 个文件已推送，`docs/` 25 个页面文件（含 `CNAME`、IndexNow key） |
+| 产品 | ✅ 第一批 6 个 + 第二批 6 个（混凝土/涂料/钣金/体积重/电缆压降/沥青），34 条路径实测 32 个 200、不存在路径真 404 |
+| IndexNow | ✅ `npm run indexnow` 一键把 sitemap 全部 URL 推给 Bing/Yandex（HTTP 202 已接受），key 在 site.json 的 `indexNowKey` |
 | Pages | ✅ 已开启：`main` + `/docs` |
 | 自定义域 | ✅ `calc.getoolkit.com` 已绑定，证书已签发（到期 2027-02-08） |
 | 正式地址 | ✅ <https://calc.getoolkit.com/>（HTTPS 已强制，http 301 到 https） |
