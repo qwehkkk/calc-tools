@@ -1,6 +1,6 @@
 {
   "domain": "https://calc.toolona.com",
-  "customDomain": "calc.toolona.com",
+  "customDomain": "",
   "base": "",
   "github": {
     "owner": "qwehkkk",
@@ -14,5 +14,5 @@
   "tagline": "Engineering calculators that end in a number you can quote.",
   "email": "asdzcc@gmail.com",
   "storeUrl": "https://calc.toolona.com/",
-  "note": "base 留空=部署在自定义域根目录；先用 github.io 子路径预览时才设成 /仓库名。改完重跑 build。"
+  "note": "DNS 生效前 customDomain 必须留空，否则 docs/CNAME 会让 Pages 的部署步骤失败（Page build failed）。Cloudflare 加好 calc 的 CNAME 记录后，把这里改回 calc.toolona.com 重建即可。"
 }
