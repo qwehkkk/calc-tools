@@ -266,7 +266,6 @@ for (const v of ALL) {
   if (!v.slug || !/^[a-z0-9-]+$/.test(v.slug)) errs.push('slug 必须是小写字母数字加连字符');
   if (!v.inputs?.length) errs.push('缺少 inputs');
   if (!v.outputs?.length) errs.push('缺少 outputs');
-  if (!v.sheets?.length) errs.push('缺少 sheets');
   if (errs.length) { console.error(`✗ ${v.slug}: ${errs.join('; ')}`); continue; }
 
   for (const lang of ['en', 'zh']) {

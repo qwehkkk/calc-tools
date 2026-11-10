@@ -1,0 +1,109 @@
+{
+  "slug": "sheet-metal-nesting",
+  "priority": 9,
+  "version": "0.1.0",
+  "category": { "en": "Fabrication", "zh": "钣金加工" },
+  "navTag": { "en": "Fabrication", "zh": "钣金" },
+  "accent": "#7a5c1a",
+  "currency": "CNY",
+  "unit": "mm",
+  "name": { "en": "Sheet Metal Nesting", "zh": "钣金排版出数" },
+  "tagline": { "en": "Parts per sheet, utilization, material + laser cost per part.", "zh": "一张板出几件、利用率、单件板材加激光钱。" },
+  "headline": {
+    "en": "How many parts fit on one sheet, and what each part costs",
+    "zh": "一张板能排几件，每件摊多少钱"
+  },
+  "sub": {
+    "en": "Enter the flat pattern and the sheet. Get parts per sheet with cut gaps, real utilization, sheets to buy, and a per-part cost that carries material plus laser time — before bending.",
+    "zh": "输入展开料和板材规格，出计割缝的每张出数、真实利用率、要买几张，以及单件摊的板材加激光费（不含折弯）。"
+  },
+  "badges": [
+    { "en": "Laser kerf <b>included</b>", "zh": "已计<b>激光割缝</b>" },
+    { "en": "1220×2440 <b>default</b>", "zh": "默认 <b>1220×2440</b>" },
+    { "en": "No signup", "zh": "免注册" }
+  ],
+  "seo": {
+    "title": "Sheet Metal Nesting Calculator — Parts per Sheet & Cost per Part",
+    "desc": "Calculate how many flat sheet metal parts fit on a 1220×2440 or 1500×3000 sheet with laser kerf, real utilization, sheets required and per-part material plus cutting cost.",
+    "keywords": ["sheet metal nesting calculator", "parts per sheet calculator", "laser cutting cost calculator", "sheet metal utilization", "how many parts per sheet", "sheet metal cost per part"]
+  },
+  "inputs": [
+    { "id": "partL", "label": { "en": "Part length", "zh": "展开长" }, "unit": "mm", "default": 300, "min": 10, "max": 4000, "step": 1,
+      "hint": { "en": "Flat pattern, before bending", "zh": "折弯前的展开尺寸" } },
+    { "id": "partW", "label": { "en": "Part width", "zh": "展开宽" }, "unit": "mm", "default": 200, "min": 10, "max": 2000, "step": 1 },
+    { "id": "qty", "label": { "en": "Quantity", "zh": "数量" }, "unit": "件", "default": 50, "min": 1, "max": 100000, "step": 1 },
+    { "id": "sheetW", "label": { "en": "Sheet width", "zh": "板宽" }, "unit": "mm", "default": 1220, "min": 300, "max": 3100, "step": 10,
+      "hint": { "en": "1220 / 1250 / 1500 mill widths", "zh": "常见 1220 / 1250 / 1500" } },
+    { "id": "sheetH", "label": { "en": "Sheet length", "zh": "板长" }, "unit": "mm", "default": 2440, "min": 300, "max": 6100, "step": 10,
+      "hint": { "en": "2440 / 2500 / 3000 / 6000", "zh": "常见 2440 / 2500 / 3000 / 6000" } },
+    { "id": "sheetPrice", "label": { "en": "Sheet price", "zh": "板材单价" }, "unit": "¥/张", "default": 180, "min": 20, "max": 8000, "step": 5,
+      "hint": { "en": "Cold-rolled 1.2mm ≈ ¥160–220; 2.0mm ≈ ¥260–320", "zh": "冷轧 1.2mm 约 160–220；2.0mm 约 260–320" } },
+    { "id": "kerf", "label": { "en": "Cut gap", "zh": "割缝间隙" }, "unit": "mm", "default": 2, "min": 0, "max": 10, "step": 0.5,
+      "hint": { "en": "Laser kerf is 0.1–0.3mm; 2mm is the clamp/slit margin", "zh": "激光缝只有 0.1–0.3mm，2mm 是留夹钳和分刀的量" } },
+    { "id": "cutRate", "label": { "en": "Laser rate", "zh": "激光切割费" }, "unit": "¥/m", "default": 3, "min": 0, "max": 60, "step": 0.5,
+      "hint": { "en": "Thin sheet ¥2–4/m, thick ¥6–12/m", "zh": "薄板 2–4 元/米，厚板 6–12 元/米" } },
+    { "id": "lossRate", "label": { "en": "Scrap allowance", "zh": "报废率" }, "unit": "%", "default": 3, "min": 0, "max": 30, "step": 1 },
+    { "id": "margin", "label": { "en": "Margin", "zh": "利润率" }, "unit": "%", "default": 30, "min": 0, "max": 300, "step": 1 }
+  ],
+  "formulas": [
+    { "id": "sheetArea", "label": { "en": "Sheet area", "zh": "板面积" }, "expr": "sheetW * sheetH / 1000000", "unit": "m²", "digits": 3 },
+    { "id": "partArea", "label": { "en": "Part area", "zh": "单件面积" }, "expr": "partL * partW / 1000000", "unit": "m²", "digits": 4 },
+    { "id": "cutLen", "label": { "en": "Cut length", "zh": "切割周长" }, "expr": "2 * (partL + partW) / 1000", "unit": "m", "digits": 2 }
+  ],
+  "sheets": [{ "id": "s1", "label": { "en": "Sheet", "zh": "板材" }, "w": "sheetW", "h": "sheetH", "price": "sheetPrice" }],
+  "kerf": "kerf",
+  "allowRotate": true,
+  "parts": [{ "id": "cut", "label": { "en": "Part", "zh": "工件" }, "w": "partL", "h": "partW", "qty": "9999", "color": "#7a5c1a" }],
+  "outputs": [
+    { "id": "perSheet", "expr": "perSheet" },
+    { "id": "sheetsNeeded", "expr": "ceil(qty / perSheet)" },
+    { "id": "util", "expr": "efficiency * 100" },
+    { "id": "materialPer", "expr": "ceil(qty / perSheet) * sheetPrice / qty" },
+    { "id": "laserPer", "expr": "2 * (partL + partW) / 1000 * cutRate" },
+    { "id": "scrapPer", "expr": "ceil(qty / perSheet) * sheetPrice / qty * lossRate / 100" },
+    { "id": "quote", "expr": "(ceil(qty / perSheet) * sheetPrice / qty * (1 + lossRate / 100) + 2 * (partL + partW) / 1000 * cutRate) * (1 + margin / 100)" }
+  ],
+  "kpis": [
+    { "id": "perSheet", "label": { "en": "Parts per sheet", "zh": "每张出数" }, "digits": 0, "hl": true },
+    { "id": "util", "label": { "en": "Real utilization", "zh": "真实利用率" }, "digits": 1, "suffix": "%" },
+    { "id": "materialPer", "label": { "en": "Material per part", "zh": "单件板材" }, "money": true, "digits": 2 },
+    { "id": "quote", "label": { "en": "Price per part", "zh": "单件报价" }, "money": true, "digits": 2, "hl": true }
+  ],
+  "breakdown": [
+    { "label": { "en": "Material", "zh": "板材" }, "expr": "ceil(qty / perSheet) * sheetPrice / qty" },
+    { "label": { "en": "Scrap", "zh": "报废" }, "expr": "ceil(qty / perSheet) * sheetPrice / qty * lossRate / 100" },
+    { "label": { "en": "Laser", "zh": "激光" }, "expr": "2 * (partL + partW) / 1000 * cutRate" }
+  ],
+  "showFormulas": [
+    { "id": "sheetArea", "label": { "en": "Sheet area", "zh": "板面积" }, "expr": "板宽 × 板长", "unit": "m²", "digits": 3 },
+    { "id": "cutLen", "label": { "en": "Cut length", "zh": "切割周长" }, "expr": "2 × (长 + 宽)", "unit": "m", "digits": 2 },
+    { "id": "materialPer", "label": { "en": "Material per part", "zh": "单件板材" }, "expr": "张数 × 板价 ÷ 件数", "unit": "¥", "digits": 2 }
+  ],
+  "howTitle": { "en": "The gap you leave is the margin you keep", "zh": "留缝的方式，决定利润" },
+  "howP": {
+    "en": "Laser kerf itself is 0.1–0.3 mm — nearly free. What eats sheets is the 2–5 mm you leave for clamps, part separation and straight edges. On a 300×200 part, dropping the gap from 5 mm to 2 mm turns 4×11 into 4×12 per 1220×2440 sheet: one extra part per sheet, every sheet, forever. Nesting software exists to win exactly this fight; this page shows you whether it is worth buying.",
+    "zh": "激光割缝本身只有 0.1–0.3mm，几乎白送。真正吃掉板材的是留给夹钳、分刀和直边的 2–5mm。一块 300×200 的件，间隙从 5mm 收到 2mm，1220×2440 上就能从 4×11 变 4×12——每张多出一件，张张如此。专业套料软件赚的就是这个差价；这页先帮你算清值不值得买。"
+  },
+  "faq": [
+    { "q": { "en": "Why 2 mm gap instead of the real laser kerf?", "zh": "为什么留 2mm 而不是真实激光缝宽？" },
+      "a": { "en": "Because the kerf is not what separates parts on a real bed — clamps, lead-ins and the last straight edge do. 1–2 mm is the practical minimum for parts you cut on a shared sheet; use 0.5 mm only when every part is cut individually from its own offcut.", "zh": "因为真实分割工件的不是割缝，是夹钳、引入线和最后的直边。共板排版 1–2mm 是实用下限；0.5mm 只适用于每件都从独立余料上切的情况。" } },
+    { "q": { "en": "My nesting software shows higher utilization than this page. Why?", "zh": "套料软件显示的利用率比这里高，为什么？" },
+      "a": { "en": "Because it mixes part sizes on one sheet and re-uses offcuts, while this page nests a single size — the honest comparison for deciding whether to buy that software. Its number is real, but it requires remnant management discipline most shops don't have.", "zh": "因为它把不同尺寸混排并复用余料，而这页只排单一尺寸——这是判断要不要买套料软件时的诚实对比。它的数字是真的，但前提是你真有管理余料的纪律。" } },
+    { "q": { "en": "Does bending change the flat pattern?", "zh": "折弯会改变展开尺寸吗？" },
+      "a": { "en": "Yes — bend deduction depends on thickness, die width and inside radius. Enter the flat pattern after unfolding with deductions applied, not the folded envelope. If you only know the folded size, use K-factor unfolding first.", "zh": "会——折弯补偿跟料厚、下模宽和内 R 都有关。这里要填的是做完折弯扣除后的展开尺寸，不是折好后的外形。只有折后尺寸的话，先按 K 因子展开。" } },
+    { "q": { "en": "Should thick sheets use a bigger gap?", "zh": "厚板要留更大的缝吗？" },
+      "a": { "en": "Slightly — 6 mm plate wants 0.3–0.4 mm kerf and more heat, so practical separation goes to 2.5–3 mm. The bigger thick-sheet cost is cutting rate, which is why the laser rate input matters more than the gap above 3 mm.", "zh": "略宽——6mm 板割缝 0.3–0.4mm，热影响更大，实用分离间隙给 2.5–3mm。但厚板真正的成本大头是切割费率，超过 3mm 后激光单价的影响远大于缝隙。" } }
+  ],
+  "price": { "value": 99, "note": { "en": "One-time. Unlocks multi-size nesting and offcut carry-over.", "zh": "一次性买断。解锁多尺寸混排和余料结转。" } },
+  "listing": {
+    "long": "See how many flat parts really fit on a standard sheet, what each part carries in material and laser time, and whether the nesting software pitch actually pays for itself. Built for small fabrication shops quoting laser-cut parts.",
+    "bullets": [
+      "Parts per sheet with a realistic cut gap",
+      "Utilization for a single-size nest (the honest number)",
+      "Material + laser cost and a defensible per-part price",
+      "Offline, no account"
+    ],
+    "perms": "None. Fully offline."
+  },
+  "related": ["glass-sheet-yield", "acrylic-panel-quote", "carton-blank-yield"]
+}

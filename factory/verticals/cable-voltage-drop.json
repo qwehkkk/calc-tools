@@ -1,0 +1,508 @@
+{
+  "slug": "cable-voltage-drop",
+  "priority": 11,
+  "version": "0.1.0",
+  "category": {
+    "en": "Electrical",
+    "zh": "电气"
+  },
+  "navTag": {
+    "en": "Electrical",
+    "zh": "电气"
+  },
+  "accent": "#b8860b",
+  "currency": "CNY",
+  "unit": "m",
+  "name": {
+    "en": "Cable Voltage Drop",
+    "zh": "电缆压降与选型"
+  },
+  "tagline": {
+    "en": "Current, volt drop, % drop, minimum standard cross-section.",
+    "zh": "电流、压降伏数、压降百分比、最小标准线径。"
+  },
+  "headline": {
+    "en": "Will the cable hold the voltage at the far end?",
+    "zh": "这根电缆到末端还剩几伏？"
+  },
+  "sub": {
+    "en": "Enter power, run length and cable size. Get working current, voltage drop in volts and percent, pass or fail against the 5% limit, and the minimum standard cross-section that passes.",
+    "zh": "输入功率、距离和线径，出工作电流、压降伏数和百分比、是否超过 5% 限值，以及能过审的最小标准截面。"
+  },
+  "badges": [
+    {
+      "en": "Single-phase <b>220V</b> / three-phase <b>380V</b>",
+      "zh": "单相 <b>220V</b> / 三相 <b>380V</b>"
+    },
+    {
+      "en": "Copper & <b>aluminium</b>",
+      "zh": "铜芯 / <b>铝芯</b>"
+    },
+    {
+      "en": "No signup",
+      "zh": "免注册"
+    }
+  ],
+  "seo": {
+    "title": "Voltage Drop Calculator — Cable Size & % Drop (220V / 380V)",
+    "desc": "Calculate working current, voltage drop in volts and percent for single-phase 220V and three-phase 380V copper or aluminium cable, and find the minimum standard cross-section that stays within 5%.",
+    "keywords": [
+      "voltage drop calculator",
+      "cable size calculator",
+      "cable voltage drop formula",
+      "wire gauge voltage drop 380v",
+      "copper cable voltage drop per meter",
+      "cable cross section calculator"
+    ]
+  },
+  "inputs": [
+    {
+      "id": "phase",
+      "label": {
+        "en": "System",
+        "zh": "供电制式"
+      },
+      "type": "select",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "Single-phase 220V",
+            "zh": "单相 220V"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "Three-phase 380V",
+            "zh": "三相 380V"
+          }
+        }
+      ]
+    },
+    {
+      "id": "power",
+      "label": {
+        "en": "Load power",
+        "zh": "负载功率"
+      },
+      "unit": "kW",
+      "default": 7.5,
+      "min": 0.1,
+      "max": 500,
+      "step": 0.1,
+      "hint": {
+        "en": "Motor nameplate × demand factor",
+        "zh": "电机按铭牌 × 需要系数"
+      }
+    },
+    {
+      "id": "pf",
+      "label": {
+        "en": "Power factor",
+        "zh": "功率因数"
+      },
+      "unit": "cosφ",
+      "default": 0.85,
+      "min": 0.5,
+      "max": 1,
+      "step": 0.01,
+      "hint": {
+        "en": "Motors 0.8–0.85, heaters 1.0",
+        "zh": "电机 0.8–0.85，电阻炉 1.0"
+      }
+    },
+    {
+      "id": "length",
+      "label": {
+        "en": "One-way run",
+        "zh": "单程距离"
+      },
+      "unit": "m",
+      "default": 80,
+      "min": 1,
+      "max": 3000,
+      "step": 1
+    },
+    {
+      "id": "size",
+      "label": {
+        "en": "Cable size",
+        "zh": "线径"
+      },
+      "type": "select",
+      "default": "3",
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "1.5 mm²",
+            "zh": "1.5 mm²"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "2.5 mm²",
+            "zh": "2.5 mm²"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "en": "4 mm²",
+            "zh": "4 mm²"
+          }
+        },
+        {
+          "value": "4",
+          "label": {
+            "en": "6 mm²",
+            "zh": "6 mm²"
+          }
+        },
+        {
+          "value": "5",
+          "label": {
+            "en": "10 mm²",
+            "zh": "10 mm²"
+          }
+        },
+        {
+          "value": "6",
+          "label": {
+            "en": "16 mm²",
+            "zh": "16 mm²"
+          }
+        },
+        {
+          "value": "7",
+          "label": {
+            "en": "25 mm²",
+            "zh": "25 mm²"
+          }
+        },
+        {
+          "value": "8",
+          "label": {
+            "en": "35 mm²",
+            "zh": "35 mm²"
+          }
+        },
+        {
+          "value": "9",
+          "label": {
+            "en": "50 mm²",
+            "zh": "50 mm²"
+          }
+        },
+        {
+          "value": "10",
+          "label": {
+            "en": "70 mm²",
+            "zh": "70 mm²"
+          }
+        },
+        {
+          "value": "11",
+          "label": {
+            "en": "95 mm²",
+            "zh": "95 mm²"
+          }
+        },
+        {
+          "value": "12",
+          "label": {
+            "en": "120 mm²",
+            "zh": "120 mm²"
+          }
+        }
+      ]
+    },
+    {
+      "id": "metal",
+      "label": {
+        "en": "Conductor",
+        "zh": "导体"
+      },
+      "type": "select",
+      "default": "1",
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "Copper — ρ 0.0175",
+            "zh": "铜芯 — ρ 0.0175"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "Aluminium — ρ 0.028",
+            "zh": "铝芯 — ρ 0.028"
+          }
+        }
+      ]
+    }
+  ],
+  "formulas": [
+    {
+      "id": "un",
+      "label": {
+        "en": "Rated voltage",
+        "zh": "额定电压"
+      },
+      "expr": "ifelse(phase == 1, 220, 380)",
+      "unit": "V",
+      "digits": 0
+    },
+    {
+      "id": "k",
+      "label": {
+        "en": "Line factor",
+        "zh": "线路系数"
+      },
+      "expr": "ifelse(phase == 1, 2, 1.732)",
+      "unit": "",
+      "digits": 3
+    },
+    {
+      "id": "rho",
+      "label": {
+        "en": "Resistivity",
+        "zh": "电阻率"
+      },
+      "expr": "ifelse(metal == 1, 0.0175, 0.028)",
+      "unit": "Ω·mm²/m",
+      "digits": 4
+    },
+    {
+      "id": "sVal",
+      "label": {
+        "en": "Cross-section",
+        "zh": "截面"
+      },
+      "expr": "ifelse(size == 1, 1.5, ifelse(size == 2, 2.5, ifelse(size == 3, 4, ifelse(size == 4, 6, ifelse(size == 5, 10, ifelse(size == 6, 16, ifelse(size == 7, 25, ifelse(size == 8, 35, ifelse(size == 9, 50, ifelse(size == 10, 70, ifelse(size == 11, 95, 120)))))))))))",
+      "unit": "mm²",
+      "digits": 1
+    },
+    {
+      "id": "current",
+      "label": {
+        "en": "Working current",
+        "zh": "工作电流"
+      },
+      "expr": "ifelse(phase == 1, power * 1000 / (un * pf), power * 1000 / (1.732 * un * pf))",
+      "unit": "A",
+      "digits": 1
+    },
+    {
+      "id": "sReq",
+      "label": {
+        "en": "Section for 5%",
+        "zh": "满足5%的截面"
+      },
+      "expr": "k * ifelse(phase == 1, power * 1000 / (un * pf), power * 1000 / (1.732 * un * pf)) * length * rho / (0.05 * un)",
+      "unit": "mm²",
+      "digits": 2
+    }
+  ],
+  "outputs": [
+    {
+      "id": "current",
+      "expr": "current"
+    },
+    {
+      "id": "dropV",
+      "expr": "k * current * length * rho / sVal"
+    },
+    {
+      "id": "dropPct",
+      "expr": "k * current * length * rho / sVal / un * 100"
+    },
+    {
+      "id": "sVal",
+      "expr": "sVal"
+    },
+    {
+      "id": "ok",
+      "expr": "ifelse(k * current * length * rho / sVal / un * 100 <= 5, 1, 0)"
+    },
+    {
+      "id": "sMin",
+      "expr": "ifelse(sReq <= 1.5, 1.5, ifelse(sReq <= 2.5, 2.5, ifelse(sReq <= 4, 4, ifelse(sReq <= 6, 6, ifelse(sReq <= 10, 10, ifelse(sReq <= 16, 16, ifelse(sReq <= 25, 25, ifelse(sReq <= 35, 35, ifelse(sReq <= 50, 50, ifelse(sReq <= 70, 70, ifelse(sReq <= 95, 95, 120)))))))))))"
+    },
+    {
+      "id": "saveLen",
+      "expr": "sVal - sReq"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "current",
+      "label": {
+        "en": "Working current",
+        "zh": "工作电流"
+      },
+      "digits": 1,
+      "suffix": " A"
+    },
+    {
+      "id": "dropV",
+      "label": {
+        "en": "Voltage drop",
+        "zh": "压降"
+      },
+      "digits": 2,
+      "suffix": " V"
+    },
+    {
+      "id": "dropPct",
+      "label": {
+        "en": "Drop",
+        "zh": "压降比"
+      },
+      "digits": 2,
+      "suffix": "%",
+      "hl": true
+    },
+    {
+      "id": "ok",
+      "label": {
+        "en": "Verdict (5%)",
+        "zh": "判定（5%）"
+      },
+      "digits": 0,
+      "hl": true
+    }
+  ],
+  "breakdown": [
+    {
+      "label": {
+        "en": "Line resistance",
+        "zh": "线路电阻"
+      },
+      "expr": "k * rho * length / sVal"
+    },
+    {
+      "label": {
+        "en": "Drop at this size",
+        "zh": "现线径压降"
+      },
+      "expr": "k * current * length * rho / sVal"
+    },
+    {
+      "label": {
+        "en": "Drop at minimum size",
+        "zh": "最小线径压降"
+      },
+      "expr": "0.05 * un"
+    }
+  ],
+  "showFormulas": [
+    {
+      "id": "current",
+      "label": {
+        "en": "Working current",
+        "zh": "工作电流"
+      },
+      "expr": "P ÷ (√3 × U × cosφ)",
+      "unit": "A",
+      "digits": 1
+    },
+    {
+      "id": "dropV",
+      "label": {
+        "en": "Voltage drop",
+        "zh": "压降"
+      },
+      "expr": "√3 × I × L × ρ ÷ S",
+      "unit": "V",
+      "digits": 2
+    },
+    {
+      "id": "dropPct",
+      "label": {
+        "en": "Drop percent",
+        "zh": "压降比"
+      },
+      "expr": "ΔU ÷ U × 100",
+      "unit": "%",
+      "digits": 2
+    }
+  ],
+  "howTitle": {
+    "en": "5% is not a suggestion",
+    "zh": "5% 不是建议值"
+  },
+  "howP": {
+    "en": "The formula is plain Ohm's law along the loop: three-phase drop is √3·I·L·ρ/S, single-phase is 2·I·L·ρ/S (the factor 2 walks out and back). The ρ of copper at working temperature is about 0.0175 Ω·mm²/m, aluminium 0.028 — aluminum needs a section 60% larger for the same drop, which is why long aluminium runs keep disappointing. The 5% ceiling comes from distribution-code practice: keep the feeder under 5% and motors still start; past 8–10%, contactors chatter and VFDs trip on undervoltage long before anything burns.",
+    "zh": "公式就是欧姆定律沿线走一圈：三相压降 √3·I·L·ρ/S，单相 2·I·L·ρ/S（系数 2 是来回两根线）。铜在工作温度下的电阻率约 0.0175 Ω·mm²/m，铝约 0.028——同样的压降铝芯要放大 60% 截面，这就是长距离铝线总让人失望的原因。5% 这条线来自配电规范惯例：馈线压住 5%，电机还能正常启动；过了 8–10%，接触器吸不牢、变频器欠压跳停，什么都还没烧，设备先罢工。"
+  },
+  "faq": [
+    {
+      "q": {
+        "en": "Is 5% the legal limit?",
+        "zh": "5% 是法定限值吗？"
+      },
+      "a": {
+        "en": "It is the working consensus: distribution codes allow voltage deviation around ±5–7% at the utilization point, and 5% is the design ceiling that keeps you inside it with margin. Sensitive loads (VFDs, servers) deserve 3%. This page flags anything over 5%, but your local code wins.",
+        "zh": "5% 是工程共识：配电规范允许用电端电压偏差 ±5–7%，设计上把线路压降控制在 5% 以内才有余量。变频器、服务器这类敏感负载建议按 3% 卡。本页按 5% 判定，但当地规范说了算。"
+      }
+    },
+    {
+      "q": {
+        "en": "The % drop passes — am I done?",
+        "zh": "压降达标就完事了吗？"
+      },
+      "a": {
+        "en": "No. Voltage drop is one of three gates. Ampacity (current the cable survives continuously), and short-circuit withstand / breaker coordination come first. A 1.5 mm² cable can pass the 5% test on a short run and still be illegal for a 20 A circuit.",
+        "zh": "没有。压降只是三关之一。载流量（电缆长期吃得下多少电流）和短路耐受/保护配合排在它前面。1.5 mm² 的线短距离压降能过，但 20A 回路用它是违规的。"
+      }
+    },
+    {
+      "q": {
+        "en": "Why does copper beat aluminium by 60%?",
+        "zh": "为什么铜比铝能省 60% 截面？"
+      },
+      "a": {
+        "en": "Resistivity: 0.0175 vs 0.028 Ω·mm²/m. For the same drop, S must scale with ρ, so aluminium needs about 1.6× the section. Aluminium is still worth it on big feeders because it is 3–4× cheaper per kg and much lighter — the ampacity per yuan wins on long runs.",
+        "zh": "电阻率的差别：0.0175 对 0.028。同样压降下截面正比于 ρ，铝要 1.6 倍。但大长度馈线上铝依然划算——每公斤便宜三四倍还轻得多，按「每元载流量」算长线是铝的天下。"
+      }
+    },
+    {
+      "q": {
+        "en": "Should I use the next size up from the minimum?",
+        "zh": "比最小线径再放大一档吗？"
+      },
+      "a": {
+        "en": "Usually yes, for three quiet reasons: conductor derating in conduit bundles, future load growth, and motor starting current (6–8× rated) which spikes the drop momentarily. The minimum passes the steady-state exam; the next size up passes the real one.",
+        "zh": "通常要，理由有三个都不响亮：穿管多根要降容、负载会加、电机启动电流是额定的 6–8 倍，瞬间压降会翻倍。最小线径过的是稳态考试，放大一档过的才是现场。"
+      }
+    }
+  ],
+  "price": {
+    "value": 99,
+    "note": {
+      "en": "One-time. Unlocks ampacity check and multi-load runs.",
+      "zh": "一次性买断。解锁载流量校验和多负载线路。"
+    }
+  },
+  "listing": {
+    "long": "Know the voltage at the far end of the run before the cable is pulled. Working current, drop in volts and percent, pass/fail against 5%, and the minimum standard cross-section — for single-phase 220V and three-phase 380V, copper or aluminium.",
+    "bullets": [
+      "Working current from power and power factor",
+      "Drop in volts and percent, single- or three-phase",
+      "Minimum standard cross-section that passes 5%",
+      "Offline, no account"
+    ],
+    "perms": "None. Fully offline."
+  },
+  "related": [
+    "air-chargeable-weight",
+    "concrete-slab-mix",
+    "container-load-fit"
+  ],
+  "noDiagram": true
+}

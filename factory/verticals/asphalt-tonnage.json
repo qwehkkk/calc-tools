@@ -1,0 +1,394 @@
+{
+  "slug": "asphalt-tonnage",
+  "priority": 12,
+  "version": "0.1.0",
+  "category": {
+    "en": "Construction",
+    "zh": "道路施工"
+  },
+  "navTag": {
+    "en": "Paving",
+    "zh": "道路"
+  },
+  "accent": "#4a4a4a",
+  "currency": "CNY",
+  "unit": "m",
+  "name": {
+    "en": "Asphalt Tonnage & Cost",
+    "zh": "沥青吨数与造价"
+  },
+  "tagline": {
+    "en": "Tonnes to order, mix cost, paving cost, ¥ per m².",
+    "zh": "要订多少吨、拌和站多少钱、摊铺多少钱、每平米造价。"
+  },
+  "headline": {
+    "en": "How many tonnes of asphalt the job takes",
+    "zh": "这活要订多少吨沥青"
+  },
+  "sub": {
+    "en": "Enter the area, layer thickness and mix price. Get tonnes to order with waste, mix plant cost, paving cost, and the finished ¥ per square metre — before the plant loads the first truck.",
+    "zh": "输入面积、层厚和料价，出含损耗的订料吨数、拌和站料费、摊铺费和每平米综合造价——拌和站装第一车之前把账算完。"
+  },
+  "badges": [
+    {
+      "en": "Density <b>2.3–2.5 t/m³</b> presets",
+      "zh": "密度 <b>2.3–2.5 t/m³</b> 预设"
+    },
+    {
+      "en": "Mix + paving <b>both</b>",
+      "zh": "料费摊铺费<b>都算</b>"
+    },
+    {
+      "en": "No signup",
+      "zh": "免注册"
+    }
+  ],
+  "seo": {
+    "title": "Asphalt Calculator — Tonnes, Cost per m² & Ordering",
+    "desc": "Calculate asphalt tonnage from area and layer thickness with density and waste, mix plant cost, paving cost and the finished cost per square metre for driveways, roads and parking lots.",
+    "keywords": [
+      "asphalt calculator",
+      "asphalt tonnage calculator",
+      "how much asphalt per square meter",
+      "asphalt cost per ton calculator",
+      "hot mix asphalt calculator",
+      "asphalt paving cost per m2"
+    ]
+  },
+  "inputs": [
+    {
+      "id": "roadL",
+      "label": {
+        "en": "Length",
+        "zh": "长度"
+      },
+      "unit": "m",
+      "default": 100,
+      "min": 1,
+      "max": 10000,
+      "step": 1
+    },
+    {
+      "id": "roadW",
+      "label": {
+        "en": "Width",
+        "zh": "宽度"
+      },
+      "unit": "m",
+      "default": 6,
+      "min": 0.5,
+      "max": 100,
+      "step": 0.1
+    },
+    {
+      "id": "thickCm",
+      "label": {
+        "en": "Compact thickness",
+        "zh": "压实厚度"
+      },
+      "unit": "cm",
+      "default": 5,
+      "min": 2,
+      "max": 30,
+      "step": 0.5,
+      "hint": {
+        "en": "AC-13 surface 4–5 · bottom layer 6–8 · parking 5–7",
+        "zh": "AC-13 面层 4–5 · 底层 6–8 · 停车场 5–7"
+      }
+    },
+    {
+      "id": "density",
+      "label": {
+        "en": "Mix density",
+        "zh": "混合料密度"
+      },
+      "unit": "t/m³",
+      "default": 2.4,
+      "min": 2.0,
+      "max": 2.7,
+      "step": 0.05,
+      "hint": {
+        "en": "AC-13 ≈ 2.4, AC-20/25 ≈ 2.45, SMA ≈ 2.5",
+        "zh": "AC-13 约 2.4，AC-20/25 约 2.45，SMA 约 2.5"
+      }
+    },
+    {
+      "id": "lossRate",
+      "label": {
+        "en": "Waste",
+        "zh": "损耗率"
+      },
+      "unit": "%",
+      "default": 4,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "hint": {
+        "en": "Truck bed release, handwork at edges. 3–6%.",
+        "zh": "车厢粘料、边角人工找补，3–6%。"
+      }
+    },
+    {
+      "id": "mixPrice",
+      "label": {
+        "en": "Mix price",
+        "zh": "混合料单价"
+      },
+      "unit": "¥/t",
+      "default": 380,
+      "min": 100,
+      "max": 2000,
+      "step": 5,
+      "hint": {
+        "en": "AC-13 ex-plant ¥330–450 varies with bitumen",
+        "zh": "AC-13 出厂价 330–450，随沥青价波动"
+      }
+    },
+    {
+      "id": "pavePrice",
+      "label": {
+        "en": "Paving price",
+        "zh": "摊铺单价"
+      },
+      "unit": "¥/m²",
+      "default": 12,
+      "min": 0,
+      "max": 100,
+      "step": 0.5,
+      "hint": {
+        "en": "Paver + roller + labour, thin layers cost more per m²",
+        "zh": "摊铺机 + 压路机 + 人工，越薄每平米越贵"
+      }
+    }
+  ],
+  "formulas": [
+    {
+      "id": "area",
+      "label": {
+        "en": "Area",
+        "zh": "面积"
+      },
+      "expr": "roadL * roadW",
+      "unit": "m²",
+      "digits": 1
+    },
+    {
+      "id": "volM3",
+      "label": {
+        "en": "Compact volume",
+        "zh": "压实方"
+      },
+      "expr": "roadL * roadW * thickCm / 100",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "netT",
+      "label": {
+        "en": "Net tonnage",
+        "zh": "净吨数"
+      },
+      "expr": "roadL * roadW * thickCm / 100 * density",
+      "unit": "t",
+      "digits": 2
+    }
+  ],
+  "outputs": [
+    {
+      "id": "area",
+      "expr": "area"
+    },
+    {
+      "id": "tons",
+      "expr": "roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100)"
+    },
+    {
+      "id": "mixCost",
+      "expr": "roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100) * mixPrice"
+    },
+    {
+      "id": "paveCost",
+      "expr": "roadL * roadW * pavePrice"
+    },
+    {
+      "id": "total",
+      "expr": "roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100) * mixPrice + roadL * roadW * pavePrice"
+    },
+    {
+      "id": "perSqm",
+      "expr": "(roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100) * mixPrice + roadL * roadW * pavePrice) / (roadL * roadW)"
+    },
+    {
+      "id": "perTonSqm",
+      "expr": "roadL * roadW / (roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100))"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "tons",
+      "label": {
+        "en": "Tonnes to order",
+        "zh": "订料吨数"
+      },
+      "digits": 1,
+      "suffix": " t",
+      "hl": true
+    },
+    {
+      "id": "mixCost",
+      "label": {
+        "en": "Mix cost",
+        "zh": "料费"
+      },
+      "money": true,
+      "digits": 0
+    },
+    {
+      "id": "total",
+      "label": {
+        "en": "Job total",
+        "zh": "综合造价"
+      },
+      "money": true,
+      "digits": 0,
+      "hl": true
+    },
+    {
+      "id": "perSqm",
+      "label": {
+        "en": "Cost per m²",
+        "zh": "每平米造价"
+      },
+      "money": true,
+      "digits": 1
+    }
+  ],
+  "breakdown": [
+    {
+      "label": {
+        "en": "Mix",
+        "zh": "混合料"
+      },
+      "expr": "roadL * roadW * thickCm / 100 * density * (1 + lossRate / 100) * mixPrice"
+    },
+    {
+      "label": {
+        "en": "Waste",
+        "zh": "损耗"
+      },
+      "expr": "roadL * roadW * thickCm / 100 * density * lossRate / 100 * mixPrice"
+    },
+    {
+      "label": {
+        "en": "Paving",
+        "zh": "摊铺碾压"
+      },
+      "expr": "roadL * roadW * pavePrice"
+    }
+  ],
+  "showFormulas": [
+    {
+      "id": "netT",
+      "label": {
+        "en": "Net tonnage",
+        "zh": "净吨数"
+      },
+      "expr": "面积 × 厚度 × 密度",
+      "unit": "t",
+      "digits": 2
+    },
+    {
+      "id": "tons",
+      "label": {
+        "en": "Order tonnage",
+        "zh": "订料吨数"
+      },
+      "expr": "净吨数 × (1 + 损耗)",
+      "unit": "t",
+      "digits": 1
+    },
+    {
+      "id": "perSqm",
+      "label": {
+        "en": "Cost per m²",
+        "zh": "每平米造价"
+      },
+      "expr": "(料费 + 摊铺费) ÷ 面积",
+      "unit": "¥",
+      "digits": 1
+    }
+  ],
+  "howTitle": {
+    "en": "Order by the tonne, pave by the degree",
+    "zh": "料按吨订，活按温度干"
+  },
+  "howP": {
+    "en": "Tonnage is geometry times density: area × compacted thickness × 2.4 t/m³ for typical AC-13. The two things that blow budgets are not in that formula. First, waste: truck beds are sprayed with release oil and every joint gets hand-worked, so 3–6% leaves the site one way or another. Second, temperature: mix that arrives below 135 °C cannot compact and becomes a very expensive speed bump. Order for the paver's real output, not the plant's maximum.",
+    "zh": "吨数就是几何乘密度：面积 × 压实厚度 × 2.4t/m³（AC-13 常用值）。真正打爆预算的两件事不在这个公式里。一是损耗：车厢喷隔离油、每条接缝都要人工找补，3–6% 总会流走。二是温度：到场低于 135°C 的料压不实，最后变成一块非常昂贵的减速带。按摊铺机的真实产能订料，别按拌和站的最大产能。"
+  },
+  "faq": [
+    {
+      "q": {
+        "en": "Is 2.4 t/m³ the right density?",
+        "zh": "密度填 2.4 对吗？"
+      },
+      "a": {
+        "en": "It is the safe middle for dense-graded hot mix: AC-13 runs about 2.38–2.42, coarser AC-25 about 2.45, SMA closer to 2.5 because of the stone skeleton. If the plant ticket quotes a bulk density, use theirs — asphalt's density moves with bitumen content, and bitumen prices move weekly.",
+        "zh": "2.4 是密级配热拌料的稳妥中值：AC-13 约 2.38–2.42，粗粒式 AC-25 约 2.45，SMA 靠粗骨料骨架能到 2.5。拌和站小票上如果标了体积分散密度，用他们的——沥青密度跟油石比走，油石比跟着油价每周变。"
+      }
+    },
+    {
+      "q": {
+        "en": "Thickness: compacted or loose?",
+        "zh": "厚度填压实后还是松铺？"
+      },
+      "a": {
+        "en": "Compacted — that is what you measure and pay for. Pavers lay loose at roughly 1.25–1.35× the compacted target and the roller takes out the rest, so a 5 cm finish needs about a 6.5 cm loose mat. Never order loose tonnage; the plant sells tonnes, the roller sells compaction.",
+        "zh": "压实厚度——那是你量得出、付得值的。摊铺机松铺系数约 1.25–1.35，压路机把剩下的压掉，5cm 成品要摊 6.5cm 左右的松铺层。但订料永远按压实吨数：拌和站卖的是吨，压路机交付的是密实度。"
+      }
+    },
+    {
+      "q": {
+        "en": "Why is my supplier's tonnage higher than this?",
+        "zh": "为什么供应商报的吨数比这里高？"
+      },
+      "a": {
+        "en": "Three honest reasons: they include the loose-to-compacted factor, they round every truck to a full load (mix plants do not sell 0.3 t), and they carry their own waste. Ask for the calculation, not just the number — a supplier who won't show it is pricing something you should see.",
+        "zh": "三个正当理由：他们把松铺系数算进去了、每车凑整（拌和站不卖 0.3 吨）、他们自己也留了损耗。要他给你算式而不只是结果——不肯给算式的供应商，报价里一定有你该看见的东西。"
+      }
+    },
+    {
+      "q": {
+        "en": "Do I calculate each layer separately?",
+        "zh": "多层结构要分层算吗？"
+      },
+      "a": {
+        "en": "Yes — surface, binder and base layers usually differ in mix price, density and paving rate, and the base layer tonnage dwarfs the surface. Total the per-layer costs at the end; a single average price across layers hides exactly the money you are trying to see.",
+        "zh": "要——面层、中面层、基层的料价、密度、摊铺单价通常都不同，基层吨数还远大于面层。分层算完最后加总；用一个平均价套所有层，藏的恰恰是你想看清的那笔钱。"
+      }
+    }
+  ],
+  "price": {
+    "value": 99,
+    "note": {
+      "en": "One-time. Unlocks multi-layer jobs and milling volumes.",
+      "zh": "一次性买断。解锁多层结构和铣刨量计算。"
+    }
+  },
+  "listing": {
+    "long": "Order the right tonnage and see the whole job's number before the plant loads a truck. Area, compacted thickness, density presets, waste, mix cost, paving cost and finished ¥/m². Built for small paving crews and site engineers.",
+    "bullets": [
+      "Tonnes to order with waste, by layer thickness",
+      "Density presets for AC-13 / AC-25 / SMA",
+      "Mix + paving cost and the finished per-m² figure",
+      "Offline, no account"
+    ],
+    "perms": "None. Fully offline."
+  },
+  "related": [
+    "concrete-slab-mix",
+    "paint-wall-coverage",
+    "tile-quantity-calc"
+  ],
+  "noDiagram": true
+}

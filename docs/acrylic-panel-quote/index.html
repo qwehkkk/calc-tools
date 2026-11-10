@@ -630,7 +630,12 @@ var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","categ
 
   /* ---------- 状态 ---------- */
   var state = {};
-  CONFIG.inputs.forEach(function(f){ state[f.id] = f['default']; });
+  CONFIG.inputs.forEach(function(f){
+    // select 的 default 是字符串，公式里要跟数字比较，这里统一转成数值（标记 numeric:false 的保留原文）
+    var raw = f['default'];
+    state[f.id] = (f.type === 'select' && f.numeric !== false && raw != null && !isNaN(parseFloat(raw)))
+      ? parseFloat(raw) : raw;
+  });
 
   /* ---------- 表单 ---------- */
   var form = $('form');
@@ -705,16 +710,17 @@ var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","categ
                color:p.color || '#0f5c5c' };
     }).filter(function(p){ return p.w > 0 && p.h > 0 && p.qty > 0; });
 
-    // 3) 板材
-    var sheet = CONFIG.sheets[0];
-    var sw = num(sheet.w, scope), sh = num(sheet.h, scope);
+    // 3) 板材（可选：非排版类工具没有 sheets/parts）
+    var sheet = (CONFIG.sheets && CONFIG.sheets[0]) || null;
+    var sw = sheet ? num(sheet.w, scope) : 0;
+    var sh = sheet ? num(sheet.h, scope) : 0;
 
-    // 4) 排版
-    var nest = Nest.solve({
-      sheets: [{ w:sw, h:sh, label:t(sheet.label) }],
+    // 4) 排版（无板材时给空解，页面不画排样图）
+    var nest = (sheet && parts.length) ? Nest.solve({
+      sheets: [{ w: sw, h: sh, label: t(sheet.label) }],
       parts: parts, kerf: num(CONFIG.kerf == null ? 0 : CONFIG.kerf, scope),
       allowRotate: CONFIG.allowRotate !== false
-    });
+    }) : { bins: [], perSheet: 0, efficiency: 0, totalPartArea: 0 };
 
     // 5) 输出（边算边累积进作用域，后面的输出可以引用前面的 id）
     var out = {};
@@ -736,7 +742,7 @@ var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","categ
     });
 
     return { scope:scope, derived:derived, parts:parts, nest:nest, out:out,
-             sheet:{ w:sw, h:sh, price: num(sheet.price, scope) } };
+             sheet: sheet ? { w:sw, h:sh, price: num(sheet.price, scope) } : { w:0, h:0, price:0 } };
   }
 
   function num(v, scope){

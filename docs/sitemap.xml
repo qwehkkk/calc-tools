@@ -42,5 +42,47 @@
     <lastmod>2026-11-10</lastmod><priority>0.9</priority>
   </url>
   <url><loc>https://calc.getoolkit.com/zh/tile-quantity-calc/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/concrete-slab-mix/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/concrete-slab-mix/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/concrete-slab-mix/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/concrete-slab-mix/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/paint-wall-coverage/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/paint-wall-coverage/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/paint-wall-coverage/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/paint-wall-coverage/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/sheet-metal-nesting/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/sheet-metal-nesting/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/sheet-metal-nesting/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/sheet-metal-nesting/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/air-chargeable-weight/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/air-chargeable-weight/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/air-chargeable-weight/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/air-chargeable-weight/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/cable-voltage-drop/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/cable-voltage-drop/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/cable-voltage-drop/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/cable-voltage-drop/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
+  <url>
+    <loc>https://calc.getoolkit.com/asphalt-tonnage/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://calc.getoolkit.com/asphalt-tonnage/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://calc.getoolkit.com/zh/asphalt-tonnage/"/>
+    <lastmod>2026-11-10</lastmod><priority>0.9</priority>
+  </url>
+  <url><loc>https://calc.getoolkit.com/zh/asphalt-tonnage/</loc><lastmod>2026-11-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://calc.getoolkit.com/</loc><lastmod>2026-11-10</lastmod><priority>1.0</priority></url>
 </urlset>

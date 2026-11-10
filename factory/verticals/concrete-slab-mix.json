@@ -1,0 +1,465 @@
+{
+  "slug": "concrete-slab-mix",
+  "priority": 7,
+  "version": "0.1.0",
+  "category": {
+    "en": "Construction",
+    "zh": "建筑施工"
+  },
+  "navTag": {
+    "en": "Construction",
+    "zh": "建筑"
+  },
+  "accent": "#8a8f98",
+  "currency": "CNY",
+  "unit": "m",
+  "name": {
+    "en": "Concrete Volume & Mix Cost",
+    "zh": "混凝土方量与配比成本"
+  },
+  "tagline": {
+    "en": "m³ needed, cement bags, ready-mix vs site-mix cost.",
+    "zh": "要打多少方、多少袋水泥、商混和自拌哪个划算。"
+  },
+  "headline": {
+    "en": "How many cubic metres, how many bags, and which way is cheaper",
+    "zh": "多少方混凝土、多少袋水泥、商混还是自拌划算"
+  },
+  "sub": {
+    "en": "Enter the slab size and grade. Get volume with waste, ready-mix cost, site-mix material cost by cement/sand/stone, and the number of 50 kg bags — before the truck arrives.",
+    "zh": "输入尺寸和标号，直接出含损耗的方量、商混总价、自拌的水泥砂石成本和 50kg 袋数——打灰之前把账算清。"
+  },
+  "badges": [
+    {
+      "en": "C20 / C25 / C30 <b>ratios built in</b>",
+      "zh": "内置 <b>C20/C25/C30</b> 配比"
+    },
+    {
+      "en": "Ready-mix <b>vs</b> site-mix",
+      "zh": "商混 <b>对比</b> 自拌"
+    },
+    {
+      "en": "No signup",
+      "zh": "免注册"
+    }
+  ],
+  "seo": {
+    "title": "Concrete Calculator — m³, Cement Bags & Ready-Mix Cost",
+    "desc": "Calculate concrete volume with waste allowance, ready-mix truck cost, site-mix material cost (cement, sand, stone) and 50 kg bag count for C20/C25/C30 slabs.",
+    "keywords": [
+      "concrete calculator",
+      "how many bags of cement per m3",
+      "concrete volume calculator",
+      "c25 concrete mix ratio",
+      "ready mix concrete cost calculator",
+      "concrete slab cost per cubic meter"
+    ]
+  },
+  "inputs": [
+    {
+      "id": "slabL",
+      "label": {
+        "en": "Slab length",
+        "zh": "浇筑长"
+      },
+      "unit": "m",
+      "default": 5,
+      "min": 0.5,
+      "max": 200,
+      "step": 0.1
+    },
+    {
+      "id": "slabW",
+      "label": {
+        "en": "Slab width",
+        "zh": "浇筑宽"
+      },
+      "unit": "m",
+      "default": 4,
+      "min": 0.5,
+      "max": 100,
+      "step": 0.1
+    },
+    {
+      "id": "thick",
+      "label": {
+        "en": "Thickness",
+        "zh": "厚度"
+      },
+      "unit": "cm",
+      "default": 10,
+      "min": 3,
+      "max": 120,
+      "step": 1,
+      "hint": {
+        "en": "Pedestrian 8–10 · car slab 15–20 · structural per drawing",
+        "zh": "人行 8–10 · 行车 15–20 · 结构按图"
+      }
+    },
+    {
+      "id": "lossRate",
+      "label": {
+        "en": "Waste allowance",
+        "zh": "损耗率"
+      },
+      "unit": "%",
+      "default": 5,
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "hint": {
+        "en": "Pump line residue, uneven subgrade, spill. 3–8% typical.",
+        "zh": "泵管残留、垫层不平、洒漏，一般 3–8%。"
+      }
+    },
+    {
+      "id": "mix",
+      "label": {
+        "en": "Grade",
+        "zh": "强度等级"
+      },
+      "type": "select",
+      "default": "2",
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "C20 — paths, levelling",
+            "zh": "C20 — 垫层、地面"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "C25 — house slabs, driveways",
+            "zh": "C25 — 楼板、车道"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "en": "C30 — beams, columns, heavy slabs",
+            "zh": "C30 — 梁、柱、重载板"
+          }
+        }
+      ]
+    },
+    {
+      "id": "rmPrice",
+      "label": {
+        "en": "Ready-mix price",
+        "zh": "商混单价"
+      },
+      "unit": "¥/m³",
+      "default": 380,
+      "min": 100,
+      "max": 2000,
+      "step": 10,
+      "hint": {
+        "en": "C25 delivered, ex-mill is usually ¥30–60 lower",
+        "zh": "C25 到场价，出厂价通常低 30–60 元"
+      }
+    },
+    {
+      "id": "cementPrice",
+      "label": {
+        "en": "Cement price",
+        "zh": "水泥单价"
+      },
+      "unit": "¥/t",
+      "default": 480,
+      "min": 200,
+      "max": 1500,
+      "step": 10,
+      "hint": {
+        "en": "P.O 42.5 bulk; bagged is ¥40–80/t more",
+        "zh": "P.O 42.5 散装价；袋装每吨贵 40–80 元"
+      }
+    },
+    {
+      "id": "sandPrice",
+      "label": {
+        "en": "Sand price",
+        "zh": "砂单价"
+      },
+      "unit": "¥/t",
+      "default": 120,
+      "min": 30,
+      "max": 600,
+      "step": 5
+    },
+    {
+      "id": "stonePrice",
+      "label": {
+        "en": "Stone price",
+        "zh": "石子单价"
+      },
+      "unit": "¥/t",
+      "default": 110,
+      "min": 30,
+      "max": 600,
+      "step": 5
+    }
+  ],
+  "formulas": [
+    {
+      "id": "volCbm",
+      "label": {
+        "en": "Net volume",
+        "zh": "净方量"
+      },
+      "expr": "slabL * slabW * thick / 100",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "volBuy",
+      "label": {
+        "en": "Volume to order",
+        "zh": "订购方量"
+      },
+      "expr": "slabL * slabW * thick / 100 * (1 + lossRate / 100)",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "cementKg",
+      "label": {
+        "en": "Cement",
+        "zh": "水泥"
+      },
+      "expr": "ifelse(mix == 1, 330, ifelse(mix == 2, 370, 410)) * volBuy",
+      "unit": "kg",
+      "digits": 0
+    },
+    {
+      "id": "sandT",
+      "label": {
+        "en": "Sand",
+        "zh": "砂"
+      },
+      "expr": "ifelse(mix == 1, 0.64, ifelse(mix == 2, 0.61, 0.58)) * volBuy",
+      "unit": "t",
+      "digits": 2
+    },
+    {
+      "id": "stoneT",
+      "label": {
+        "en": "Stone",
+        "zh": "石子"
+      },
+      "expr": "ifelse(mix == 1, 1.23, ifelse(mix == 2, 1.22, 1.21)) * volBuy",
+      "unit": "t",
+      "digits": 2
+    }
+  ],
+  "outputs": [
+    {
+      "id": "vol",
+      "expr": "volCbm"
+    },
+    {
+      "id": "volBuy",
+      "expr": "volBuy"
+    },
+    {
+      "id": "rmCost",
+      "expr": "volBuy * rmPrice"
+    },
+    {
+      "id": "bags",
+      "expr": "ceil(cementKg / 50)"
+    },
+    {
+      "id": "cementCost",
+      "expr": "cementKg / 1000 * cementPrice"
+    },
+    {
+      "id": "sandCost",
+      "expr": "sandT * sandPrice"
+    },
+    {
+      "id": "stoneCost",
+      "expr": "stoneT * stonePrice"
+    },
+    {
+      "id": "siteCost",
+      "expr": "cementKg / 1000 * cementPrice + sandT * sandPrice + stoneT * stonePrice"
+    },
+    {
+      "id": "perCbmSite",
+      "expr": "(cementKg / 1000 * cementPrice + sandT * sandPrice + stoneT * stonePrice) / volBuy"
+    },
+    {
+      "id": "diff",
+      "expr": "rmCost - (cementKg / 1000 * cementPrice + sandT * sandPrice + stoneT * stonePrice)"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "volBuy",
+      "label": {
+        "en": "Order volume",
+        "zh": "订购方量"
+      },
+      "digits": 2,
+      "suffix": " m³",
+      "hl": true
+    },
+    {
+      "id": "rmCost",
+      "label": {
+        "en": "Ready-mix total",
+        "zh": "商混总价"
+      },
+      "money": true,
+      "digits": 0,
+      "hl": true
+    },
+    {
+      "id": "bags",
+      "label": {
+        "en": "50 kg bags",
+        "zh": "水泥袋数"
+      },
+      "digits": 0
+    },
+    {
+      "id": "siteCost",
+      "label": {
+        "en": "Site-mix total",
+        "zh": "自拌材料总价"
+      },
+      "money": true,
+      "digits": 0
+    }
+  ],
+  "breakdown": [
+    {
+      "label": {
+        "en": "Cement",
+        "zh": "水泥"
+      },
+      "expr": "cementKg / 1000 * cementPrice"
+    },
+    {
+      "label": {
+        "en": "Sand",
+        "zh": "砂"
+      },
+      "expr": "sandT * sandPrice"
+    },
+    {
+      "label": {
+        "en": "Stone",
+        "zh": "石子"
+      },
+      "expr": "stoneT * stonePrice"
+    }
+  ],
+  "showFormulas": [
+    {
+      "id": "vol",
+      "label": {
+        "en": "Net volume",
+        "zh": "净方量"
+      },
+      "expr": "长 × 宽 × 厚",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "volBuy",
+      "label": {
+        "en": "Order volume",
+        "zh": "订购方量"
+      },
+      "expr": "净方量 × (1 + 损耗)",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "cementKg",
+      "label": {
+        "en": "Cement",
+        "zh": "水泥用量"
+      },
+      "expr": "每方水泥 × 方量",
+      "unit": "kg",
+      "digits": 0
+    }
+  ],
+  "howTitle": {
+    "en": "Where each number comes from",
+    "zh": "每个数的来历"
+  },
+  "howP": {
+    "en": "Mix ratios are the common site figures for hand-graded concrete with 20 mm crushed stone and medium sand: C20 ≈ 330 kg cement/m³, C25 ≈ 370, C30 ≈ 410, with sand and stone making up the rest of the 2400 kg/m³ fresh density. These get you a purchasing quantity, not an acceptance test — the lab mix design on your ticket always wins. Waste of 5% covers pump residue and uneven subgrade; order 8% if the truck has to climb or the pour is thin.",
+    "zh": "配比取工地常用经验值（20mm 碎石、中砂）：C20 每方约 330kg 水泥、C25 约 370、C30 约 410，砂石按 2400kg/m³ 湿容重补齐。这个数用来买料，不是验收依据——罐车小票上的实验室配合比永远说了算。5% 损耗覆盖泵管残留和垫层不平；要爬坡或薄层浇筑就加到 8%。"
+  },
+  "faq": [
+    {
+      "q": {
+        "en": "Why does my lab mix design differ from these numbers?",
+        "zh": "为什么实验室配合比和这里的数不一样？"
+      },
+      "a": {
+        "en": "Lab designs are target-mean-strength recipes adjusted for your actual aggregate moisture, grading and admixtures — they routinely use 20–40 kg/m³ less cement for the same grade. Use this page for ordering and budgeting; use the lab design for the actual pour.",
+        "zh": "实验室配合比按实际骨料含水率、级配和外加剂调过，同标号普遍比经验值省 20–40kg 水泥。这页用来算账订料，实际浇筑以实验室配比为准。"
+      }
+    },
+    {
+      "q": {
+        "en": "Site-mix sometimes costs more than ready-mix here. Is that wrong?",
+        "zh": "自拌算出来比商混还贵，是不是算错了？"
+      },
+      "a": {
+        "en": "No — it is a real possibility once cement is bought in bags and sand is delivered in small loads. Site-mix wins on tiny pours where a truck cannot reach, or when you already have aggregates on site. What it never saves is labour and time.",
+        "zh": "没算错——袋装水泥加上小批量送砂，自拌确实经常比商混贵。自拌的意义在罐车进不去的小方量，或者现场本来就堆着料。它省的从来不是钱，是进不了场的尴尬。"
+      }
+    },
+    {
+      "q": {
+        "en": "How much waste should I add?",
+        "zh": "损耗率该留多少？"
+      },
+      "a": {
+        "en": "Pumped slab on flat ground: 5%. Pumped through long lines or up floors: 8%. Hand-buggied small pour: 3–5% is enough. Ordering short is the expensive mistake — a standby truck for 0.3 m³ costs more than the 5% you skipped.",
+        "zh": "平地泵送留 5%，长距离泵送或上楼 8%，手推车小方量 3–5% 够用。宁多勿少——为补 0.3 方叫一趟车，比省下的 5% 贵得多。"
+      }
+    },
+    {
+      "q": {
+        "en": "Thickness: structural or finished floor?",
+        "zh": "厚度按结构层还是完成面？"
+      },
+      "a": {
+        "en": "Order by the structural thickness — the stuff you actually pay concrete for. Screed, tile adhesive and levelling compound are a different line item with different materials.",
+        "zh": "按结构厚度算——那是你真正花钱买混凝土的部分。找平层、瓷砖胶、自流平是另一种材料，走另一笔账。"
+      }
+    }
+  ],
+  "price": {
+    "value": 99,
+    "note": {
+      "en": "One-time. Unlocks footings, columns and multi-pour totals.",
+      "zh": "一次性买断。解锁基础、柱和多批次合计。"
+    }
+  },
+  "listing": {
+    "long": "Order the right number of cubic metres and know what both paths cost before the truck books. Built for small contractors and homeowners pouring slabs, driveways and pads who keep getting quoted in units they cannot check.",
+    "bullets": [
+      "Volume with waste, in m³ you can order",
+      "Ready-mix vs site-mix material cost",
+      "50 kg cement bag count, sand and stone tonnage",
+      "Offline, no account"
+    ],
+    "perms": "None. Fully offline."
+  },
+  "related": [
+    "asphalt-tonnage",
+    "paint-wall-coverage",
+    "tile-quantity-calc"
+  ],
+  "noDiagram": true
+}

@@ -8,3 +8,9 @@
 - [Glass Sheet Yield](https://calc.getoolkit.com/glass-sheet-yield/): Cuts per jumbo sheet, utilization, glass cost per piece.
 - [Container Load Fit](https://calc.getoolkit.com/container-load-fit/): Cartons per container, cube used, freight per carton.
 - [Tile Quantity Calculator](https://calc.getoolkit.com/tile-quantity-calc/): Whole tiles, boxes to order, total cost with adhesive.
+- [Concrete Volume & Mix Cost](https://calc.getoolkit.com/concrete-slab-mix/): m³ needed, cement bags, ready-mix vs site-mix cost.
+- [Paint Coverage & Cost](https://calc.getoolkit.com/paint-wall-coverage/): Wall area, litres of paint, buckets to buy, cost per m².
+- [Sheet Metal Nesting](https://calc.getoolkit.com/sheet-metal-nesting/): Parts per sheet, utilization, material + laser cost per part.
+- [Air Chargeable Weight](https://calc.getoolkit.com/air-chargeable-weight/): Volumetric vs actual weight, chargeable kg, freight cost.
+- [Cable Voltage Drop](https://calc.getoolkit.com/cable-voltage-drop/): Current, volt drop, % drop, minimum standard cross-section.
+- [Asphalt Tonnage & Cost](https://calc.getoolkit.com/asphalt-tonnage/): Tonnes to order, mix cost, paving cost, ¥ per m².
