@@ -1,0 +1,5 @@
+# 统一用 LF：Windows 的 CRLF 会让生成的 HTML 每次构建都变成"有改动"
+* text=auto eol=lf
+
+*.png binary
+*.zip binary

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://calc.toolona.com/sitemap.xml

@@ -1,0 +1,66 @@
+{
+  "_说明": "复制这个文件改名，填完跑 node factory/build.mjs 就上线了。所有 expr 都是字符串公式，可用 + - * / % ^ ( ) min max floor ceil round abs sqrt ifelse snap clamp，变量名 = 其它 input 的 id 或 formulas 里已定义的 id。",
+  "slug": "your-product-slug",
+  "priority": 99,
+  "version": "0.1.0",
+  "currency": "CNY",
+  "unit": "mm",
+  "category": { "en": "Category", "zh": "分类" },
+  "accent": "#0f5c5c",
+  "name": { "en": "Product Name", "zh": "产品名" },
+  "tagline": { "en": "One line, concrete.", "zh": "一句话，要具体。" },
+  "headline": { "en": "The question the user typed into Google", "zh": "用户会在搜索框里打的那句话" },
+  "sub": { "en": "What they get, in numbers.", "zh": "能拿到什么数。" },
+  "badges": [{ "en": "No signup", "zh": "免注册" }],
+  "seo": {
+    "title": "Under 60 characters, contains the main keyword",
+    "desc": "Under 155 characters, says what is calculated and what it is for.",
+    "keywords": ["main keyword", "secondary keyword"]
+  },
+  "inputs": [
+    {
+      "id": "a",
+      "label": { "en": "Input A", "zh": "参数 A" },
+      "unit": "mm",
+      "default": 100,
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "hint": { "en": "Optional hint.", "zh": "可选的说明。" }
+    }
+  ],
+  "formulas": [
+    { "id": "f1", "label": { "en": "Derived", "zh": "派生值" }, "expr": "a * 2", "unit": "mm", "digits": 1 }
+  ],
+  "sheets": [{ "id": "s1", "label": { "en": "Sheet", "zh": "板材" }, "w": "1200", "h": "2400", "price": "100" }],
+  "kerf": 0,
+  "allowRotate": true,
+  "parts": [{ "id": "p1", "label": { "en": "Part", "zh": "零件" }, "w": "f1", "h": "a", "qty": "9999", "color": "#0f5c5c" }],
+  "outputs": [
+    { "id": "perSheet", "expr": "perSheet" },
+    { "id": "util", "expr": "efficiency * 100" }
+  ],
+  "kpis": [
+    { "id": "perSheet", "label": { "en": "Per sheet", "zh": "每张出数" }, "digits": 0, "hl": true },
+    { "id": "util", "label": { "en": "Utilization", "zh": "利用率" }, "digits": 1, "suffix": "%" }
+  ],
+  "breakdown": [
+    { "label": { "en": "Material", "zh": "材料" }, "expr": "100 / perSheet" }
+  ],
+  "showFormulas": [
+    { "id": "f1", "label": { "en": "Derived", "zh": "派生值" }, "expr": "a × 2", "unit": "mm", "digits": 1 }
+  ],
+  "howTitle": { "en": "Where the formula comes from", "zh": "公式的来历" },
+  "howP": { "en": "Cite the standard. This is the paragraph that makes people trust the number.", "zh": "写出标准出处。这一段决定了别人信不信这个数。" },
+  "faq": [
+    { "q": { "en": "Question a real user would ask", "zh": "真实用户会问的问题" }, "a": { "en": "Answer with a number in it.", "zh": "答案里要有具体的数。" } }
+  ],
+  "price": { "value": 99, "note": { "en": "One-time.", "zh": "一次性买断。" } },
+  "listing": {
+    "long": "Store description.",
+    "bullets": ["First benefit", "Second benefit"],
+    "perms": "None. Fully offline."
+  },
+  "related": ["carton-blank-yield"],
+  "_无图产品": "把 parts 改成 []，并加 \"noDiagram\": true，就变成纯公式产品（装柜、瓷砖这类）"
+}

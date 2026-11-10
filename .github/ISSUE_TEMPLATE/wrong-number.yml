@@ -1,0 +1,42 @@
+name: Wrong number
+description: The calculator gave a result your own sheet / die / machine disagrees with.
+title: "[wrong] "
+labels: ["wrong-number"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks — a wrong number is the most useful thing you can send me.
+        Every report gets a fix, and the fix ships with your name in the changelog.
+  - type: input
+    id: tool
+    attributes:
+      label: Which calculator
+      placeholder: carton-blank-yield
+    validations:
+      required: true
+  - type: textarea
+    id: inputs
+    attributes:
+      label: Your inputs
+      description: Paste the block from the "Copy my numbers" button, or type the values.
+      render: text
+    validations:
+      required: true
+  - type: input
+    id: got
+    attributes:
+      label: What the page said
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: What it should be
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: How you know
+      description: Your die size, board size, trade practice, a manual page — anything concrete.

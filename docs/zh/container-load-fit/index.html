@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Container Loading Calculator — Cartons Per 20GP / 40GP / 40HQ</title>
+<meta name="description" content="Calculate how many cartons fit in a 20GP, 40GP or 40HQ container across all six orientations, with cube utilization, total weight and freight cost per carton.">
+<link rel="canonical" href="https://calc.toolona.com/zh/container-load-fit/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Container Loading Calculator — Cartons Per 20GP / 40GP / 40HQ">
+<meta property="og:description" content="Calculate how many cartons fit in a 20GP, 40GP or 40HQ container across all six orientations, with cube utilization, total weight and freight cost per carton.">
+<meta property="og:url" content="https://calc.toolona.com/zh/container-load-fit/">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230d1418%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2215%22%20height%3D%2211%22%20fill%3D%22%232b6cb0%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2217%22%20width%3D%229%22%20height%3D%2211%22%20fill%3D%22%232b6cb0%22%20opacity%3D%22.6%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2217%22%20width%3D%2213%22%20height%3D%2211%22%20fill%3D%22%232b6cb0%22%2F%3E%3C%2Fsvg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"集装箱装柜计算","url":"https://calc.toolona.com/zh/container-load-fit/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Calculate how many cartons fit in a 20GP, 40GP or 40HQ container across all six orientations, with cube utilization, total weight and freight cost per carton.","offers":{"@type":"Offer","price":"99","priceCurrency":"CNY"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"为什么实际装不到这个数？","acceptedAnswer":{"@type":"Answer","text":"因为真实装柜不是整齐的格子。箱子会压塌、托盘占位、柜门比柜底窄、最后一排常常塞不进。按这个数的 90–95% 做计划，柜门那一端永远留活口。"}},{"@type":"Question","name":"40HQ 真比 40GP 装得多吗？","acceptedAnswer":{"@type":"Answer","text":"只多在高上——2698 对 2393，多约 12.7% 体积，底面积一样。如果箱子矮、又码不下一层，HQ 一点用没有，你是在为空气付钱。"}},{"@type":"Question","name":"用箱子内尺寸还是外尺寸？","acceptedAnswer":{"@type":"Answer","text":"一律用外尺寸，而且拿几个实物量，别信规格书。纸箱会鼓——标称 600 的箱子腰上常有 610，柜宽方向差 10mm 就少一整列。"}}]}]}</script>
+<style>
+:root{
+  --bg:#f6f7f9; --card:#fff; --ink:#12171f; --ink2:#5b6675; --ink3:#8b95a3;
+  --line:#e3e7ed; --line2:#eef1f5; --brand:#0f5c5c; --brand-l:#e6f2f2;
+  --accent:#b8531a; --ok:#1a7f4b; --warn:#a8611a;
+  --r:10px; --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+header{background:#0d1418;color:#e8eef2;border-bottom:1px solid #1c262d}
+.hd{display:flex;align-items:center;gap:14px;height:56px}
+.logo{display:flex;align-items:center;gap:9px;font-weight:650;letter-spacing:-.01em;font-size:15px}
+.logo i{width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,#1d8a7a,#0f5c5c);display:block}
+.hd .sp{flex:1}
+.hd .tag{font-size:12px;color:#8fa3ad;border:1px solid #2a3a44;padding:3px 8px;border-radius:20px}
+.langbtn{background:none;border:1px solid #2a3a44;color:#c6d4dc;font:12px/1 var(--sans);
+  padding:6px 10px;border-radius:6px;cursor:pointer}
+.langbtn:hover{border-color:#4a6472;color:#fff}
+
+.hero{padding:34px 0 22px}
+.hero h1{font-size:30px;line-height:1.25;letter-spacing:-.02em;font-weight:680;max-width:760px}
+.hero p{color:var(--ink2);margin-top:10px;max-width:700px;font-size:15.5px}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+.badge{font-size:12px;color:var(--ink2);background:#fff;border:1px solid var(--line);
+  padding:4px 9px;border-radius:20px}
+.badge b{color:var(--brand);font-weight:600}
+
+.grid{display:grid;grid-template-columns:352px 1fr;gap:20px;align-items:start;padding-bottom:8px}
+@media(max-width:880px){.grid{grid-template-columns:1fr}.hero h1{font-size:24px}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r)}
+.card h2{font-size:11px;text-transform:uppercase;letter-spacing:.09em;color:var(--ink3);
+  font-weight:650;padding:14px 16px 0}
+.form{padding:6px 16px 16px}
+.field{margin-top:12px}
+.field label{display:flex;justify-content:space-between;align-items:baseline;
+  font-size:13px;color:var(--ink2);margin-bottom:5px;gap:8px}
+.field label .u{color:#6f7a88;font-size:10.5px;font-family:var(--mono);background:#eef1f5;
+  padding:1px 5px;border-radius:4px;letter-spacing:.02em}
+.inp{display:flex;align-items:center;border:1px solid var(--line);border-radius:7px;
+  background:#fbfcfd;transition:border-color .12s,box-shadow .12s}
+.inp:focus-within{border-color:var(--brand);box-shadow:0 0 0 3px var(--brand-l);background:#fff}
+.inp input,.inp select{flex:1;border:0;background:none;font:15px/1 var(--mono);color:var(--ink);
+  padding:9px 10px;outline:none;width:100%;min-width:0;appearance:none;-moz-appearance:textfield}
+.inp input::-webkit-outer-spin-button,.inp input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.inp select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238b95a3' fill='none' stroke-width='1.4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:26px}
+.inp select{font-family:var(--sans);font-size:13.5px;cursor:pointer}
+.hint{font-size:11.5px;color:var(--ink3);margin-top:4px;line-height:1.45}
+
+.res{display:flex;flex-direction:column;gap:16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.kpi{background:#fff;padding:14px 15px}
+.kpi .k{font-size:11px;color:var(--ink3);letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.kpi .v{font:26px/1.15 var(--mono);font-weight:600;letter-spacing:-.02em;margin-top:6px;
+  font-variant-numeric:tabular-nums}
+.kpi .v small{font-size:12px;color:var(--ink3);font-weight:400;margin-left:3px;font-family:var(--sans)}
+.kpi.hl .v{color:var(--brand)}
+.kpi.warn .v{color:var(--accent)}
+
+.diagram{padding:14px 14px 16px;overflow-x:auto;display:flex;flex-direction:column;align-items:center}
+.diagram svg{display:block;max-width:100%;height:auto;filter:drop-shadow(0 1px 2px rgba(16,24,32,.05))}
+.legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--ink2);
+  justify-content:center;text-align:center}
+.legend i{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+
+table.brk{width:100%;border-collapse:collapse;font-size:13.5px}
+table.brk th{text-align:left;font-weight:600;color:var(--ink3);font-size:11px;text-transform:uppercase;
+  letter-spacing:.06em;padding:8px 14px;border-bottom:1px solid var(--line)}
+table.brk td{padding:9px 14px;border-bottom:1px solid var(--line2);font-variant-numeric:tabular-nums}
+table.brk td.n{text-align:right;font-family:var(--mono)}
+table.brk tr:last-child td{border-bottom:0}
+table.brk tr.tot td{font-weight:650;background:#fafbfc}
+
+.sect{padding:34px 0 0}
+.sect h3{font-size:17px;letter-spacing:-.01em;font-weight:660;margin-bottom:12px}
+.sect p{color:var(--ink2);margin-bottom:10px;max-width:760px}
+.sect code{font-family:var(--mono);font-size:12.5px;background:#eef1f4;padding:1.5px 5px;border-radius:4px}
+.formulalist{display:grid;gap:8px;margin:12px 0}
+.frow{display:grid;grid-template-columns:1fr auto;gap:12px;padding:9px 13px;background:#fff;
+  border:1px solid var(--line);border-radius:7px;font-size:13px;align-items:center}
+.frow .e{font-family:var(--mono);font-size:12px;color:var(--ink3);overflow-wrap:anywhere}
+.frow .r{font-family:var(--mono);font-weight:600;white-space:nowrap}
+
+details{border:1px solid var(--line);border-radius:8px;background:#fff;margin-bottom:8px}
+details summary{padding:12px 15px;cursor:pointer;font-weight:560;font-size:14px;list-style:none;
+  display:flex;justify-content:space-between;gap:14px}
+details summary::-webkit-details-marker{display:none}
+details summary::after{content:"+";color:var(--ink3);font-weight:400}
+details[open] summary::after{content:"−"}
+details .body{padding:0 15px 14px;color:var(--ink2);font-size:14px}
+
+.fb{background:#0d1418;color:#dfe8ec;border-radius:var(--r);padding:26px 24px;margin:34px 0 0}
+.fb h3{color:#fff;margin-bottom:6px;font-size:17px}
+.fb p{color:#93a7b2;font-size:14px;margin-bottom:16px;max-width:640px}
+.fbrow{display:flex;gap:10px;flex-wrap:wrap}
+.fb a.btn, .fb button.btn{background:#1d8a7a;color:#fff;border:0;padding:10px 16px;border-radius:7px;
+  font:14px/1 var(--sans);cursor:pointer;font-weight:560;display:inline-flex;align-items:center;gap:7px}
+.fb a.ghost{border:1px solid #2f424d;color:#c6d4dc;padding:10px 16px;border-radius:7px;font-size:14px}
+.fb a.btn:hover{background:#22a090}
+.pay{margin-top:20px;padding-top:18px;border-top:1px solid #1e2b33}
+.pay .price{font:24px/1 var(--mono);color:#fff;font-weight:600}
+.pay .sub{font-size:12.5px;color:#8598a3;margin-top:5px}
+
+footer{border-top:1px solid var(--line);margin-top:36px;padding:22px 0 40px;
+  color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer a:hover{color:var(--brand)}
+.rel{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin-top:12px}
+.rel a{display:block;padding:12px 14px;background:#fff;border:1px solid var(--line);border-radius:8px;
+  font-size:13.5px;transition:border-color .12s,transform .12s}
+.rel a:hover{border-color:#b9c6d1;transform:translateY(-1px)}
+.rel a span{display:block;color:var(--ink3);font-size:12px;margin-top:3px}
+.noscript{padding:20px;background:#fff3e8;border:1px solid #f0d0b0;border-radius:8px;color:#7a4a12}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap hd">
+    <a class="logo" href="/"><i></i><span>Toolona 计算站</span></a>
+    <span class="sp"></span>
+    <div class="tag" id="tagline"></div>
+    <button class="langbtn" id="langbtn">中文</button>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="hero">
+    <h1 id="h1"></h1>
+    <p id="sub"></p>
+    <div class="badges" id="badges"></div>
+  </div>
+
+  <div class="grid">
+    <section class="card" aria-label="inputs">
+      <h2 id="inputs-title">Inputs</h2>
+      <div class="form" id="form"></div>
+    </section>
+
+    <section class="res" aria-label="results">
+      <div class="kpis" id="kpis"></div>
+      <div class="card">
+        <h2 id="diagram-title">Layout</h2>
+        <div class="diagram" id="diagram"></div>
+      </div>
+      <div class="card" id="brkcard">
+        <h2 id="brk-title">Cost breakdown</h2>
+        <table class="brk"><tbody id="brk"></tbody></table>
+      </div>
+      <div class="card" id="extracard" style="display:none">
+        <h2 id="extra-title"></h2>
+        <table class="brk"><tbody id="extra"></tbody></table>
+      </div>
+    </section>
+  </div>
+
+  <div class="sect">
+    <h3 id="how-title"></h3>
+    <p id="how-p"></p>
+    <div class="formulalist" id="formulas"></div>
+  </div>
+
+  <div class="sect">
+    <h3 id="faq-title"></h3>
+    <div id="faq"></div>
+  </div>
+
+  <div class="fb">
+    <h3 id="fb-h"></h3>
+    <p id="fb-p"></p>
+    <div class="fbrow">
+      <a class="btn" id="fb-issue" href="#" target="_blank" rel="noopener"><span id="fb-issue-t"></span></a>
+      <button class="ghost" id="fb-copy" type="button" style="background:none;font-family:inherit"></button>
+      <a class="ghost" id="fb-mail" href="#" rel="nofollow"><span id="fb-mail-t"></span></a>
+      <a class="ghost" id="fb-store" href="#" target="_blank" rel="noopener"></a>
+    </div>
+    <div class="pay">
+      <div class="price" id="pay-price"></div>
+      <div class="sub" id="pay-sub"></div>
+    </div>
+  </div>
+
+  <div class="sect">
+    <h3 id="rel-title"></h3>
+    <div class="rel" id="rel"></div>
+  </div>
+</main>
+
+<footer class="wrap">
+  <div>© 2026 Toolona 计算站</div>
+  <div><a href="/privacy.html">Privacy</a> · <a href="/terms.html">Terms</a> · <a id="fmail" href="#">Contact</a></div>
+</footer>
+
+<script>
+/* ------------------------------------------------------------------
+ * formula.js — 安全表达式求值器（无 eval / 无 new Function）
+ * 用途：垂直产品的公式层用字符串描述，运行时求值。
+ * 支持：+ - * / % ^ ( ) 比较 逻辑 三元 ?: 函数调用
+ * ------------------------------------------------------------------ */
+(function (root) {
+  'use strict';
+
+  var FUNCS = {
+    min: Math.min, max: Math.max, abs: Math.abs,
+    ceil: Math.ceil, floor: Math.floor, sqrt: Math.sqrt,
+    pow: Math.pow, log: Math.log, exp: Math.exp,
+    round: function (x, d) { var p = Math.pow(10, d || 0); return Math.round(x * p) / p; },
+    clamp: function (x, a, b) { return Math.min(Math.max(x, a), b); },
+    ifelse: function (c, a, b) { return c ? a : b; },
+    sign: function (x) { return x > 0 ? 1 : x < 0 ? -1 : 0; },
+    // 向上取整到 step 的整数倍（如取整到 10mm 纸度档位）
+    snap: function (x, step) { return step > 0 ? Math.ceil(x / step) * step : x; }
+  };
+
+  var PREC = {
+    '||': 1, '&&': 2,
+    '==': 3, '!=': 3,
+    '<': 4, '<=': 4, '>': 4, '>=': 4,
+    '+': 5, '-': 5,
+    '*': 6, '/': 6, '%': 6,
+    '^': 8
+  };
+
+  function tokenize(src) {
+    var out = [], i = 0, n = src.length, c, j, k;
+    var isDigit = function (x) { return x >= '0' && x <= '9'; };
+    var isIdStart = function (x) { return /[A-Za-z_$]/.test(x); };
+    var isId = function (x) { return /[A-Za-z0-9_$]/.test(x); };
+    while (i < n) {
+      c = src[i];
+      if (c === ' ' || c === '\t' || c === '\n' || c === '\r') { i++; continue; }
+      if (isDigit(c) || (c === '.' && isDigit(src[i + 1]))) {
+        j = i;
+        while (j < n && isDigit(src[j])) j++;
+        if (src[j] === '.') { j++; while (j < n && isDigit(src[j])) j++; }
+        if (src[j] === 'e' || src[j] === 'E') {
+          k = j + 1;
+          if (src[k] === '+' || src[k] === '-') k++;
+          if (isDigit(src[k])) { k++; while (k < n && isDigit(src[k])) k++; j = k; }
+        }
+        out.push({ t: 'num', v: parseFloat(src.slice(i, j)) });
+        i = j; continue;
+      }
+      if (isIdStart(c)) {
+        j = i;
+        while (j < n && isId(src[j])) j++;
+        out.push({ t: 'id', v: src.slice(i, j) });
+        i = j; continue;
+      }
+      var two = src.substr(i, 2);
+      if (['>=', '<=', '==', '!=', '&&', '||'].indexOf(two) >= 0) {
+        out.push({ t: 'op', v: two }); i += 2; continue;
+      }
+      if ('+-*/%^()<>,?:!'.indexOf(c) >= 0) { out.push({ t: 'op', v: c }); i++; continue; }
+      if (c === '"' || c === "'") {
+        j = i + 1;
+        while (j < n && src[j] !== c) j++;
+        out.push({ t: 'str', v: src.slice(i + 1, j) }); i = j + 1; continue;
+      }
+      throw new Error('公式含非法字符: ' + c);
+    }
+    return out;
+  }
+
+  function Parser(tokens) { this.tk = tokens; this.p = 0; }
+  Parser.prototype.peek = function () { return this.tk[this.p]; };
+  Parser.prototype.next = function () { return this.tk[this.p++]; };
+  Parser.prototype.eat = function (v) {
+    var t = this.peek();
+    if (t && t.t === 'op' && t.v === v) { this.p++; return true; }
+    return false;
+  };
+  Parser.prototype.expect = function (v) {
+    if (!this.eat(v)) throw new Error('公式缺少 "' + v + '"');
+  };
+
+  Parser.prototype.parseExpr = function (minPrec) {
+    var left = this.parseUnary();
+    for (;;) {
+      var t = this.peek();
+      if (!t) break;
+      if (t.t === 'op' && t.v === '?') {
+        if ((minPrec || 0) > 0) break;          // 三元优先级最低
+        this.next();
+        var a = this.parseExpr(0);
+        this.expect(':');
+        var b = this.parseExpr(0);
+        left = { k: 'cond', c: left, a: a, b: b };
+        continue;
+      }
+      if (t.t !== 'op' || !(t.v in PREC)) break;
+      var prec = PREC[t.v];
+      if (prec < (minPrec || 0)) break;
+      this.next();
+      var right = this.parseExpr(t.v === '^' ? prec : prec + 1); // ^ 右结合
+      left = { k: 'bin', op: t.v, l: left, r: right };
+    }
+    return left;
+  };
+
+  Parser.prototype.parseUnary = function () {
+    var t = this.peek();
+    if (t && t.t === 'op' && (t.v === '-' || t.v === '+' || t.v === '!')) {
+      this.next();
+      return { k: 'un', op: t.v, v: this.parseUnary() };
+    }
+    return this.parsePostfix();
+  };
+
+  Parser.prototype.parsePostfix = function () {
+    var node = this.parsePrimary();
+    while (this.peek() && this.peek().t === 'op' && this.peek().v === '^') {
+      this.next();
+      node = { k: 'bin', op: '^', l: node, r: this.parseUnary() };
+    }
+    return node;
+  };
+
+  Parser.prototype.parsePrimary = function () {
+    var t = this.next();
+    if (!t) throw new Error('公式意外结束');
+    if (t.t === 'num') return { k: 'num', v: t.v };
+    if (t.t === 'str') return { k: 'str', v: t.v };
+    if (t.t === 'id') {
+      if (this.peek() && this.peek().t === 'op' && this.peek().v === '(') {
+        this.next();
+        var args = [];
+        if (!this.eat(')')) {
+          do { args.push(this.parseExpr(0)); } while (this.eat(','));
+          this.expect(')');
+        }
+        return { k: 'call', name: t.v, args: args };
+      }
+      return { k: 'var', name: t.v };
+    }
+    if (t.t === 'op' && t.v === '(') {
+      var e = this.parseExpr(0);
+      this.expect(')');
+      return e;
+    }
+    throw new Error('公式无法解析: ' + JSON.stringify(t));
+  };
+
+  function compile(src) {
+    var p = new Parser(tokenize(String(src)));
+    var ast = p.parseExpr(0);
+    if (p.p !== p.tk.length) throw new Error('公式多余内容: ' + src);
+    return ast;
+  }
+
+  function evalNode(node, scope) {
+    switch (node.k) {
+      case 'num': return node.v;
+      case 'str': return node.v;
+      case 'var': {
+        if (Object.prototype.hasOwnProperty.call(scope, node.name)) return scope[node.name];
+        throw new Error('未定义变量: ' + node.name);
+      }
+      case 'un': {
+        var v = evalNode(node.v, scope);
+        return node.op === '-' ? -v : node.op === '+' ? +v : !v;
+      }
+      case 'bin': {
+        var a = evalNode(node.l, scope), b = evalNode(node.r, scope);
+        switch (node.op) {
+          case '+': return a + b;
+          case '-': return a - b;
+          case '*': return a * b;
+          case '/': return b === 0 ? 0 : a / b;
+          case '%': return b === 0 ? 0 : a % b;
+          case '^': return Math.pow(a, b);
+          case '<': return a < b;
+          case '<=': return a <= b;
+          case '>': return a > b;
+          case '>=': return a >= b;
+          case '==': return a === b;
+          case '!=': return a !== b;
+          case '&&': return a && b;
+          case '||': return a || b;
+        }
+        throw new Error('未知运算符: ' + node.op);
+      }
+      case 'cond': return evalNode(node.c, scope) ? evalNode(node.a, scope) : evalNode(node.b, scope);
+      case 'call': {
+        var fn = FUNCS[node.name];
+        if (!fn) throw new Error('未知函数: ' + node.name);
+        return fn.apply(null, node.args.map(function (x) { return evalNode(x, scope); }));
+      }
+    }
+    throw new Error('公式节点异常');
+  }
+
+  var cache = Object.create(null);
+  function evaluate(src, scope) {
+    var ast = cache[src] || (cache[src] = compile(src));
+    return evalNode(ast, scope || {});
+  }
+
+  root.Formula = { compile: compile, evaluate: evaluate, FUNCS: FUNCS };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ------------------------------------------------------------------
+ * nesting.js — 2D 排版内核（单尺寸解析解 + 多尺寸 MaxRects）
+ * 输出统一为 placements: [{x,y,w,h,rot,part}]
+ * ------------------------------------------------------------------ */
+(function (root) {
+  'use strict';
+
+  /* 单尺寸：网格排布取优。
+     kerf = 刀缝/锯缝（块与块之间），边缘不留缝。 */
+  function gridPack(sw, sh, pw, ph, kerf, allowRotate) {
+    var best = { count: 0 };
+
+    function attempt(w, h, rot) {
+      if (w <= 0 || h <= 0) return;
+      var cols = Math.floor((sw + kerf) / (w + kerf));
+      var rows = Math.floor((sh + kerf) / (h + kerf));
+      if (cols < 1 || rows < 1) return;
+      var count = cols * rows;
+      var pl = [], r, c;
+      for (r = 0; r < rows; r++) {
+        for (c = 0; c < cols; c++) {
+          pl.push({ x: c * (w + kerf), y: r * (h + kerf), w: w, h: h, rot: rot, part: 0 });
+        }
+      }
+      if (count > best.count) {
+        best = { count: count, cols: cols, rows: rows, rot: rot, w: w, h: h, placements: pl };
+      }
+    }
+
+    attempt(pw, ph, false);
+    if (allowRotate && pw !== ph) attempt(ph, pw, true);
+    return best;
+  }
+
+  /* 多尺寸：MaxRects + Best Short Side Fit */
+  function maxRects(sheets, bins, kerf) {
+    // bins: [{w,h,free:[{x,y,w,h}],placements:[]}]
+    bins.forEach(function (b) {
+      b.free = [{ x: 0, y: 0, w: b.w, h: b.h }];
+      b.placements = [];
+    });
+
+    function score(fr, w, h) {
+      if (w <= fr.w && h <= fr.h) {
+        return { short: Math.min(fr.w - w, fr.h - h), long: Math.max(fr.w - w, fr.h - h) };
+      }
+      return null;
+    }
+
+    function splitFree(b, placed) {
+      var next = [];
+      b.free.forEach(function (fr) {
+        var overlaps = !(placed.x >= fr.x + fr.w || placed.x + placed.w <= fr.x ||
+                         placed.y >= fr.y + fr.h || placed.y + placed.h <= fr.y);
+        if (!overlaps) { next.push(fr); return; }
+        // 切成最多 4 块
+        if (placed.x > fr.x) next.push({ x: fr.x, y: fr.y, w: placed.x - fr.x, h: fr.h });
+        if (placed.x + placed.w < fr.x + fr.w)
+          next.push({ x: placed.x + placed.w, y: fr.y, w: fr.x + fr.w - (placed.x + placed.w), h: fr.h });
+        if (placed.y > fr.y) next.push({ x: fr.x, y: fr.y, w: fr.w, h: placed.y - fr.y });
+        if (placed.y + placed.h < fr.y + fr.h)
+          next.push({ x: fr.x, y: placed.y + placed.h, w: fr.w, h: fr.y + fr.h - (placed.y + placed.h) });
+      });
+      // 剪掉被包含的小块，减少碎片
+      b.free = next.filter(function (a, i) {
+        for (var j = 0; j < next.length; j++) {
+          if (i === j) continue;
+          var o = next[j];
+          if (a.x >= o.x && a.y >= o.y && a.x + a.w <= o.x + o.w && a.y + a.h <= o.y + o.h) return false;
+        }
+        return true;
+      });
+    }
+
+    var pending = [];
+    sheets.forEach(function (s, si) {
+      for (var i = 0; i < s.qty; i++) pending.push({ w: s.w, h: s.h, part: s.idx });
+    });
+    // 大件优先
+    pending.sort(function (a, b) { return (b.w * b.h) - (a.w * a.h); });
+
+    var unplaced = [];
+
+    pending.forEach(function (p) {
+      var best = null;
+      // 优先用已开板的余料，再开新板
+      for (var bi = 0; bi < bins.length; bi++) {
+        var b = bins[bi];
+        for (var fi = 0; fi < b.free.length; fi++) {
+          var fr = b.free[fi];
+          [[p.w, p.h, false], [p.h, p.w, true]].forEach(function (o) {
+            if (o[2] && p.w === p.h) return;
+            if (!b.allowRotate && o[2]) return;
+            var s = score(fr, o[0], o[1]);
+            if (!s) return;
+            var cand = { bin: bi, free: fi, w: o[0], h: o[1], rot: o[2], x: fr.x, y: fr.y,
+                         short: s.short, long: s.long };
+            if (!best || cand.short < best.short ||
+                (cand.short === best.short && cand.long < best.long)) best = cand;
+          });
+        }
+      }
+      if (!best) { unplaced.push(p); return; }
+      var bin = bins[best.bin];
+      var fr = bin.free[best.free];
+      var placed = { x: fr.x, y: fr.y, w: best.w + kerf, h: best.h + kerf, part: p.part,
+                     rot: best.rot, dw: best.w, dh: best.h };
+      // 记录真实尺寸（不含 kerf）用于绘制
+      placed.w = best.w; placed.h = best.h;
+      bin.placements.push(placed);
+      splitFree(bin, { x: best.x, y: best.y, w: best.w + kerf, h: best.h + kerf });
+      bin.free = bin.free.filter(function (f) { return f.w > 0.5 && f.h > 0.5; });
+    });
+
+    return { bins: bins, unplaced: unplaced };
+  }
+
+  function areaOf(pl) { return pl.reduce(function (s, p) { return s + p.w * p.h; }, 0); }
+
+  /* 顶层入口：决定用哪个算法 */
+  function solve(cfg) {
+    var sheets = cfg.sheets, parts = cfg.parts, kerf = cfg.kerf || 0, rot = cfg.allowRotate !== false;
+    var totalPartArea = parts.reduce(function (s, p) { return s + (p.w * p.h * p.qty || 0); }, 0);
+
+    // 单尺寸特例：只有一个零件类型且需求量大，直接用解析网格解（更快更准）
+    if (parts.length === 1 && parts[0].qty > 1) {
+      var p = parts[0], sheet = sheets[0];
+      var g = gridPack(sheet.w, sheet.h, p.w, p.h, kerf, rot);
+      return {
+        mode: 'grid',
+        bins: [{
+          w: sheet.w, h: sheet.h, label: sheet.label,
+          placements: g.placements, perSheet: g.count,
+          cols: g.cols, rows: g.rows, rotated: g.rot
+        }],
+        perSheet: g.count,
+        unplaced: [],
+        efficiency: sheet.w * sheet.h > 0 ? (g.count * p.w * p.h) / (sheet.w * sheet.h) : 0,
+        totalPartArea: totalPartArea
+      };
+    }
+
+    // 多尺寸：先估算需要几张板，再多开一张做余量
+    var sheetArea = sheets[0].w * sheets[0].h;
+    var est = Math.max(1, Math.ceil(totalPartArea / (sheetArea * 0.72)) + 1);
+    var bins = [];
+    for (var i = 0; i < est; i++) {
+      bins.push({ w: sheets[0].w, h: sheets[0].h, allowRotate: rot, label: sheets[0].label });
+    }
+    var res = maxRects(parts.map(function (p, i) { return { w: p.w, h: p.h, qty: p.qty, idx: i }; }), bins, kerf);
+    var used = res.bins.filter(function (b) { return b.placements.length > 0; });
+    return {
+      mode: 'maxrects',
+      bins: used.length ? used : [res.bins[0]],
+      perSheet: null,
+      unplaced: res.unplaced,
+      efficiency: used.length
+        ? areaOf(used.reduce(function (a, b) { return a.concat(b.placements); }, [])) /
+          (used.length * sheetArea)
+        : 0,
+      totalPartArea: totalPartArea
+    };
+  }
+
+  root.Nest = { solve: solve, gridPack: gridPack, maxRects: maxRects, areaOf: areaOf };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+/* ------------------------------------------------------------------
+ * engine.js — 运行时通用辅助（被 Formula 命名空间扩展）
+ * ------------------------------------------------------------------ */
+(function (root) {
+  'use strict';
+  var F = root.Formula;
+  if (!F) return;
+
+  // 行业常用取整：向上取整到 step 的倍数
+  F.FUNCS.stepUp = function (x, step) { return step > 0 ? Math.ceil(x / step) * step : x; };
+  F.FUNCS.stepDown = function (x, step) { return step > 0 ? Math.floor(x / step) * step : x; };
+
+  // 单位换算
+  F.FUNCS.mm2 = function (x) { return x / 1000; };            // mm → m
+  F.FUNCS.m2 = function (x) { return x * 1000; };             // m → mm
+  F.FUNCS.mm2m2 = function (x) { return x / 1000000; };       // mm² → m²
+
+  // 三档取整（报价常用：进位到 0.5 / 5 / 10）
+  F.FUNCS.q05 = function (x) { return Math.ceil(x * 2) / 2; };
+  F.FUNCS.q5 = function (x) { return Math.ceil(x / 5) * 5; };
+  F.FUNCS.q10 = function (x) { return Math.ceil(x / 10) * 10; };
+})(typeof globalThis !== 'undefined' ? globalThis : this);
+
+</script>
+<script>
+var CONFIG = {"slug":"container-load-fit","priority":5,"version":"0.1.0","category":{"en":"Logistics","zh":"物流"},"navTag":{"en":"Logistics","zh":"物流"},"accent":"#2b6cb0","currency":"CNY","unit":"mm","noDiagram":true,"name":{"en":"Container Load Fit","zh":"集装箱装柜计算"},"tagline":{"en":"Cartons per container, cube used, freight per carton.","zh":"一个柜装多少箱、装了多少体积、单箱摊多少运费。"},"headline":{"en":"How many cartons fit in a container","zh":"一个柜能装多少箱"},"sub":{"en":"Six orientations, best one wins. Get cartons per container for 20GP, 40GP and 40HQ, cube utilization, total weight, and the freight each carton has to absorb.","zh":"六种摆法全部算一遍取最优。给出 20GP / 40GP / 40HQ 各能装多少箱、体积利用、整柜重量，以及单箱摊到的海运费。"},"badges":[{"en":"All <b>6</b> orientations","zh":"<b>6 种</b>摆法全算"},{"en":"Weight limit <b>checked</b>","zh":"已校核<b>限重</b>"},{"en":"No signup","zh":"免注册"}],"seo":{"title":"Container Loading Calculator — Cartons Per 20GP / 40GP / 40HQ","desc":"Calculate how many cartons fit in a 20GP, 40GP or 40HQ container across all six orientations, with cube utilization, total weight and freight cost per carton.","keywords":["container loading calculator","how many cartons in a container","40hq container capacity cartons","20gp container cbm calculator","container loading plan","cbm calculator cartons","shipping carton quantity calculator"]},"inputs":[{"id":"cartonL","label":{"en":"Carton length","zh":"箱长"},"unit":"mm","default":600,"min":20,"max":3000,"step":1},{"id":"cartonW","label":{"en":"Carton width","zh":"箱宽"},"unit":"mm","default":400,"min":20,"max":3000,"step":1},{"id":"cartonH","label":{"en":"Carton height","zh":"箱高"},"unit":"mm","default":350,"min":20,"max":3000,"step":1},{"id":"ct","type":"select","label":{"en":"Container","zh":"柜型"},"default":3,"options":[{"value":"1","label":{"en":"20GP — 5898×2352×2393","zh":"20GP — 5898×2352×2393"}},{"value":"2","label":{"en":"40GP — 12032×2352×2393","zh":"40GP — 12032×2352×2393"}},{"value":"3","label":{"en":"40HQ — 12032×2352×2698","zh":"40HQ — 12032×2352×2698"}}]},{"id":"cartonWt","label":{"en":"Weight per carton","zh":"单箱毛重"},"unit":"kg","default":12,"min":0.1,"max":500,"step":0.1},{"id":"maxPayload","label":{"en":"Payload limit","zh":"限重"},"unit":"kg","default":26000,"min":1000,"max":40000,"step":100,"hint":{"en":"40HQ is usually 26 t on the road, less in some countries.","zh":"40HQ 公路运输一般限 26 吨，部分国家更低。"}},{"id":"freight","label":{"en":"Ocean freight","zh":"海运费"},"unit":"¥/container","default":3800,"min":0,"max":200000,"step":100},{"id":"surcharge","label":{"en":"Port & docs","zh":"港杂报关"},"unit":"¥/container","default":900,"min":0,"max":100000,"step":50}],"formulas":[{"id":"innerL","label":{"en":"Inner length","zh":"柜内长"},"expr":"ifelse(ct == 1, 5898, 12032)","unit":"mm","digits":0},{"id":"innerW","label":{"en":"Inner width","zh":"柜内宽"},"expr":"2352","unit":"mm","digits":0},{"id":"innerH","label":{"en":"Inner height","zh":"柜内高"},"expr":"ifelse(ct == 1, 2393, ifelse(ct == 2, 2393, 2698))","unit":"mm","digits":0},{"id":"volCbm","label":{"en":"Container volume","zh":"柜容积"},"expr":"innerL * innerW * innerH / 1000000000","unit":"m³","digits":2},{"id":"boxCbm","label":{"en":"Carton volume","zh":"单箱体积"},"expr":"cartonL * cartonW * cartonH / 1000000000","unit":"m³","digits":4}],"sheets":[{"id":"s1","label":{"en":"Container floor","zh":"柜底"},"w":"12032","h":"2352","price":"0"}],"parts":[],"outputs":[{"id":"n1","expr":"floor(innerL / cartonL) * floor(innerW / cartonW) * floor(innerH / cartonH)"},{"id":"n2","expr":"floor(innerL / cartonL) * floor(innerW / cartonH) * floor(innerH / cartonW)"},{"id":"n3","expr":"floor(innerL / cartonW) * floor(innerW / cartonL) * floor(innerH / cartonH)"},{"id":"n4","expr":"floor(innerL / cartonW) * floor(innerW / cartonH) * floor(innerH / cartonL)"},{"id":"n5","expr":"floor(innerL / cartonH) * floor(innerW / cartonL) * floor(innerH / cartonW)"},{"id":"n6","expr":"floor(innerL / cartonH) * floor(innerW / cartonW) * floor(innerH / cartonL)"},{"id":"bySpace","expr":"max(n1, n2, n3, n4, n5, n6)"},{"id":"byWeight","expr":"floor(maxPayload / cartonWt)"},{"id":"total","expr":"min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"},{"id":"weightLimit","expr":"max(n1, n2, n3, n4, n5, n6) > floor(maxPayload / cartonWt)"},{"id":"cbmUtil","expr":"min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonL * cartonW * cartonH / (innerL * innerW * innerH) * 100"},{"id":"cargoWt","expr":"min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonWt"},{"id":"cbmTotal","expr":"min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonL * cartonW * cartonH / 1000000000"},{"id":"perCarton","expr":"(freight + surcharge) / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"}],"kpis":[{"id":"total","label":{"en":"Cartons loaded","zh":"整柜箱数"},"digits":0,"hl":true},{"id":"cbmUtil","label":{"en":"Cube used","zh":"体积利用"},"digits":1,"suffix":"%"},{"id":"cargoWt","label":{"en":"Cargo weight","zh":"货重"},"digits":0,"suffix":"kg"},{"id":"perCarton","label":{"en":"Freight per carton","zh":"单箱运费"},"money":true,"digits":2,"hl":true}],"breakdown":[{"label":{"en":"Ocean freight","zh":"海运费"},"expr":"freight / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"},{"label":{"en":"Port & docs","zh":"港杂报关"},"expr":"surcharge / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"}],"totalLabel":{"en":"Logistics per carton","zh":"单箱物流成本"},"showFormulas":[{"id":"volCbm","label":{"en":"Container volume","zh":"柜容积"},"expr":"柜内长 × 宽 × 高","unit":"m³","digits":2},{"id":"boxCbm","label":{"en":"Carton volume","zh":"单箱体积"},"expr":"箱长 × 宽 × 高","unit":"m³","digits":4}],"howTitle":{"en":"Why the answer is min(space, weight)","zh":"为什么答案是 min(空间, 重量)"},"howP":{"en":"A container is constrained twice: by internal volume and by payload. Light bulky cargo hits the space ceiling long before the weight limit; dense cargo does the opposite and you end up with a half-empty container at 26 tonnes. This tool computes both ceilings and returns the lower one — that is the number you can actually load. It also checks all six ways to turn a carton, because the difference between 1,050 and 1,180 cartons on a 40HQ is one rotation.","zh":"柜子有两道上限：内容积和限重。泡货先撞空间，重货先撞重量——后者经常是半柜货就 26 吨了。这里两个上限都算，取小的那个，才是真能装的数量。六种摆放方向全部遍历，因为 40HQ 从 1050 箱到 1180 箱，差别往往就是转个方向。"},"faq":[{"q":{"en":"Why is my container never as full as this says?","zh":"为什么实际装不到这个数？"},"a":{"en":"Because real loading is not a perfect grid. Cartons crush, pallets take space, doors are narrower than the floor, and the last row often does not fit. Take 90–95% of this number as a practical plan, and always leave the door end loose.","zh":"因为真实装柜不是整齐的格子。箱子会压塌、托盘占位、柜门比柜底窄、最后一排常常塞不进。按这个数的 90–95% 做计划，柜门那一端永远留活口。"}},{"q":{"en":"Does 40HQ really hold more than 40GP?","zh":"40HQ 真比 40GP 装得多吗？"},"a":{"en":"Only in height — 2698 vs 2393 mm, about 12.7% more volume, same floor. If your cartons are short and you cannot stack another layer, HQ buys you nothing and you pay for air.","zh":"只多在高上——2698 对 2393，多约 12.7% 体积，底面积一样。如果箱子矮、又码不下一层，HQ 一点用没有，你是在为空气付钱。"}},{"q":{"en":"Should I use internal or external carton dimensions?","zh":"用箱子内尺寸还是外尺寸？"},"a":{"en":"External, always, and measure a few real cartons rather than trusting the spec sheet. Corrugated bulges — a nominal 600 mm carton is often 610 mm at the belly, and 10 mm across a container width costs you a whole column.","zh":"一律用外尺寸，而且拿几个实物量，别信规格书。纸箱会鼓——标称 600 的箱子腰上常有 610，柜宽方向差 10mm 就少一整列。"}}],"price":{"value":99,"note":{"en":"One-time. Unlocks mixed carton sizes and saved container presets.","zh":"一次性买断。解锁混合箱型和柜型预设。"}},"listing":{"long":"Plan a container load in seconds. Six orientations, the space ceiling and the weight ceiling, and the freight each carton has to carry. Built for exporters who quote FOB and keep getting surprised by how few cartons actually fit.","bullets":["All six carton orientations, best one wins","Space and payload ceilings, returns the binding one","Cube utilization and total cargo weight","Freight and port charges per carton","Offline, no account"],"perms":"None. Fully offline."},"related":[{"href":"/zh/pallet-carton-fit/","title":"托盘码垛计算","desc":"一层码几个、能码几层、单箱分摊多少。"},{"href":"/zh/carton-blank-yield/","title":"纸箱展开与拼版出数","desc":"0201 箱展开尺寸、每张出数、单箱纸钱。"},{"href":"/zh/acrylic-panel-quote/","title":"亚克力排版报价","desc":"一张出几个、材料与切割成本、可直接发的报价。"}],"extraTable":{"title":{"en":"All six orientations","zh":"六种摆法逐一对比"},"bestId":"bySpace","rows":[{"label":{"en":"Box L → container length, W → width","zh":"箱长沿柜长 · 箱宽沿柜宽"},"expr":"n1","digits":0,"best":true},{"label":{"en":"Box L → length, H → width (tipped)","zh":"箱长沿柜长 · 箱高沿柜宽（侧放）"},"expr":"n2","digits":0,"best":true},{"label":{"en":"Box W → length, L → width (turned 90°)","zh":"箱宽沿柜长 · 箱长沿柜宽（转90°）"},"expr":"n3","digits":0,"best":true},{"label":{"en":"Box W → length, H → width","zh":"箱宽沿柜长 · 箱高沿柜宽"},"expr":"n4","digits":0,"best":true},{"label":{"en":"Box H → length, L → width","zh":"箱高沿柜长 · 箱长沿柜宽"},"expr":"n5","digits":0,"best":true},{"label":{"en":"Box H → length, W → width (standing)","zh":"箱高沿柜长 · 箱宽沿柜宽（立放）"},"expr":"n6","digits":0,"best":true}]},"email":"asdzcc@gmail.com","base":"","repo":"https://github.com/qwehkkk/calc-tools","issueUrl":"https://github.com/qwehkkk/calc-tools/issues/new","storeUrl":"https://calc.toolona.com/","langBase":"/zh"};
+(function(){
+  'use strict';
+  var $ = function(id){ return document.getElementById(id); };
+  var LANG = "zh";
+  var t = function(o){ if(o == null) return ''; return typeof o === 'string' ? o : (o[LANG] || o.en || ''); };
+  var fmt = function(n, d){
+    if(!isFinite(n)) return '—';
+    var s = Math.abs(n) >= 1000 ? n.toLocaleString(LANG === 'zh' ? 'zh-CN' : 'en-US',
+      {minimumFractionDigits:d, maximumFractionDigits:d})
+      : n.toFixed(d);
+    return s;
+  };
+  var CUR = { CNY:'¥', USD:'$', EUR:'€', GBP:'£' }[CONFIG.currency || 'USD'];
+  var money = function(n, d){ return CUR + fmt(n, d == null ? 2 : d); };
+
+  /* ---------- 状态 ---------- */
+  var state = {};
+  CONFIG.inputs.forEach(function(f){ state[f.id] = f['default']; });
+
+  /* ---------- 表单 ---------- */
+  var form = $('form');
+  CONFIG.inputs.forEach(function(f){
+    var wrap = document.createElement('div');
+    wrap.className = 'field';
+    var lab = document.createElement('label');
+    var u = f.unit ? '<span class="u">' + f.unit + '</span>' : '';
+    lab.innerHTML = '<span>' + t(f.label) + '</span>' + u;
+    wrap.appendChild(lab);
+    var box = document.createElement('div');
+    box.className = 'inp';
+    var el;
+    if (f.type === 'select') {
+      el = document.createElement('select');
+      (f.options || []).forEach(function(o){
+        var op = document.createElement('option');
+        op.value = o.value;
+        op.textContent = t(o.label);
+        el.appendChild(op);
+      });
+      el.value = state[f.id];
+      el.addEventListener('change', function(){
+        state[f.id] = f.numeric === false ? el.value : parseFloat(el.value);
+        render();
+      });
+    } else {
+      el = document.createElement('input');
+      el.type = 'number';
+      el.inputMode = 'decimal';
+      if (f.min != null) el.min = f.min;
+      if (f.max != null) el.max = f.max;
+      el.step = f.step || 'any';
+      el.value = state[f.id];
+      el.addEventListener('input', function(){
+        var v = parseFloat(el.value);
+        if (isNaN(v)) return;
+        state[f.id] = v;
+        render();
+      });
+    }
+    box.appendChild(el);
+    wrap.appendChild(box);
+    if (f.hint) {
+      var h = document.createElement('div');
+      h.className = 'hint';
+      h.textContent = t(f.hint);
+      wrap.appendChild(h);
+    }
+    form.appendChild(wrap);
+  });
+
+  /* ---------- 计算 ---------- */
+  function compute(){
+    var scope = {};
+    for (var k in state) scope[k] = state[k];
+    var derived = {};
+
+    // 1) 顺序求值 formulas，结果写进 scope，供后续互相引用
+    (CONFIG.formulas || []).forEach(function(f){
+      var v;
+      try { v = Formula.evaluate(f.expr, scope); }
+      catch(e){ v = NaN; derived[f.id + '_err'] = e.message; }
+      scope[f.id] = v;
+      derived[f.id] = v;
+    });
+
+    // 2) 零件尺寸（也用公式，可引用上面结果）
+    var parts = (CONFIG.parts || []).map(function(p, i){
+      var w = num(p.w, scope), h = num(p.h, scope), q = num(p.qty == null ? 1 : p.qty, scope);
+      return { idx:i, id:p.id, label:t(p.label), w:w, h:h, qty:Math.max(0, Math.round(q)),
+               color:p.color || '#0f5c5c' };
+    }).filter(function(p){ return p.w > 0 && p.h > 0 && p.qty > 0; });
+
+    // 3) 板材
+    var sheet = CONFIG.sheets[0];
+    var sw = num(sheet.w, scope), sh = num(sheet.h, scope);
+
+    // 4) 排版
+    var nest = Nest.solve({
+      sheets: [{ w:sw, h:sh, label:t(sheet.label) }],
+      parts: parts, kerf: num(CONFIG.kerf == null ? 0 : CONFIG.kerf, scope),
+      allowRotate: CONFIG.allowRotate !== false
+    });
+
+    // 5) 输出（边算边累积进作用域，后面的输出可以引用前面的 id）
+    var out = {};
+    var acc = Object.assign({}, scope, {
+      perSheet: nest.perSheet || (nest.bins[0] && nest.bins[0].placements.length) || 0,
+      sheetsUsed: nest.bins.length,
+      efficiency: nest.efficiency,
+      totalPartArea: nest.totalPartArea,
+      sheetArea: sw * sh,
+      partsPerSheet: nest.perSheet || 0
+    });
+    (CONFIG.outputs || []).forEach(function(o){
+      var v = 0;
+      if (o.expr) {
+        try { v = Formula.evaluate(o.expr, acc); } catch(e){ v = NaN; }
+      }
+      out[o.id] = v;
+      acc[o.id] = v;
+    });
+
+    return { scope:scope, derived:derived, parts:parts, nest:nest, out:out,
+             sheet:{ w:sw, h:sh, price: num(sheet.price, scope) } };
+  }
+
+  function num(v, scope){
+    if (typeof v === 'number') return v;
+    if (v == null) return 0;
+    try { return Formula.evaluate(String(v), scope); } catch(e){ return 0; }
+  }
+
+  /* ---------- 渲染 ---------- */
+  function render(){
+    var R = compute();
+    renderKpis(R);
+    renderDiagram(R);
+    renderBreakdown(R);
+    renderExtra(R);
+    renderFormulas(R);
+  }
+
+  function renderKpis(R){
+    var el = $('kpis');
+    el.innerHTML = '';
+    (CONFIG.kpis || []).forEach(function(k){
+      var v = R.out[k.id];
+      var d = k.digits == null ? 0 : k.digits;
+      var val = k.money ? money(v, d) : fmt(v, d);
+      var div = document.createElement('div');
+      div.className = 'kpi' + (k.hl ? ' hl' : '') + (k.warn ? ' warn' : '');
+      div.innerHTML = '<div class="k">' + t(k.label) + '</div>' +
+        '<div class="v">' + val + (k.suffix ? '<small>' + t(k.suffix) + '</small>' : '') + '</div>';
+      el.appendChild(div);
+    });
+  }
+
+  function renderDiagram(R){
+    var host = $('diagram');
+    if (!CONFIG.parts || !CONFIG.parts.length || CONFIG.noDiagram) {
+      var card = host.closest('.card');
+      if (card) card.style.display = 'none';
+      return;
+    }
+    var bin = R.nest.bins[0];
+    if (!bin || !bin.placements || !bin.placements.length) {
+      host.innerHTML = '<p style="color:#8b95a3;font-size:13.5px;padding:8px 0">' +
+        t({en:'Part does not fit on this sheet — adjust dimensions or sheet size.',
+           zh:'零件尺寸超出板材，请调整尺寸或板材规格。'}) + '</p>';
+      return;
+    }
+    var W = bin.w, H = bin.h;
+    var pad = 8, maxW = 640;
+    var scale = Math.min((maxW - pad*2) / W, 300 / H);
+    var vw = W * scale + pad*2, vh = H * scale + pad*2;
+
+    var s = [];
+    s.push('<svg viewBox="0 0 ' + vw.toFixed(1) + ' ' + vh.toFixed(1) + '" width="' + vw.toFixed(0) +
+           '" height="' + vh.toFixed(0) + '" role="img" aria-label="layout">');
+    s.push('<rect x="' + pad + '" y="' + pad + '" width="' + (W*scale).toFixed(1) + '" height="' +
+           (H*scale).toFixed(1) + '" fill="#f0f3f6" stroke="#c8d2db" stroke-width="1"/>');
+    bin.placements.forEach(function(p){
+      var col = R.parts[p.part] ? R.parts[p.part].color : '#0f5c5c';
+      s.push('<rect x="' + (pad + p.x*scale).toFixed(2) + '" y="' + (pad + p.y*scale).toFixed(2) +
+             '" width="' + (p.w*scale).toFixed(2) + '" height="' + (p.h*scale).toFixed(2) +
+             '" fill="' + col + '" fill-opacity="0.13" stroke="' + col + '" stroke-width="0.9"/>');
+    });
+    // 尺寸标注
+    s.push('<text x="' + (pad + W*scale/2).toFixed(1) + '" y="' + (pad + H*scale + 5).toFixed(1) +
+           '" font-size="9" fill="#8b95a3" text-anchor="middle" font-family="monospace">' + W + '</text>');
+    s.push('<text x="' + (pad - 3).toFixed(1) + '" y="' + (pad + H*scale/2).toFixed(1) +
+           '" font-size="9" fill="#8b95a3" text-anchor="middle" font-family="monospace" transform="rotate(-90 ' +
+           (pad-3).toFixed(1) + ' ' + (pad + H*scale/2).toFixed(1) + ')">' + H + '</text>');
+    s.push('</svg>');
+
+    var legend = '<div class="legend">';
+    var seen = {};
+    bin.placements.forEach(function(p){
+      if (seen[p.part]) return; seen[p.part] = 1;
+      var pt = R.parts[p.part];
+      if (!pt) return;
+      legend += '<span><i style="background:' + pt.color + '"></i>' + pt.label + ' · ' +
+                fmt(pt.w,0) + '×' + fmt(pt.h,0) + ' ' + (CONFIG.unit || '') + '</span>';
+    });
+    legend += '<span style="color:#8b95a3">' + t({en:'Sheet',zh:'板材'}) + ' ' + fmt(W,0) + '×' +
+              fmt(H,0) + ' ' + (CONFIG.unit||'') + '</span></div>';
+
+    host.innerHTML = s.join('') + legend;
+  }
+
+  function renderBreakdown(R){
+    var body = $('brk');
+    if (!CONFIG.breakdown || !CONFIG.breakdown.length) { $('brkcard').style.display = 'none'; return; }
+    $('brkcard').style.display = '';
+    body.innerHTML = '';
+    var s2 = Object.assign({}, R.scope, R.out, {
+      perSheet: R.nest.perSheet || 0, sheetsUsed: R.nest.bins.length,
+      efficiency: R.nest.efficiency
+    });
+    var total = 0;
+    CONFIG.breakdown.forEach(function(b){
+      var v = 0;
+      try { v = Formula.evaluate(b.expr, s2); } catch(e){ v = 0; }
+      var tr = document.createElement('tr');
+      if (b.sum !== false) total += v;
+      tr.innerHTML = '<td>' + t(b.label) + (b.note ? ' <span style="color:#8b95a3;font-size:11.5px">' +
+        t(b.note) + '</span>' : '') + '</td><td class="n">' + money(v, b.digits == null ? 2 : b.digits) + '</td>';
+      body.appendChild(tr);
+    });
+    var tr = document.createElement('tr');
+    tr.className = 'tot';
+    tr.innerHTML = '<td>' + t(CONFIG.totalLabel || {en:'Total per unit', zh:'单件合计'}) +
+      '</td><td class="n">' + money(total, 2) + '</td>';
+    body.appendChild(tr);
+  }
+
+  function renderFormulas(R){
+    var box = $('formulas');
+    box.innerHTML = '';
+    (CONFIG.showFormulas || []).slice(0, 8).forEach(function(f){
+      var v = R.derived[f.id];
+      var d = document.createElement('div');
+      d.className = 'frow';
+      d.innerHTML = '<div><div>' + t(f.label) + '</div><div class="e">' + f.expr + '</div></div>' +
+        '<div class="r">' + (isFinite(v) ? fmt(v, f.digits == null ? 1 : f.digits) : '—') +
+        ' <span style="color:#8b95a3;font-weight:400;font-size:11px">' + (f.unit || '') + '</span></div>';
+      box.appendChild(d);
+    });
+  }
+
+  function renderExtra(R){
+    var card = $('extracard');
+    if (!CONFIG.extraTable || !CONFIG.extraTable.rows) { card.style.display = 'none'; return; }
+    card.style.display = '';
+    var body = $('extra');
+    body.innerHTML = '';
+    CONFIG.extraTable.rows.forEach(function(row){
+      var v = 0;
+      try { v = Formula.evaluate(row.expr, R.out); } catch(e){ v = NaN; }
+      if (!isFinite(v)) v = 0;
+      var tr = document.createElement('tr');
+      var txt = row.money ? money(v, row.digits == null ? 0 : row.digits) : fmt(v, row.digits == null ? 0 : row.digits);
+      if (row.best && v >= R.out[CONFIG.extraTable.bestId]) txt = '★ ' + txt;
+      tr.innerHTML = '<td>' + t(row.label) + (row.desc ? ' <span style="color:#8b95a3;font-size:11.5px">' +
+        t(row.desc) + '</span>' : '') + '</td><td class="n"' +
+        (row.best ? ' style="color:#0f5c5c;font-weight:650"' : '') + '>' + txt + '</td>';
+      body.appendChild(tr);
+    });
+  }
+
+  /* ---------- 静态文案 ---------- */
+  function paint(){
+    document.documentElement.lang = LANG === 'zh' ? 'zh-CN' : 'en';
+    $('tagline').textContent = t(CONFIG.navTag || CONFIG.category);
+    $('h1').textContent = t(CONFIG.headline);
+    $('sub').textContent = t(CONFIG.sub);
+    $('badges').innerHTML = (CONFIG.badges || []).map(function(b){
+      return '<span class="badge">' + t(b) + '</span>';
+    }).join('');
+    $('inputs-title').textContent = t({en:'Inputs', zh:'输入参数'});
+    $('diagram-title').textContent = t({en:'Layout preview', zh:'排版预览'});
+    $('brk-title').textContent = t({en:'Cost breakdown', zh:'成本拆解'});
+    $('how-title').textContent = t(CONFIG.howTitle || {en:'How the numbers are produced', zh:'这些数字怎么算出来的'});
+    $('how-p').textContent = t(CONFIG.howP || '');
+    $('faq-title').textContent = t({en:'Questions', zh:'常见问题'});
+
+    if (CONFIG.extraTable) $('extra-title').textContent = t(CONFIG.extraTable.title);
+    var fb = $('faq');
+    fb.innerHTML = '';
+    (CONFIG.faq || []).forEach(function(q, i){
+      var d = document.createElement('details');
+      if (i === 0) d.open = true;
+      d.innerHTML = '<summary>' + t(q.q) + '</summary><div class="body">' + t(q.a) + '</div>';
+      fb.appendChild(d);
+    });
+
+    $('fb-h').textContent = t({en:'Tell me what is wrong with this number',
+                               zh:'这个数字哪里不对，告诉我'});
+    $('fb-p').textContent = t({
+      en:'Every formula here was written from public standards, not from a shop floor. If you use this daily, you will spot the error in 10 seconds. Send it — the corrected version ships and you get the paid tier free.',
+      zh:'这些公式是我按公开标准写的，没有在车间里对过。你天天干这个，10 秒就能看出哪儿错。发我一句，我改完版本给你，付费版直接送你。'
+    });
+    // 反馈主通道：GitHub Issue，正文自动带当前输入与结果，对方只需写「实际是多少」
+    var reportLines = function(){
+      var R = compute();
+      var lines = [];
+      CONFIG.inputs.forEach(function(f){ lines.push(t(f.label) + ' = ' + state[f.id]); });
+      (CONFIG.kpis || []).forEach(function(k){
+        var v = R.out[k.id];
+        lines.push(t(k.label) + ' = ' + (isFinite(v) ? (k.money ? money(v, k.digits) : fmt(v, k.digits)) : '-'));
+      });
+      return lines;
+    };
+    var issueBtn = $('fb-issue');
+    var mailBtn = $('fb-mail');
+    mailBtn.href = 'mailto:' + CONFIG.email + '?subject=' +
+      encodeURIComponent('[Feedback] ' + t(CONFIG.name)) + '&body=' +
+      encodeURIComponent((LANG === 'zh' ? '哪里算错了 / 缺什么：' : 'What is wrong / what is missing:') +
+        '\n\n\n---\n' + location.href);
+    if (CONFIG.issueUrl) {
+      issueBtn.onclick = function(ev){
+        ev.preventDefault();
+        var body = [
+          LANG === 'zh' ? '**实际应该是多少 / 哪里不对**' : '**What it should be / what is wrong**',
+          '', '', '',
+          LANG === 'zh' ? '**我这一组数（自动填入，可直接改）**' : '**My inputs and results (pre-filled)**',
+          '', '```', reportLines().join('\n'), '```', '',
+          LANG === 'zh' ? '**页面**' : '**Page**', location.href
+        ].join('\n');
+        window.open(CONFIG.issueUrl +
+          '?title=' + encodeURIComponent((LANG === 'zh' ? '[算错] ' : '[wrong] ') + t(CONFIG.name)) +
+          '&body=' + encodeURIComponent(body) +
+          '&labels=' + encodeURIComponent('wrong-number'), '_blank', 'noopener');
+      };
+      issueBtn.href = CONFIG.issueUrl;
+      $('fb-issue-t').textContent = t({en:'Report a wrong number', zh:'报告算错的数'});
+      // 没 GitHub 账号的人不该被挡在门外：邮件留作第二条通道
+      mailBtn.classList.remove('btn');
+    } else {
+      issueBtn.style.display = 'none';
+      mailBtn.classList.add('btn');
+    }
+    $('fb-mail-t').textContent = t({en:'or email me', zh:'或邮件'});
+    $('fb-store').textContent = t({en:'Other tools →', zh:'其他工具 →'});
+    $('fb-store').href = CONFIG.storeUrl || (CONFIG.base || '') + '/';
+    $('pay-price').textContent = CONFIG.price ? money(CONFIG.price.value, 0) : '';
+    $('pay-sub').textContent = CONFIG.price ? t(CONFIG.price.note) : '';
+
+    $('rel-title').textContent = t({en:'Related tools', zh:'相关工具'});
+    $('rel').innerHTML = (CONFIG.related || []).map(function(r){
+      return '<a href="' + r.href + '">' + t(r.title) + '<span>' + t(r.desc) + '</span></a>';
+    }).join('');
+
+    var cp = $('fb-copy');
+    cp.textContent = t({en:'Copy my numbers', zh:'复制我这组数'});
+    cp.onclick = function(){
+      var R = compute();
+      var lines = [CONFIG.slug];
+      CONFIG.inputs.forEach(function(f){ lines.push('  ' + t(f.label) + ' = ' + state[f.id]); });
+      (CONFIG.kpis || []).forEach(function(k){
+        var v = R.out[k.id];
+        lines.push('  ' + t(k.label) + ' = ' + (isFinite(v) ? (k.money ? money(v, k.digits) : fmt(v, k.digits)) : '—'));
+      });
+      var txt = lines.join('\n');
+      var done = function(){
+        cp.textContent = t({en:'Copied — paste it into the issue', zh:'已复制 — 粘到 Issue 里'});
+        setTimeout(function(){ cp.textContent = t({en:'Copy my numbers', zh:'复制我这组数'}); }, 2600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt).then(done, function(){ window.prompt('Copy:', txt); });
+      } else {
+        window.prompt('Copy:', txt);
+      }
+    };
+
+    $('fmail').href = 'mailto:' + CONFIG.email;
+    $('langbtn').textContent = LANG === 'zh' ? 'EN' : '中文';
+    $('langbtn').onclick = function(){
+      var b = CONFIG.base || '';
+      var path = location.pathname;
+      var rel = (b && path.indexOf(b) === 0) ? path.slice(b.length) : path;
+      if (!/^\//.test(rel)) rel = '/' + rel;
+      var target = LANG === 'zh' ? rel.replace(/^\/zh\//, '/') : '/zh' + rel;
+      location.href = b + target;
+    };
+  }
+
+  paint();
+  render();
+})();
+</script>
+</body>
+</html>

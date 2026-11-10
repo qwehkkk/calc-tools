@@ -1,0 +1,512 @@
+{
+  "slug": "container-load-fit",
+  "priority": 5,
+  "version": "0.1.0",
+  "category": {
+    "en": "Logistics",
+    "zh": "物流"
+  },
+  "navTag": {
+    "en": "Logistics",
+    "zh": "物流"
+  },
+  "accent": "#2b6cb0",
+  "currency": "CNY",
+  "unit": "mm",
+  "noDiagram": true,
+  "name": {
+    "en": "Container Load Fit",
+    "zh": "集装箱装柜计算"
+  },
+  "tagline": {
+    "en": "Cartons per container, cube used, freight per carton.",
+    "zh": "一个柜装多少箱、装了多少体积、单箱摊多少运费。"
+  },
+  "headline": {
+    "en": "How many cartons fit in a container",
+    "zh": "一个柜能装多少箱"
+  },
+  "sub": {
+    "en": "Six orientations, best one wins. Get cartons per container for 20GP, 40GP and 40HQ, cube utilization, total weight, and the freight each carton has to absorb.",
+    "zh": "六种摆法全部算一遍取最优。给出 20GP / 40GP / 40HQ 各能装多少箱、体积利用、整柜重量，以及单箱摊到的海运费。"
+  },
+  "badges": [
+    {
+      "en": "All <b>6</b> orientations",
+      "zh": "<b>6 种</b>摆法全算"
+    },
+    {
+      "en": "Weight limit <b>checked</b>",
+      "zh": "已校核<b>限重</b>"
+    },
+    {
+      "en": "No signup",
+      "zh": "免注册"
+    }
+  ],
+  "seo": {
+    "title": "Container Loading Calculator — Cartons Per 20GP / 40GP / 40HQ",
+    "desc": "Calculate how many cartons fit in a 20GP, 40GP or 40HQ container across all six orientations, with cube utilization, total weight and freight cost per carton.",
+    "keywords": [
+      "container loading calculator",
+      "how many cartons in a container",
+      "40hq container capacity cartons",
+      "20gp container cbm calculator",
+      "container loading plan",
+      "cbm calculator cartons",
+      "shipping carton quantity calculator"
+    ]
+  },
+  "inputs": [
+    {
+      "id": "cartonL",
+      "label": {
+        "en": "Carton length",
+        "zh": "箱长"
+      },
+      "unit": "mm",
+      "default": 600,
+      "min": 20,
+      "max": 3000,
+      "step": 1
+    },
+    {
+      "id": "cartonW",
+      "label": {
+        "en": "Carton width",
+        "zh": "箱宽"
+      },
+      "unit": "mm",
+      "default": 400,
+      "min": 20,
+      "max": 3000,
+      "step": 1
+    },
+    {
+      "id": "cartonH",
+      "label": {
+        "en": "Carton height",
+        "zh": "箱高"
+      },
+      "unit": "mm",
+      "default": 350,
+      "min": 20,
+      "max": 3000,
+      "step": 1
+    },
+    {
+      "id": "ct",
+      "type": "select",
+      "label": {
+        "en": "Container",
+        "zh": "柜型"
+      },
+      "default": 3,
+      "options": [
+        {
+          "value": "1",
+          "label": {
+            "en": "20GP — 5898×2352×2393",
+            "zh": "20GP — 5898×2352×2393"
+          }
+        },
+        {
+          "value": "2",
+          "label": {
+            "en": "40GP — 12032×2352×2393",
+            "zh": "40GP — 12032×2352×2393"
+          }
+        },
+        {
+          "value": "3",
+          "label": {
+            "en": "40HQ — 12032×2352×2698",
+            "zh": "40HQ — 12032×2352×2698"
+          }
+        }
+      ]
+    },
+    {
+      "id": "cartonWt",
+      "label": {
+        "en": "Weight per carton",
+        "zh": "单箱毛重"
+      },
+      "unit": "kg",
+      "default": 12,
+      "min": 0.1,
+      "max": 500,
+      "step": 0.1
+    },
+    {
+      "id": "maxPayload",
+      "label": {
+        "en": "Payload limit",
+        "zh": "限重"
+      },
+      "unit": "kg",
+      "default": 26000,
+      "min": 1000,
+      "max": 40000,
+      "step": 100,
+      "hint": {
+        "en": "40HQ is usually 26 t on the road, less in some countries.",
+        "zh": "40HQ 公路运输一般限 26 吨，部分国家更低。"
+      }
+    },
+    {
+      "id": "freight",
+      "label": {
+        "en": "Ocean freight",
+        "zh": "海运费"
+      },
+      "unit": "¥/container",
+      "default": 3800,
+      "min": 0,
+      "max": 200000,
+      "step": 100
+    },
+    {
+      "id": "surcharge",
+      "label": {
+        "en": "Port & docs",
+        "zh": "港杂报关"
+      },
+      "unit": "¥/container",
+      "default": 900,
+      "min": 0,
+      "max": 100000,
+      "step": 50
+    }
+  ],
+  "formulas": [
+    {
+      "id": "innerL",
+      "label": {
+        "en": "Inner length",
+        "zh": "柜内长"
+      },
+      "expr": "ifelse(ct == 1, 5898, 12032)",
+      "unit": "mm",
+      "digits": 0
+    },
+    {
+      "id": "innerW",
+      "label": {
+        "en": "Inner width",
+        "zh": "柜内宽"
+      },
+      "expr": "2352",
+      "unit": "mm",
+      "digits": 0
+    },
+    {
+      "id": "innerH",
+      "label": {
+        "en": "Inner height",
+        "zh": "柜内高"
+      },
+      "expr": "ifelse(ct == 1, 2393, ifelse(ct == 2, 2393, 2698))",
+      "unit": "mm",
+      "digits": 0
+    },
+    {
+      "id": "volCbm",
+      "label": {
+        "en": "Container volume",
+        "zh": "柜容积"
+      },
+      "expr": "innerL * innerW * innerH / 1000000000",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "boxCbm",
+      "label": {
+        "en": "Carton volume",
+        "zh": "单箱体积"
+      },
+      "expr": "cartonL * cartonW * cartonH / 1000000000",
+      "unit": "m³",
+      "digits": 4
+    }
+  ],
+  "sheets": [
+    {
+      "id": "s1",
+      "label": {
+        "en": "Container floor",
+        "zh": "柜底"
+      },
+      "w": "12032",
+      "h": "2352",
+      "price": "0"
+    }
+  ],
+  "parts": [],
+  "outputs": [
+    {
+      "id": "n1",
+      "expr": "floor(innerL / cartonL) * floor(innerW / cartonW) * floor(innerH / cartonH)"
+    },
+    {
+      "id": "n2",
+      "expr": "floor(innerL / cartonL) * floor(innerW / cartonH) * floor(innerH / cartonW)"
+    },
+    {
+      "id": "n3",
+      "expr": "floor(innerL / cartonW) * floor(innerW / cartonL) * floor(innerH / cartonH)"
+    },
+    {
+      "id": "n4",
+      "expr": "floor(innerL / cartonW) * floor(innerW / cartonH) * floor(innerH / cartonL)"
+    },
+    {
+      "id": "n5",
+      "expr": "floor(innerL / cartonH) * floor(innerW / cartonL) * floor(innerH / cartonW)"
+    },
+    {
+      "id": "n6",
+      "expr": "floor(innerL / cartonH) * floor(innerW / cartonW) * floor(innerH / cartonL)"
+    },
+    {
+      "id": "bySpace",
+      "expr": "max(n1, n2, n3, n4, n5, n6)"
+    },
+    {
+      "id": "byWeight",
+      "expr": "floor(maxPayload / cartonWt)"
+    },
+    {
+      "id": "total",
+      "expr": "min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"
+    },
+    {
+      "id": "weightLimit",
+      "expr": "max(n1, n2, n3, n4, n5, n6) > floor(maxPayload / cartonWt)"
+    },
+    {
+      "id": "cbmUtil",
+      "expr": "min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonL * cartonW * cartonH / (innerL * innerW * innerH) * 100"
+    },
+    {
+      "id": "cargoWt",
+      "expr": "min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonWt"
+    },
+    {
+      "id": "cbmTotal",
+      "expr": "min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt)) * cartonL * cartonW * cartonH / 1000000000"
+    },
+    {
+      "id": "perCarton",
+      "expr": "(freight + surcharge) / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"
+    }
+  ],
+  "kpis": [
+    {
+      "id": "total",
+      "label": {
+        "en": "Cartons loaded",
+        "zh": "整柜箱数"
+      },
+      "digits": 0,
+      "hl": true
+    },
+    {
+      "id": "cbmUtil",
+      "label": {
+        "en": "Cube used",
+        "zh": "体积利用"
+      },
+      "digits": 1,
+      "suffix": "%"
+    },
+    {
+      "id": "cargoWt",
+      "label": {
+        "en": "Cargo weight",
+        "zh": "货重"
+      },
+      "digits": 0,
+      "suffix": "kg"
+    },
+    {
+      "id": "perCarton",
+      "label": {
+        "en": "Freight per carton",
+        "zh": "单箱运费"
+      },
+      "money": true,
+      "digits": 2,
+      "hl": true
+    }
+  ],
+  "breakdown": [
+    {
+      "label": {
+        "en": "Ocean freight",
+        "zh": "海运费"
+      },
+      "expr": "freight / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"
+    },
+    {
+      "label": {
+        "en": "Port & docs",
+        "zh": "港杂报关"
+      },
+      "expr": "surcharge / min(max(n1, n2, n3, n4, n5, n6), floor(maxPayload / cartonWt))"
+    }
+  ],
+  "totalLabel": {
+    "en": "Logistics per carton",
+    "zh": "单箱物流成本"
+  },
+  "showFormulas": [
+    {
+      "id": "volCbm",
+      "label": {
+        "en": "Container volume",
+        "zh": "柜容积"
+      },
+      "expr": "柜内长 × 宽 × 高",
+      "unit": "m³",
+      "digits": 2
+    },
+    {
+      "id": "boxCbm",
+      "label": {
+        "en": "Carton volume",
+        "zh": "单箱体积"
+      },
+      "expr": "箱长 × 宽 × 高",
+      "unit": "m³",
+      "digits": 4
+    }
+  ],
+  "howTitle": {
+    "en": "Why the answer is min(space, weight)",
+    "zh": "为什么答案是 min(空间, 重量)"
+  },
+  "howP": {
+    "en": "A container is constrained twice: by internal volume and by payload. Light bulky cargo hits the space ceiling long before the weight limit; dense cargo does the opposite and you end up with a half-empty container at 26 tonnes. This tool computes both ceilings and returns the lower one — that is the number you can actually load. It also checks all six ways to turn a carton, because the difference between 1,050 and 1,180 cartons on a 40HQ is one rotation.",
+    "zh": "柜子有两道上限：内容积和限重。泡货先撞空间，重货先撞重量——后者经常是半柜货就 26 吨了。这里两个上限都算，取小的那个，才是真能装的数量。六种摆放方向全部遍历，因为 40HQ 从 1050 箱到 1180 箱，差别往往就是转个方向。"
+  },
+  "faq": [
+    {
+      "q": {
+        "en": "Why is my container never as full as this says?",
+        "zh": "为什么实际装不到这个数？"
+      },
+      "a": {
+        "en": "Because real loading is not a perfect grid. Cartons crush, pallets take space, doors are narrower than the floor, and the last row often does not fit. Take 90–95% of this number as a practical plan, and always leave the door end loose.",
+        "zh": "因为真实装柜不是整齐的格子。箱子会压塌、托盘占位、柜门比柜底窄、最后一排常常塞不进。按这个数的 90–95% 做计划，柜门那一端永远留活口。"
+      }
+    },
+    {
+      "q": {
+        "en": "Does 40HQ really hold more than 40GP?",
+        "zh": "40HQ 真比 40GP 装得多吗？"
+      },
+      "a": {
+        "en": "Only in height — 2698 vs 2393 mm, about 12.7% more volume, same floor. If your cartons are short and you cannot stack another layer, HQ buys you nothing and you pay for air.",
+        "zh": "只多在高上——2698 对 2393，多约 12.7% 体积，底面积一样。如果箱子矮、又码不下一层，HQ 一点用没有，你是在为空气付钱。"
+      }
+    },
+    {
+      "q": {
+        "en": "Should I use internal or external carton dimensions?",
+        "zh": "用箱子内尺寸还是外尺寸？"
+      },
+      "a": {
+        "en": "External, always, and measure a few real cartons rather than trusting the spec sheet. Corrugated bulges — a nominal 600 mm carton is often 610 mm at the belly, and 10 mm across a container width costs you a whole column.",
+        "zh": "一律用外尺寸，而且拿几个实物量，别信规格书。纸箱会鼓——标称 600 的箱子腰上常有 610，柜宽方向差 10mm 就少一整列。"
+      }
+    }
+  ],
+  "price": {
+    "value": 99,
+    "note": {
+      "en": "One-time. Unlocks mixed carton sizes and saved container presets.",
+      "zh": "一次性买断。解锁混合箱型和柜型预设。"
+    }
+  },
+  "listing": {
+    "long": "Plan a container load in seconds. Six orientations, the space ceiling and the weight ceiling, and the freight each carton has to carry. Built for exporters who quote FOB and keep getting surprised by how few cartons actually fit.",
+    "bullets": [
+      "All six carton orientations, best one wins",
+      "Space and payload ceilings, returns the binding one",
+      "Cube utilization and total cargo weight",
+      "Freight and port charges per carton",
+      "Offline, no account"
+    ],
+    "perms": "None. Fully offline."
+  },
+  "related": [
+    "pallet-carton-fit",
+    "carton-blank-yield",
+    "acrylic-panel-quote"
+  ],
+  "extraTable": {
+    "title": {
+      "en": "All six orientations",
+      "zh": "六种摆法逐一对比"
+    },
+    "bestId": "bySpace",
+    "rows": [
+      {
+        "label": {
+          "en": "Box L → container length, W → width",
+          "zh": "箱长沿柜长 · 箱宽沿柜宽"
+        },
+        "expr": "n1",
+        "digits": 0,
+        "best": true
+      },
+      {
+        "label": {
+          "en": "Box L → length, H → width (tipped)",
+          "zh": "箱长沿柜长 · 箱高沿柜宽（侧放）"
+        },
+        "expr": "n2",
+        "digits": 0,
+        "best": true
+      },
+      {
+        "label": {
+          "en": "Box W → length, L → width (turned 90°)",
+          "zh": "箱宽沿柜长 · 箱长沿柜宽（转90°）"
+        },
+        "expr": "n3",
+        "digits": 0,
+        "best": true
+      },
+      {
+        "label": {
+          "en": "Box W → length, H → width",
+          "zh": "箱宽沿柜长 · 箱高沿柜宽"
+        },
+        "expr": "n4",
+        "digits": 0,
+        "best": true
+      },
+      {
+        "label": {
+          "en": "Box H → length, L → width",
+          "zh": "箱高沿柜长 · 箱长沿柜宽"
+        },
+        "expr": "n5",
+        "digits": 0,
+        "best": true
+      },
+      {
+        "label": {
+          "en": "Box H → length, W → width (standing)",
+          "zh": "箱高沿柜长 · 箱宽沿柜宽（立放）"
+        },
+        "expr": "n6",
+        "digits": 0,
+        "best": true
+      }
+    ]
+  }
+}

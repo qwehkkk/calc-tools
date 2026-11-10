@@ -1,0 +1,14 @@
+{
+  "name": "calc-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Engineering calculators that end in a number you can quote. One config in, one site + one Chrome extension out.",
+  "scripts": {
+    "build": "node factory/build.mjs",
+    "test": "node factory/test.mjs",
+    "pack": "node factory/pack.mjs",
+    "publish:docs": "node factory/publish.mjs",
+    "ship": "node factory/build.mjs && node factory/test.mjs && node factory/publish.mjs"
+  }
+}

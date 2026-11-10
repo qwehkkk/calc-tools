@@ -1,0 +1,21 @@
+# 只提交「能公开的东西」，内部推演与数据留在本地
+原始材料/
+data/
+W1-作战台.html
+01-需求证据与定位.md
+02-垂直路线图.md
+03-铺量作战计划.md
+
+# 构建中间产物（docs/ 才是发布产物）
+factory/dist/
+
+# 临时
+dom.html
+d1.html
+*.png
+!factory/**/*.png
+
+# 系统
+.DS_Store
+Thumbs.db
+node_modules/

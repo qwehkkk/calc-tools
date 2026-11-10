@@ -1,0 +1,18 @@
+{
+  "domain": "https://calc.toolona.com",
+  "customDomain": "calc.toolona.com",
+  "base": "",
+  "github": {
+    "owner": "qwehkkk",
+    "repo": "calc-tools",
+    "branch": "main"
+  },
+  "name": {
+    "en": "Toolona Calc",
+    "zh": "Toolona 计算站"
+  },
+  "tagline": "Engineering calculators that end in a number you can quote.",
+  "email": "asdzcc@gmail.com",
+  "storeUrl": "https://calc.toolona.com/",
+  "note": "base 留空=部署在自定义域根目录；先用 github.io 子路径预览时才设成 /仓库名。改完重跑 build。"
+}
