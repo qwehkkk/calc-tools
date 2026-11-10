@@ -71,10 +71,20 @@ curl -sI https://calc.toolona.com/nope-404 | head -1            # 期望 404，�
 
 切一次只要改这一个字段，再 `build → test → publish → push`。`base` 和 `CNAME` 都由它推导，不用手改两处。
 
-### 坑二：这台机器的 git 协议连不上 GitHub
+### 坑二：git 协议时通时不通，所以留了一条 API 推送通道
 
-`git push` 报 `CONNECT tunnel failed, response 502`：`github.com:443` 被代理挡了，但 `api.github.com` 通。
-所以推送改走 REST API：
+`git push` 曾报 `CONNECT tunnel failed, response 502`（`github.com:443` 被出口代理挡），但 `api.github.com` 一直通。
+后来代理恢复，`git push` 又能用了。**两种情况都要能应付**，所以：
+
+- 正常情况：`git add -A && git commit -m "..." && git push`
+- git 不通时：用下面这条，走 REST API，把工作区快照写成一次提交并更新 `main`
+
+```bash
+export GH_TOKEN=$(printf "protocol=https\nhost=github.com\n\n" | git credential fill | sed -n 's/^password=//p')
+npm run push:api
+```
+
+（本地历史已经和远端对齐，两种方式混用不会产生分叉。）
 
 ```bash
 export GH_TOKEN=$(printf "protocol=https\nhost=github.com\n\n" | git credential fill | sed -n 's/^password=//p')
@@ -175,6 +185,7 @@ Issues → Labels → New label：Name `wrong-number`，颜色 `#d93f0b`。
 | 一直"证书签发中" | Cloudflare 是橙色云 | 改 DNS only，等 10 分钟 |
 | `ERR_TOO_MANY_REDIRECTS` | Cloudflare 的 Always Use HTTPS 与 GitHub 的 Enforce HTTPS 打架 | 只留 GitHub 那个 |
 | 推送报 403 secondary rate limit | 短时间提交太多次 | 等 1–3 分钟重试，脚本会自动退避 |
+| 构建成功但线上一直是旧内容 | 部署 job 卡在 `in_progress`（GitHub 侧排队卡住） | 取消卡住的 run 再 `POST /pages/builds` 重跑，实测一次就恢复 |
 | 反馈按钮点开 404 | `site.json` 的 `github.owner/repo` 与实际仓库不一致 | 改一处，重建重发 |
 
 ---
