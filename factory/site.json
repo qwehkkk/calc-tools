@@ -14,5 +14,6 @@
   "tagline": "Engineering calculators that end in a number you can quote.",
   "email": "asdzcc@gmail.com",
   "storeUrl": "https://calc.toolona.com/",
-  "note": "DNS 生效前 customDomain 必须留空，否则 docs/CNAME 会让 Pages 的部署步骤失败（Page build failed）。Cloudflare 加好 calc 的 CNAME 记录后，把这里改回 calc.toolona.com 重建即可。"
+  "note": "deployMode: \"github\" = 挂在 github.io/<仓库名>/ 预览（自动加 base、不写 CNAME）；\"domain\" = 自定义域根目录（base 空、写 CNAME）。",
+  "deployMode": "github"
 }

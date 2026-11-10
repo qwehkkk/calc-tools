@@ -17,7 +17,8 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
 const VP = path.resolve(ROOT, '..');
 const SITE = JSON.parse(fs.readFileSync(path.join(ROOT, 'site.json'), 'utf8'));
-const BASE = SITE.base || '';                       // GitHub Pages 子路径前缀，自定义域根目录时为空
+const MODE = SITE.deployMode || 'domain';           // github = 子路径预览；domain = 自定义域根目录
+const BASE = MODE === 'github' ? '/' + (SITE.github?.repo || 'calc-tools') : (SITE.base || '');
 const REPO = SITE.github ? `https://github.com/${SITE.github.owner}/${SITE.github.repo}` : '';
 const ISSUE = REPO ? `${REPO}/issues/new` : '';
 const TPL = fs.readFileSync(path.join(ROOT, 'template', 'page.html'), 'utf8');
@@ -433,8 +434,11 @@ for (const lang of ['en', 'zh']) {
 fs.writeFileSync(path.join(DIRS.web, '.nojekyll'), '', 'utf8');
 
 // CNAME：只在配了自定义域、且没有子路径前缀时写
-if (SITE.customDomain && !BASE) {
-  fs.writeFileSync(path.join(DIRS.web, 'CNAME'), SITE.customDomain + '\n', 'utf8');
+const cnamePath = path.join(DIRS.web, 'CNAME');
+if (MODE === 'domain' && SITE.customDomain && !BASE) {
+  fs.writeFileSync(cnamePath, SITE.customDomain + '\n', 'utf8');
+} else if (fs.existsSync(cnamePath)) {
+  fs.unlinkSync(cnamePath);   // 域名未就绪时必须删掉，否则 Pages 部署会失败
 }
 
 // 404：Pages 找不到路径时用它，把流量接回首页，而不是白屏

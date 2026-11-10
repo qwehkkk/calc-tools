@@ -41,8 +41,12 @@ const api = async (method, url, body) => {
   return { status: r.status, ok: r.ok, json };
 };
 
-// 1) 建仓
-let res = await api('POST', '/user/repos', {
+// 1) 建仓（已存在就跳过，别浪费内容创建配额）
+let res = await api('GET', `/repos/${OWNER}/${REPO}`);
+if (res.ok) {
+  console.log(`• 仓库已存在 ${OWNER}/${REPO}`);
+} else {
+res = await api('POST', '/user/repos', {
   name: REPO,
   description: 'Engineering calculators that end in a number you can quote. One config in, site + Chrome extension out.',
   private: false,
@@ -55,6 +59,7 @@ let res = await api('POST', '/user/repos', {
 if (res.ok) console.log(`✓ 建仓 ${OWNER}/${REPO}`);
 else if (res.status === 422) console.log(`• 仓库已存在，继续`);
 else { console.error('✗ 建仓失败', res.status, JSON.stringify(res.json).slice(0, 300)); process.exit(1); }
+}
 
 // 1.5) 空仓库必须先有一个提交，否则 trees API 返回 409
 let parent = null;
@@ -83,7 +88,17 @@ const tree = files.map((f) => {
 });
 
 // 3) 建树 → 建提交 → 建引用
-res = await api('POST', `/repos/${OWNER}/${REPO}/git/trees`, { tree });
+for (let attempt = 1; ; attempt++) {
+  res = await api('POST', `/repos/${OWNER}/${REPO}/git/trees`, { tree });
+  const limited = res.status === 403 && /rate limit/i.test(JSON.stringify(res.json));
+  if (!res.ok && limited && attempt <= 4) {
+    const wait = 60 * attempt;
+    console.log(`… 触发限流，等 ${wait}s 后重试（${attempt}/4）`);
+    await new Promise((r) => setTimeout(r, wait * 1000));
+    continue;
+  }
+  break;
+}
 if (!res.ok) { console.error('✗ 建树失败', res.status, JSON.stringify(res.json).slice(0, 400)); process.exit(1); }
 const treeSha = res.json.sha;
 console.log(`✓ tree ${treeSha.slice(0, 10)}`);
