@@ -4,26 +4,38 @@
 
 ---
 
-## 0. 现在的状态（2026-11-10 22:4x）
+## 0. 现在的状态（2026-11-10 23:0x）
 
 | 项目 | 状态 |
 |---|---|
 | 仓库 | ✅ <https://github.com/qwehkkk/calc-tools>（public，Issues 已开） |
-| 代码 | ✅ 47 个文件已推送，`docs/` 23 个页面文件 |
-| Pages | ✅ 已开启并通过构建：`main` + `/docs` |
-| 线上预览 | ✅ <https://qwehkkk.github.io/calc-tools/>（14 条路径实测：6 工具 × 中英 + 首页 + 隐私/条款 + sitemap/robots 全 200，不存在路径返回 404） |
-| 自定义域 | ⏸ `calc.toolona.com` 还没解析，**故意先不绑**（原因见第 2 节） |
+| 代码 | ✅ 48 个文件已推送，`docs/` 24 个页面文件（含 `CNAME`） |
+| Pages | ✅ 已开启：`main` + `/docs` |
+| 自定义域 | ✅ `calc.getoolkit.com` 已绑定，证书已签发（到期 2027-02-08） |
+| 正式地址 | ✅ <https://calc.getoolkit.com/>（HTTPS 已强制，http 301 到 https） |
+| 旧预览地址 | ✅ `qwehkkk.github.io/calc-tools/*` 已 301 到新域（权重不丢，但别再发这个链接） |
 | 反馈入口 | ✅ 按钮直接开一条**预填当前数字**的 GitHub Issue |
 
-**只差你做一件事**：去 Cloudflare 加一条 DNS 记录。加完跟我说一句，我把 `deployMode` 切成 `domain` 重发一次，你去勾 Enforce HTTPS，然后交 sitemap。
+**已验收**（2026-11-10 23:20，12 条路径实测）：
 
-现在就可以点开看：<https://qwehkkk.github.io/calc-tools/>
+```
+/                       200   3663
+/zh/                    200   3737
+/carton-blank-yield/    200  56742
+/zh/carton-blank-yield/ 200  56584
+/container-load-fit/    200  56571
+/tile-quantity-calc/    200  55590
+/privacy.html  /terms.html  /sitemap.xml  /robots.txt  /llms.txt   全 200
+/nope-404-test/         404   1701   ← 真 404（自定义页），不是软 404
+```
+
+**你只剩一件事**：把 sitemap 交到 Google Search Console（第 6 节）。Enforce HTTPS 我已经用 API 开好了，不用手动勾。
 
 ---
 
-## 1. Cloudflare 加记录（唯一待办）
+## 1. Cloudflare 记录（已完成，留作参照）
 
-Cloudflare → 选 **`toolona.com`** 这个域（⚠️ 你名下不止一个域名，别点错）→ DNS → Records → Add record：
+Cloudflare → 选 **`getoolkit.com`** 这个域（⚠️ 是一个 t 的 `getoolkit`，别点成 `gettoolkit`）→ DNS → Records → Add record：
 
 | 字段 | 值 |
 |---|---|
@@ -33,23 +45,25 @@ Cloudflare → 选 **`toolona.com`** 这个域（⚠️ 你名下不止一个域
 | Proxy status | **DNS only（灰色云）** |
 | TTL | Auto |
 
-根域 `toolona.com` 跑的是中文工具箱 easytool，**不要动它的记录**，我们只用 `calc` 子域。
+根域 `getoolkit.com` 跑的是英文工具站（Cloudflare Pages），**不要动它的记录**，我们只用 `calc` 子域。
+`tools.toolona.com` 是另一个仓库的「本地工具」站，跟这里无关，不受影响。
 
-加完跟我说一句，我执行切换（把 `deployMode` 从 `github` 改成 `domain`，重建、重发、把 CNAME 交给 Pages），然后你去勾 **Enforce HTTPS**。证书签发要 1–15 分钟。
+**切换已完成**（`deployMode` 已改 `domain`，重建重发，`docs/CNAME` 已交给 Pages，证书已签，Enforce HTTPS 已开）。
+本次切换踩到的新坑记在第 2 节坑四：**自定义域首次构建会先 errored 一次、第二次卡 building 约 3 分钟才 built**，别急着删配置。
 
 **验收三条命令，都要对：**
 
 ```bash
-curl -sI https://calc.toolona.com/ | head -3                    # 期望 HTTP/2 200
-curl -s  https://calc.toolona.com/sitemap.xml | head -3         # 期望有 <urlset
-curl -sI https://calc.toolona.com/nope-404 | head -1            # 期望 404，不是 200
+curl -sI https://calc.getoolkit.com/ | head -3                    # 期望 HTTP/2 200
+curl -s  https://calc.getoolkit.com/sitemap.xml | head -3         # 期望有 <urlset
+curl -sI https://calc.getoolkit.com/nope-404 | head -1            # 期望 404，不是 200
 ```
 
 第三条尤其要测：404 页配错会让所有不存在的路径返回 200（软 404），Google 会当成重复内容收录。
 
 ---
 
-## 2. 两个已经踩过的坑（写下来省得再踩）
+## 2. 已经踩过的坑（写下来省得再踩）
 
 ### 坑一：`Page build failed.` 有三层原因，我全踩了一遍
 
@@ -66,7 +80,7 @@ curl -sI https://calc.toolona.com/nope-404 | head -1            # 期望 404，�
 
 ```json
 "deployMode": "github"     // 子路径预览：自动加 base=/calc-tools，不写 CNAME
-"deployMode": "domain"     // 正式：base 为空，写 CNAME=calc.toolona.com
+"deployMode": "domain"     // 正式：base 为空，写 CNAME=calc.getoolkit.com
 ```
 
 切一次只要改这一个字段，再 `build → test → publish → push`。`base` 和 `CNAME` 都由它推导，不用手改两处。
@@ -92,6 +106,27 @@ npm run push:api
 ```
 
 **顺带发现**：这个 token 只有 `repo` 权限，没有 `workflow`，所以**不能通过 API 创建 `.github/workflows/*`**（会返回 404），GitHub Actions 那条路在这台机器上走不通。不需要它——legacy 构建在补上仓库根目录的 `.nojekyll` 之后是正常的。
+
+### 坑四：切自定义域后第一次构建会「假失败 + 慢」
+
+2026-11-10 22:5x 从 `github` 模式切到 `domain` 模式（绑 `calc.gettoolkit.com`），构建表现：
+
+1. 第一次：3 秒就 `errored`，错误只有一句 `Page build failed.`——但这次的三个老原因**一个都不成立**（域名已解析、证书 `approved`、分支策略有 `main`）。
+2. `POST /pages/builds` 重跑一次：先 `queued`，然后卡 `building` 约 3 分钟（`duration: 175318ms`）才 `built`。
+
+**结论：自定义域首次构建要先做域名/证书的后台校验，这段时间 API 只会给一句没用的 `Page build failed.`。别急着 DELETE 重建 Pages——那会把刚签好的证书一起删掉，白等 1–15 分钟。**
+
+判断顺序：`GET /repos/{o}/{r}/pages` → 看 `https_certificate.state` 是否 `approved`、`cname` 是否正确、`deployments/branch-policies` 是否有当前分支。**三项都正常，就只是等，重跑一次构建即可。**
+
+### 坑五：多域名指向同一个 `qwehkkk.github.io` 不会互相干扰
+
+`tools.toolona.com`（另一个仓库的「本地工具」站）和 `calc.getoolkit.com`（本站）的 DNS 都是 `CNAME → qwehkkk.github.io`，几条记录并存完全正常。
+
+GitHub Pages 靠 **HTTP Host 头**分发到对应仓库，每个仓库只能绑**一个**自定义域（以该仓库 `docs/CNAME` + Settings → Pages 为准）。所以：
+
+- 有的域名 404、有的 200，是**没在对应仓库里绑**，不是 DNS 冲突。
+- 判断某域名属于哪个仓库：`curl -sI https://域名/` 看 `Last-Modified`，或看页面里的 `<link rel="canonical">`。
+- 唯一真冲突：**两个仓库都想绑同一个域名**（后绑的会报 `domain is already taken`）。
 
 **别删仓库根的 `.nojekyll`**，它和 `docs/.nojekyll` 是两回事。
 
@@ -153,7 +188,7 @@ Issues → Labels → New label：Name `wrong-number`，颜色 `#d93f0b`。
 
 ## 5. 交 sitemap 给 Search Console（等正式域生效后做）
 
-1. <https://search.google.com/search-console> → 添加资源 → **网址前缀** → `https://calc.toolona.com/`
+1. <https://search.google.com/search-console> → 添加资源 → **网址前缀** → `https://calc.getoolkit.com/`
 2. 左侧 Sitemaps → 输入 `sitemap.xml` → 提交
 3. URL Inspection 逐页请求收录，**一天 3 个，四天做完**：
    `/container-load-fit/` → `/tile-quantity-calc/` → `/pallet-carton-fit/` → `/carton-blank-yield/` → `/acrylic-panel-quote/` → `/glass-sheet-yield/` → 各自的 `/zh/`
@@ -169,7 +204,7 @@ Issues → Labels → New label：Name `wrong-number`，颜色 `#d93f0b`。
 1. 开发者账号：<https://chrome.google.com/webstore/devconsole>，一次性 **$5**
 2. 上传 `factory/dist/zip/<slug>.zip`（`npm run pack` 生成，已是合法 MV3 包）
 3. 文案：`factory/dist/listing/<slug>.md` 已按字段拆好（名称 ≤45、短描述 ≤132，都校验过）
-4. 隐私政策填 `https://calc.toolona.com/privacy.html`（已生成，审核必查）
+4. 隐私政策填 `https://calc.getoolkit.com/privacy.html`（已生成，审核必查）
 
 **别一次传 6 个。** 先传 `container-load-fit`，拿到 5 条评价再传下一个。
 

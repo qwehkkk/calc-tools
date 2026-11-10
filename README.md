@@ -32,7 +32,7 @@ node factory/publish.mjs    # 同步 dist/web → docs/（GitHub Pages 的发布
 node factory/pack.mjs       # 打包：dist/zip/<slug>.zip，可直接传商店
 ```
 
-发布：`docs/` 推到 GitHub，Pages 自动部署，绑 `calc.toolona.com`。完整步骤见 `04-GitHub发布与反馈.md`。
+发布：`docs/` 推到 GitHub，Pages 自动部署，绑 `calc.getoolkit.com`。完整步骤见 `04-GitHub发布与反馈.md`。
 
 ---
 
