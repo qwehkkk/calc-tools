@@ -165,6 +165,8 @@ function render(v, lang) {
     .replaceAll('__JSONLD__', JSON.stringify(ld))
     .replaceAll('__YEAR__', String(new Date().getFullYear()))
     .replaceAll('__BASE__', BASE)
+    .replaceAll('__ISSUE__', ISSUE || '#')
+    .replaceAll('__MAIL__', `mailto:${SITE.email}`)
     .replaceAll('__REPO__', REPO)
     .replaceAll('__LANG__', isZh ? 'zh-CN' : 'en');
 }
