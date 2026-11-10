@@ -11,11 +11,13 @@
 | 仓库 | ✅ <https://github.com/qwehkkk/calc-tools>（public，Issues 已开） |
 | 代码 | ✅ 47 个文件已推送，`docs/` 23 个页面文件 |
 | Pages | ✅ 已开启并通过构建：`main` + `/docs` |
-| 线上预览 | ✅ <https://qwehkkk.github.io/calc-tools/>（中英 6 个工具全部 200） |
+| 线上预览 | ✅ <https://qwehkkk.github.io/calc-tools/>（14 条路径实测：6 工具 × 中英 + 首页 + 隐私/条款 + sitemap/robots 全 200，不存在路径返回 404） |
 | 自定义域 | ⏸ `calc.toolona.com` 还没解析，**故意先不绑**（原因见第 2 节） |
 | 反馈入口 | ✅ 按钮直接开一条**预填当前数字**的 GitHub Issue |
 
-**只差你做一件事**：去 Cloudflare 加一条 DNS 记录。加完我这边一条命令切到正式域。
+**只差你做一件事**：去 Cloudflare 加一条 DNS 记录。加完跟我说一句，我把 `deployMode` 切成 `domain` 重发一次，你去勾 Enforce HTTPS，然后交 sitemap。
+
+现在就可以点开看：<https://qwehkkk.github.io/calc-tools/>
 
 ---
 
@@ -49,12 +51,16 @@ curl -sI https://calc.toolona.com/nope-404 | head -1            # 期望 404，�
 
 ## 2. 两个已经踩过的坑（写下来省得再踩）
 
-### 坑一：CNAME 指向未解析的域名，Pages 会直接部署失败
+### 坑一：`Page build failed.` 有三层原因，我全踩了一遍
 
-实测五次 `Page build failed.`，日志里 **build job 是成功**的，挂在最后一步 `Deploy to GitHub Pages`。
-把自定义域摘掉，同一份代码立刻 200。
+症状都一样：日志里 **build job 成功**，挂在最后一步 `Deploy to GitHub Pages`，报 `Page build failed.`（不给细节）。逐个排除后是这三条：
 
-原因：`docs/CNAME` 一旦存在，Pages 就把站点绑到那个域名；域名解析不到时，部署被拒。
+1. **`docs/CNAME` 指向还没解析的域名** —— Pages 把站点绑到那个域，解析不到就拒绝部署。
+2. **`https_enforced: true` 但没有证书** —— 这个状态 API 改不动（PUT 会返回 `404 The certificate does not exist yet`），只能删掉整个 Pages 配置重建。
+3. **`github-pages` 环境的部署分支策略允许列表是空的** —— 这条最隐蔽：环境里存在 `custom_branch_policies: true` 但没列出任何分支，所有部署被静默拦住，表现为 job 一直 `in_progress`。
+   修法：放行 `main`（`POST /environments/github-pages/deployment-branch-policies`，`{name:"main",type:"branch"}`）。
+
+最终把这四项一起改掉之后才通：`deployMode=github` + 不写 CNAME + 重建 Pages + 放行 main 分支。
 
 **所以现在做成一个开关**，`factory/site.json`：
 
@@ -163,7 +169,7 @@ Issues → Labels → New label：Name `wrong-number`，颜色 `#d93f0b`。
 
 | 现象 | 原因 | 处理 |
 |---|---|---|
-| `Page build failed.` | `docs/CNAME` 指向没解析的域名 | `deployMode` 改回 `github`，或先把 DNS 加好 |
+| `Page build failed.` | ①CNAME 指向未解析域名 ②https_enforced 无证书 ③github-pages 环境分支策略允许列表为空 | 先看第 2 节，三条按顺序排除 |
 | 打开是 404 | Pages 的 Folder 不是 `/docs` | Settings → Pages 确认 |
 | 页面没样式、链接 404 | `deployMode=github` 但 base 没生效 | 确认 `site.json` 的 `deployMode` 是 `github`，重建 |
 | 一直"证书签发中" | Cloudflare 是橙色云 | 改 DNS only，等 10 分钟 |

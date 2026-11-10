@@ -22,6 +22,8 @@ const TOKEN = process.env.GH_TOKEN;
 const OWNER = process.env.GH_OWNER || 'qwehkkk';
 const REPO = process.env.GH_REPO || 'calc-tools';
 const DIR = process.cwd();
+const SITE = JSON.parse(fs.readFileSync('factory/site.json', 'utf8'));
+const WANT_DOMAIN = (SITE.deployMode || 'domain') === 'domain' && SITE.customDomain;
 
 const api = async (method, url, body) => {
   const r = await fetch('https://api.github.com' + url, {
@@ -127,10 +129,15 @@ res = await api('POST', `/repos/${OWNER}/${REPO}/pages`, {
 if (res.ok) console.log('✓ Pages 已开启（main /docs）');
 else console.log('! Pages:', res.status, JSON.stringify(res.json).slice(0, 300));
 
-// 5) 绑自定义域
-res = await api('PUT', `/repos/${OWNER}/${REPO}/pages`, { cname: 'calc.toolona.com', https_enforced: true });
-if (res.ok) console.log('✓ 自定义域 calc.toolona.com 已填');
-else console.log('! 自定义域:', res.status, JSON.stringify(res.json).slice(0, 300));
+// 5) 自定义域：只在 deployMode=domain 时碰它。
+//    预览模式下去设置域名会让 Pages 部署失败（域名没解析 → 没有证书 → 部署被拒）
+if (WANT_DOMAIN) {
+  res = await api('PUT', `/repos/${OWNER}/${REPO}/pages`, { cname: SITE.customDomain });
+  if (res.ok) console.log(`✓ 自定义域 ${SITE.customDomain} 已填`);
+  else console.log('! 自定义域:', res.status, JSON.stringify(res.json).slice(0, 200));
+} else {
+  console.log('• 预览模式（deployMode=github），不动自定义域设置');
+}
 
 // 6) 仓库元信息
 await api('PATCH', `/repos/${OWNER}/${REPO}`, {
