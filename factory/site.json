@@ -1,6 +1,6 @@
 {
-  "domain": "https://calc.toolona.com",
-  "customDomain": "",
+  "domain": "https://calc.getoolkit.com",
+  "customDomain": "calc.getoolkit.com",
   "base": "",
   "github": {
     "owner": "qwehkkk",
@@ -8,12 +8,12 @@
     "branch": "main"
   },
   "name": {
-    "en": "Toolona Calc",
-    "zh": "Toolona 计算站"
+    "en": "GetToolkit Calc",
+    "zh": "GetToolkit 计算站"
   },
   "tagline": "Engineering calculators that end in a number you can quote.",
   "email": "asdzcc@gmail.com",
-  "storeUrl": "https://calc.toolona.com/",
+  "storeUrl": "https://calc.getoolkit.com/",
   "note": "deployMode: \"github\" = 挂在 github.io/<仓库名>/ 预览（自动加 base、不写 CNAME）；\"domain\" = 自定义域根目录（base 空、写 CNAME）。",
-  "deployMode": "github"
+  "deployMode": "domain"
 }

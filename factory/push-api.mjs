@@ -56,7 +56,7 @@ res = await api('POST', '/user/repos', {
   has_wiki: false,
   has_projects: false,
   auto_init: false,
-  homepage: 'https://calc.toolona.com'
+  homepage: SITE.domain
 });
 if (res.ok) console.log(`✓ 建仓 ${OWNER}/${REPO}`);
 else if (res.status === 422) console.log(`• 仓库已存在，继续`);
@@ -142,7 +142,7 @@ if (WANT_DOMAIN) {
 // 6) 仓库元信息
 await api('PATCH', `/repos/${OWNER}/${REPO}`, {
   description: 'Engineering calculators that end in a number you can quote. One config in, site + Chrome extension out.',
-  homepage: 'https://calc.toolona.com',
+  homepage: SITE.domain,
   topics: ['calculator', 'manufacturing', 'packaging', 'static-site', 'chrome-extension']
 });
 

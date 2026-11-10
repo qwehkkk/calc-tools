@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://calc.toolona.com/sitemap.xml
+Sitemap: https://calc.getoolkit.com/sitemap.xml
