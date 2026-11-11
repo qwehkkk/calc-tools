@@ -384,13 +384,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks multi-box lists and pallet/CBM modes.",
-      "zh": "一次性买断。解锁多件清单和托盘/立方模式。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: multi-box lists and pallet/CBM modes.", "zh": "Pro 版计划加入：多件清单和托盘/立方模式。" } },
   "listing": {
     "long": "Know which weight the invoice will use before the forwarder sends it. Compares actual vs volumetric for express, air and sea LCL divisors, with fuel surcharge included. Built for exporters and cross-border sellers tired of surprise freight bills.",
     "bullets": [

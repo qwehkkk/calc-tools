@@ -89,7 +89,7 @@
     { "q": { "en": "Where does tempering fit in?", "zh": "钢化费算在哪里？" },
       "a": { "en": "Not here — tempering is charged per m² with a minimum charge per piece, and it has to happen after edging, so it belongs on the next line of your quote. Add it manually; this page stops at glass plus edging.", "zh": "这里不算——钢化按平米收且每块有最低收费，而且必须在磨边之后，属于报价单的下一行。自己加；本页算到玻璃加磨边为止。" } }
   ],
-  "price": { "value": 99, "note": { "en": "One-time. Unlocks offcut re-use and multi-size cutting plans.", "zh": "一次性买断。解锁余料复用和多尺寸切割方案。" } },
+  "pro": { "note": { "en": "Planned for Pro: offcut re-use and multi-size cutting plans.", "zh": "Pro 版计划加入：余料复用和多尺寸切割方案。" } },
   "listing": {
     "long": "See how many cuts really come off a jumbo glass sheet, what the sheet actually costs per piece, and a sell price that survives breakage. Built for small glass shops that quote by the square metre and lose money on the edges.",
     "bullets": [

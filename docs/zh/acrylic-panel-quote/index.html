@@ -12,7 +12,7 @@
 <meta property="og:url" content="https://calc.getoolkit.com/zh/acrylic-panel-quote/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%227%22%20fill%3D%22%230d1418%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%224%22%20width%3D%2215%22%20height%3D%2211%22%20fill%3D%22%237b3fa0%22%2F%3E%3Crect%20x%3D%224%22%20y%3D%2217%22%20width%3D%229%22%20height%3D%2211%22%20fill%3D%22%237b3fa0%22%20opacity%3D%22.6%22%2F%3E%3Crect%20x%3D%2215%22%20y%3D%2217%22%20width%3D%2213%22%20height%3D%2211%22%20fill%3D%22%237b3fa0%22%2F%3E%3C%2Fsvg%3E">
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"亚克力排版报价","url":"https://calc.getoolkit.com/zh/acrylic-panel-quote/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Work out how many acrylic pieces fit on a 1220×2440 sheet, the sheets you need to buy, material and laser cutting cost per piece, and a sell price at your margin.","offers":{"@type":"Offer","price":"99","priceCurrency":"CNY"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"为什么加 10 个件就得多买一整张板？","acceptedAnswer":{"@type":"Answer","text":"因为每张出数是阶梯的。一张能出 6 个，第 7 个就得再买一整张，不管它多小。订单最后几个永远最贵，报价要按这个来。"}},{"@type":"Question","name":"激光也要留刀缝吗？","acceptedAnswer":{"@type":"Answer","text":"都要，但原因不同。锯片本身吃掉 3–5mm；激光几乎不损耗材料，但件与件要留距离，否则切缝连在一起、边缘还会烤黄。4–6mm 两种都够，也留出了拿件的手位。"}},{"@type":"Question","name":"亚克力 8% 损耗合理吗？","acceptedAnswer":{"@type":"Answer","text":"整板切简单矩形，5–10% 是常态，主要是边条和永远配不上别的活的碎料。异形互相套料能降到 5% 以下；量小的时候能到 20%。"}}]}]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebApplication","name":"亚克力排版报价","url":"https://calc.getoolkit.com/zh/acrylic-panel-quote/","applicationCategory":"BusinessApplication","operatingSystem":"Any","description":"Work out how many acrylic pieces fit on a 1220×2440 sheet, the sheets you need to buy, material and laser cutting cost per piece, and a sell price at your margin.","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"isAccessibleForFree":true},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"为什么加 10 个件就得多买一整张板？","acceptedAnswer":{"@type":"Answer","text":"因为每张出数是阶梯的。一张能出 6 个，第 7 个就得再买一整张，不管它多小。订单最后几个永远最贵，报价要按这个来。"}},{"@type":"Question","name":"激光也要留刀缝吗？","acceptedAnswer":{"@type":"Answer","text":"都要，但原因不同。锯片本身吃掉 3–5mm；激光几乎不损耗材料，但件与件要留距离，否则切缝连在一起、边缘还会烤黄。4–6mm 两种都够，也留出了拿件的手位。"}},{"@type":"Question","name":"亚克力 8% 损耗合理吗？","acceptedAnswer":{"@type":"Answer","text":"整板切简单矩形，5–10% 是常态，主要是边条和永远配不上别的活的碎料。异形互相套料能降到 5% 以下；量小的时候能到 20%。"}}]}]}</script>
 <style>
 :root{
   --bg:#f6f7f9; --card:#fff; --ink:#12171f; --ink2:#5b6675; --ink3:#8b95a3;
@@ -119,9 +119,20 @@ details .body{padding:0 15px 14px;color:var(--ink2);font-size:14px}
   font:14px/1 var(--sans);cursor:pointer;font-weight:560;display:inline-flex;align-items:center;gap:7px}
 .fb a.ghost{border:1px solid #2f424d;color:#c6d4dc;padding:10px 16px;border-radius:7px;font-size:14px}
 .fb a.btn:hover{background:#22a090}
-.pay{margin-top:20px;padding-top:18px;border-top:1px solid #1e2b33}
-.pay .price{font:24px/1 var(--mono);color:#fff;font-weight:600}
-.pay .sub{font-size:12.5px;color:#8598a3;margin-top:5px}
+.wait{margin-top:20px;padding-top:18px;border-top:1px solid #1e2b33}
+.wait .wh{font-size:14px;font-weight:600;color:#fff;margin-bottom:5px}
+.wait .wp{font-size:12.5px;color:#8598a3;margin-bottom:10px;max-width:580px;line-height:1.55}
+.wait .wf{display:flex;gap:8px;flex-wrap:wrap}
+.wait .wf input{flex:1;min-width:200px;background:#131d23;border:1px solid #2f424d;color:#e6eef3;
+  border-radius:7px;padding:10px 13px;font:14px/1 var(--sans)}
+.wait .wf input:focus{outline:none;border-color:#1d8a7a}
+.wait .wf button{background:#1d8a7a;color:#fff;border:0;padding:10px 18px;border-radius:7px;
+  font:14px/1 var(--sans);font-weight:560;cursor:pointer}
+.wait .wf button:hover{background:#22a090}
+.wait .wf button:disabled{opacity:.55;cursor:default}
+.wait .wn{font-size:12px;color:#8598a3;margin-top:9px;line-height:1.55}
+.wait .wn.ok{color:#4fd1b5;font-weight:560}
+.wait .wn a{color:#8fd8c9}
 
 footer{border-top:1px solid var(--line);margin-top:36px;padding:22px 0 40px;
   color:var(--ink3);font-size:12.5px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
@@ -195,9 +206,14 @@ footer a:hover{color:var(--brand)}
       <a class="ghost" id="fb-mail" href="mailto:asdzcc@gmail.com" rel="nofollow"><span id="fb-mail-t"></span></a>
       <a class="ghost" id="fb-store" href="#" target="_blank" rel="noopener"></a>
     </div>
-    <div class="pay">
-      <div class="price" id="pay-price"></div>
-      <div class="sub" id="pay-sub"></div>
+    <div class="wait" id="wait" hidden>
+      <div class="wh" id="wait-h"></div>
+      <div class="wp" id="wait-p"></div>
+      <div class="wf" id="wait-f">
+        <input id="wait-email" type="email" inputmode="email" autocomplete="email" spellcheck="false" placeholder="you@company.com">
+        <button type="button" id="wait-btn"></button>
+      </div>
+      <div class="wn" id="wait-n"></div>
     </div>
   </div>
 
@@ -612,7 +628,7 @@ footer a:hover{color:var(--brand)}
 
 </script>
 <script>
-var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","category":{"en":"Fabrication","zh":"广告制作"},"navTag":{"en":"Fabrication","zh":"广告制作"},"accent":"#7b3fa0","currency":"CNY","unit":"mm","name":{"en":"Acrylic Panel Quote","zh":"亚克力排版报价"},"tagline":{"en":"Pieces per sheet, material and cut cost, ready-to-send price.","zh":"一张出几个、材料与切割成本、可直接发的报价。"},"headline":{"en":"Acrylic sheet yield and a price you can send","zh":"亚克力一张出几个，报价直接出来"},"sub":{"en":"Enter the finished size, the quantity and your board price. Get pieces per sheet, sheets to buy, material and cutting cost per piece, and a sell price at your margin.","zh":"输入成品尺寸、数量和板材单价，算出每张出几个、要买几张、单件材料与切割成本，按你的利润率给出报价。"},"badges":[{"en":"Kerf <b>aware</b>","zh":"已计<b>刀缝</b>"},{"en":"Loss rate <b>included</b>","zh":"含<b>损耗率</b>"},{"en":"No signup","zh":"免注册"}],"seo":{"title":"Acrylic Cutting Calculator — Pieces Per Sheet & Price Quote","desc":"Work out how many acrylic pieces fit on a 1220×2440 sheet, the sheets you need to buy, material and laser cutting cost per piece, and a sell price at your margin.","keywords":["acrylic sheet calculator","acrylic cutting calculator","how many pieces per sheet acrylic","acrylic price calculator","plexiglass cutting calculator","acrylic laser cutting cost"]},"inputs":[{"id":"partL","label":{"en":"Piece length","zh":"成品长"},"unit":"mm","default":600,"min":10,"max":2440,"step":1},{"id":"partW","label":{"en":"Piece width","zh":"成品宽"},"unit":"mm","default":400,"min":10,"max":1220,"step":1},{"id":"qty","label":{"en":"Quantity","zh":"数量"},"unit":"pcs","default":20,"min":1,"max":100000,"step":1},{"id":"sheetW","label":{"en":"Sheet width","zh":"板材宽"},"unit":"mm","default":1220,"min":100,"max":3000,"step":10},{"id":"sheetH","label":{"en":"Sheet length","zh":"板材长"},"unit":"mm","default":2440,"min":100,"max":4000,"step":10,"hint":{"en":"1220×2440 is the standard cast sheet; 2050×3050 also common.","zh":"1220×2440 是标准浇铸板；2050×3050 也常见。"}},{"id":"sheetPrice","label":{"en":"Sheet price","zh":"板材单价"},"unit":"¥/sheet","default":168,"min":1,"max":5000,"step":1},{"id":"kerf","label":{"en":"Kerf / gap","zh":"刀缝"},"unit":"mm","default":5,"min":0,"max":30,"step":0.5,"hint":{"en":"Laser kerf plus breathing room. 4–6 mm is typical.","zh":"激光缝加安全间距，一般 4–6mm。"}},{"id":"cutRate","label":{"en":"Cutting rate","zh":"切割单价"},"unit":"¥/m","default":8,"min":0,"max":200,"step":0.5},{"id":"lossRate","label":{"en":"Loss allowance","zh":"损耗率"},"unit":"%","default":8,"min":0,"max":50,"step":1},{"id":"margin","label":{"en":"Margin","zh":"利润率"},"unit":"%","default":40,"min":0,"max":300,"step":1}],"formulas":[{"id":"sheetsNeeded","label":{"en":"Sheets to buy","zh":"需购板材"},"expr":"ceil(qty / 1)","unit":"张","digits":0},{"id":"cutLen","label":{"en":"Cut length per piece","zh":"单件切割长度"},"expr":"2 * (partL + partW) / 1000","unit":"m","digits":2},{"id":"sheetArea","label":{"en":"Sheet area","zh":"单张面积"},"expr":"sheetW * sheetH / 1000000","unit":"m²","digits":3}],"sheets":[{"id":"s1","label":{"en":"Acrylic sheet","zh":"亚克力板"},"w":"sheetW","h":"sheetH","price":"sheetPrice"}],"kerf":"kerf","allowRotate":true,"parts":[{"id":"piece","label":{"en":"Finished piece","zh":"成品件"},"w":"partL","h":"partW","qty":"9999","color":"#7b3fa0"}],"outputs":[{"id":"perSheet","expr":"perSheet"},{"id":"sheetsNeeded","expr":"ceil(qty / perSheet)"},{"id":"util","expr":"efficiency * 100"},{"id":"matPer","expr":"ceil(qty / perSheet) * sheetPrice / qty"},{"id":"cutPer","expr":"2 * (partL + partW) / 1000 * cutRate"},{"id":"costPer","expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * (1 + lossRate / 100)"},{"id":"quote","expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * (1 + lossRate / 100) * (1 + margin / 100)"}],"kpis":[{"id":"perSheet","label":{"en":"Pieces per sheet","zh":"每张出数"},"digits":0,"hl":true},{"id":"sheetsNeeded","label":{"en":"Sheets to buy","zh":"需购板材"},"digits":0},{"id":"costPer","label":{"en":"Cost per piece","zh":"单件成本"},"money":true,"digits":2},{"id":"quote","label":{"en":"Price per piece","zh":"单件报价"},"money":true,"digits":2,"hl":true}],"breakdown":[{"label":{"en":"Material","zh":"材料"},"expr":"ceil(qty / perSheet) * sheetPrice / qty"},{"label":{"en":"Cutting","zh":"切割"},"expr":"2 * (partL + partW) / 1000 * cutRate"},{"label":{"en":"Loss allowance","zh":"损耗"},"expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * lossRate / 100"}],"showFormulas":[{"id":"cutLen","label":{"en":"Cut length per piece","zh":"单件切割长度"},"expr":"2 × (长 + 宽)","unit":"m","digits":2},{"id":"sheetArea","label":{"en":"Sheet area","zh":"单张面积"},"expr":"sheetW × sheetH","unit":"m²","digits":3}],"howTitle":{"en":"What the price actually contains","zh":"这个报价里到底装了什么"},"howP":{"en":"Three things, and shops routinely forget the third: the board you had to buy (whole sheets, not the area you used), the cut path length (perimeter, charged by the metre), and the offcut you cannot resell. Cutting is charged on perimeter because that is what the laser actually travels — a 600×400 piece is 2 m of cut, not 0.24 m² of anything.","zh":"三样东西，第三样最常被忘：你不得不整张买的板（按整张算，不是按用掉的面积）、切割路径长度（周长，按米计价）、以及卖不掉的边角料。切割按周长算，因为激光实际走的就是这一圈——600×400 的件是 2 米刀路，跟 0.24 平米没关系。"},"faq":[{"q":{"en":"Why does adding 10 pieces sometimes need a whole extra sheet?","zh":"为什么加 10 个件就得多买一整张板？"},"a":{"en":"Because yield per sheet is a step function. If 6 fit on a sheet, piece 7 costs you a full board no matter how small the piece is. That is exactly why the last few units of an order are the expensive ones — quote them accordingly.","zh":"因为每张出数是阶梯的。一张能出 6 个，第 7 个就得再买一整张，不管它多小。订单最后几个永远最贵，报价要按这个来。"}},{"q":{"en":"Should kerf be included for laser or only for saw?","zh":"激光也要留刀缝吗？"},"a":{"en":"Both, for different reasons. A saw removes 3–5 mm of material; a laser removes almost nothing but needs spacing so parts do not merge and edges do not scorch. 4–6 mm covers both, and it also gives you handling room.","zh":"都要，但原因不同。锯片本身吃掉 3–5mm；激光几乎不损耗材料，但件与件要留距离，否则切缝连在一起、边缘还会烤黄。4–6mm 两种都够，也留出了拿件的手位。"}},{"q":{"en":"Is 8% loss realistic for acrylic?","zh":"亚克力 8% 损耗合理吗？"},"a":{"en":"For simple rectangles from a full sheet, 5–10% is normal and most of it is the unusable rim plus the offcut you will never match to another job. For odd shapes nested around each other it can drop under 5%; for small quantities it can hit 20%.","zh":"整板切简单矩形，5–10% 是常态，主要是边条和永远配不上别的活的碎料。异形互相套料能降到 5% 以下；量小的时候能到 20%。"}}],"price":{"value":99,"note":{"en":"One-time. Unlocks multi-size nesting, saved material prices and PDF quotes.","zh":"一次性买断。解锁多尺寸套料、材料价保存和 PDF 报价单。"}},"listing":{"long":"Quote acrylic jobs in under a minute. Type the finished size and quantity, and see how many come off a 1220×2440 sheet, how many boards to buy, the material and cutting cost per piece, and a sell price at your margin.","bullets":["Pieces per sheet with kerf and rotation handled","Whole sheets to buy — not a misleading area figure","Material + perimeter cutting + loss, then margin","Works offline"],"perms":"None. Runs offline."},"related":[{"href":"/zh/glass-sheet-yield/","title":"玻璃原片出数","desc":"一张原片切几块、利用率、单块玻璃成本。"},{"href":"/zh/carton-blank-yield/","title":"纸箱展开与拼版出数","desc":"0201 箱展开尺寸、每张出数、单箱纸钱。"},{"href":"/zh/pallet-carton-fit/","title":"托盘码垛计算","desc":"一层码几个、能码几层、单箱分摊多少。"}],"email":"asdzcc@gmail.com","base":"","repo":"https://github.com/qwehkkk/calc-tools","issueUrl":"https://github.com/qwehkkk/calc-tools/issues/new","storeUrl":"https://calc.getoolkit.com/","langBase":"/zh"};
+var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","category":{"en":"Fabrication","zh":"广告制作"},"navTag":{"en":"Fabrication","zh":"广告制作"},"accent":"#7b3fa0","currency":"CNY","unit":"mm","name":{"en":"Acrylic Panel Quote","zh":"亚克力排版报价"},"tagline":{"en":"Pieces per sheet, material and cut cost, ready-to-send price.","zh":"一张出几个、材料与切割成本、可直接发的报价。"},"headline":{"en":"Acrylic sheet yield and a price you can send","zh":"亚克力一张出几个，报价直接出来"},"sub":{"en":"Enter the finished size, the quantity and your board price. Get pieces per sheet, sheets to buy, material and cutting cost per piece, and a sell price at your margin.","zh":"输入成品尺寸、数量和板材单价，算出每张出几个、要买几张、单件材料与切割成本，按你的利润率给出报价。"},"badges":[{"en":"Kerf <b>aware</b>","zh":"已计<b>刀缝</b>"},{"en":"Loss rate <b>included</b>","zh":"含<b>损耗率</b>"},{"en":"No signup","zh":"免注册"}],"seo":{"title":"Acrylic Cutting Calculator — Pieces Per Sheet & Price Quote","desc":"Work out how many acrylic pieces fit on a 1220×2440 sheet, the sheets you need to buy, material and laser cutting cost per piece, and a sell price at your margin.","keywords":["acrylic sheet calculator","acrylic cutting calculator","how many pieces per sheet acrylic","acrylic price calculator","plexiglass cutting calculator","acrylic laser cutting cost"]},"inputs":[{"id":"partL","label":{"en":"Piece length","zh":"成品长"},"unit":"mm","default":600,"min":10,"max":2440,"step":1},{"id":"partW","label":{"en":"Piece width","zh":"成品宽"},"unit":"mm","default":400,"min":10,"max":1220,"step":1},{"id":"qty","label":{"en":"Quantity","zh":"数量"},"unit":"pcs","default":20,"min":1,"max":100000,"step":1},{"id":"sheetW","label":{"en":"Sheet width","zh":"板材宽"},"unit":"mm","default":1220,"min":100,"max":3000,"step":10},{"id":"sheetH","label":{"en":"Sheet length","zh":"板材长"},"unit":"mm","default":2440,"min":100,"max":4000,"step":10,"hint":{"en":"1220×2440 is the standard cast sheet; 2050×3050 also common.","zh":"1220×2440 是标准浇铸板；2050×3050 也常见。"}},{"id":"sheetPrice","label":{"en":"Sheet price","zh":"板材单价"},"unit":"¥/sheet","default":168,"min":1,"max":5000,"step":1},{"id":"kerf","label":{"en":"Kerf / gap","zh":"刀缝"},"unit":"mm","default":5,"min":0,"max":30,"step":0.5,"hint":{"en":"Laser kerf plus breathing room. 4–6 mm is typical.","zh":"激光缝加安全间距，一般 4–6mm。"}},{"id":"cutRate","label":{"en":"Cutting rate","zh":"切割单价"},"unit":"¥/m","default":8,"min":0,"max":200,"step":0.5},{"id":"lossRate","label":{"en":"Loss allowance","zh":"损耗率"},"unit":"%","default":8,"min":0,"max":50,"step":1},{"id":"margin","label":{"en":"Margin","zh":"利润率"},"unit":"%","default":40,"min":0,"max":300,"step":1}],"formulas":[{"id":"sheetsNeeded","label":{"en":"Sheets to buy","zh":"需购板材"},"expr":"ceil(qty / 1)","unit":"张","digits":0},{"id":"cutLen","label":{"en":"Cut length per piece","zh":"单件切割长度"},"expr":"2 * (partL + partW) / 1000","unit":"m","digits":2},{"id":"sheetArea","label":{"en":"Sheet area","zh":"单张面积"},"expr":"sheetW * sheetH / 1000000","unit":"m²","digits":3}],"sheets":[{"id":"s1","label":{"en":"Acrylic sheet","zh":"亚克力板"},"w":"sheetW","h":"sheetH","price":"sheetPrice"}],"kerf":"kerf","allowRotate":true,"parts":[{"id":"piece","label":{"en":"Finished piece","zh":"成品件"},"w":"partL","h":"partW","qty":"9999","color":"#7b3fa0"}],"outputs":[{"id":"perSheet","expr":"perSheet"},{"id":"sheetsNeeded","expr":"ceil(qty / perSheet)"},{"id":"util","expr":"efficiency * 100"},{"id":"matPer","expr":"ceil(qty / perSheet) * sheetPrice / qty"},{"id":"cutPer","expr":"2 * (partL + partW) / 1000 * cutRate"},{"id":"costPer","expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * (1 + lossRate / 100)"},{"id":"quote","expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * (1 + lossRate / 100) * (1 + margin / 100)"}],"kpis":[{"id":"perSheet","label":{"en":"Pieces per sheet","zh":"每张出数"},"digits":0,"hl":true},{"id":"sheetsNeeded","label":{"en":"Sheets to buy","zh":"需购板材"},"digits":0},{"id":"costPer","label":{"en":"Cost per piece","zh":"单件成本"},"money":true,"digits":2},{"id":"quote","label":{"en":"Price per piece","zh":"单件报价"},"money":true,"digits":2,"hl":true}],"breakdown":[{"label":{"en":"Material","zh":"材料"},"expr":"ceil(qty / perSheet) * sheetPrice / qty"},{"label":{"en":"Cutting","zh":"切割"},"expr":"2 * (partL + partW) / 1000 * cutRate"},{"label":{"en":"Loss allowance","zh":"损耗"},"expr":"(ceil(qty / perSheet) * sheetPrice / qty + 2 * (partL + partW) / 1000 * cutRate) * lossRate / 100"}],"showFormulas":[{"id":"cutLen","label":{"en":"Cut length per piece","zh":"单件切割长度"},"expr":"2 × (长 + 宽)","unit":"m","digits":2},{"id":"sheetArea","label":{"en":"Sheet area","zh":"单张面积"},"expr":"sheetW × sheetH","unit":"m²","digits":3}],"howTitle":{"en":"What the price actually contains","zh":"这个报价里到底装了什么"},"howP":{"en":"Three things, and shops routinely forget the third: the board you had to buy (whole sheets, not the area you used), the cut path length (perimeter, charged by the metre), and the offcut you cannot resell. Cutting is charged on perimeter because that is what the laser actually travels — a 600×400 piece is 2 m of cut, not 0.24 m² of anything.","zh":"三样东西，第三样最常被忘：你不得不整张买的板（按整张算，不是按用掉的面积）、切割路径长度（周长，按米计价）、以及卖不掉的边角料。切割按周长算，因为激光实际走的就是这一圈——600×400 的件是 2 米刀路，跟 0.24 平米没关系。"},"faq":[{"q":{"en":"Why does adding 10 pieces sometimes need a whole extra sheet?","zh":"为什么加 10 个件就得多买一整张板？"},"a":{"en":"Because yield per sheet is a step function. If 6 fit on a sheet, piece 7 costs you a full board no matter how small the piece is. That is exactly why the last few units of an order are the expensive ones — quote them accordingly.","zh":"因为每张出数是阶梯的。一张能出 6 个，第 7 个就得再买一整张，不管它多小。订单最后几个永远最贵，报价要按这个来。"}},{"q":{"en":"Should kerf be included for laser or only for saw?","zh":"激光也要留刀缝吗？"},"a":{"en":"Both, for different reasons. A saw removes 3–5 mm of material; a laser removes almost nothing but needs spacing so parts do not merge and edges do not scorch. 4–6 mm covers both, and it also gives you handling room.","zh":"都要，但原因不同。锯片本身吃掉 3–5mm；激光几乎不损耗材料，但件与件要留距离，否则切缝连在一起、边缘还会烤黄。4–6mm 两种都够，也留出了拿件的手位。"}},{"q":{"en":"Is 8% loss realistic for acrylic?","zh":"亚克力 8% 损耗合理吗？"},"a":{"en":"For simple rectangles from a full sheet, 5–10% is normal and most of it is the unusable rim plus the offcut you will never match to another job. For odd shapes nested around each other it can drop under 5%; for small quantities it can hit 20%.","zh":"整板切简单矩形，5–10% 是常态，主要是边条和永远配不上别的活的碎料。异形互相套料能降到 5% 以下；量小的时候能到 20%。"}}],"pro":{"note":{"en":"Planned for Pro: multi-size nesting, saved material prices and PDF quotes.","zh":"Pro 版计划加入：多尺寸套料、材料价保存和 PDF 报价单。"}},"listing":{"long":"Quote acrylic jobs in under a minute. Type the finished size and quantity, and see how many come off a 1220×2440 sheet, how many boards to buy, the material and cutting cost per piece, and a sell price at your margin.","bullets":["Pieces per sheet with kerf and rotation handled","Whole sheets to buy — not a misleading area figure","Material + perimeter cutting + loss, then margin","Works offline"],"perms":"None. Runs offline."},"related":[{"href":"/zh/glass-sheet-yield/","title":"玻璃原片出数","desc":"一张原片切几块、利用率、单块玻璃成本。"},{"href":"/zh/carton-blank-yield/","title":"纸箱展开与拼版出数","desc":"0201 箱展开尺寸、每张出数、单箱纸钱。"},{"href":"/zh/pallet-carton-fit/","title":"托盘码垛计算","desc":"一层码几个、能码几层、单箱分摊多少。"}],"email":"asdzcc@gmail.com","base":"","repo":"https://github.com/qwehkkk/calc-tools","issueUrl":"https://github.com/qwehkkk/calc-tools/issues/new","storeUrl":"https://calc.getoolkit.com/","waitlistEndpoint":"https://formsubmit.co/ajax/asdzcc@gmail.com","langBase":"/zh"};
 (function(){
   'use strict';
   var $ = function(id){ return document.getElementById(id); };
@@ -918,8 +934,8 @@ var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","categ
     $('fb-h').textContent = t({en:'Tell me what is wrong with this number',
                                zh:'这个数字哪里不对，告诉我'});
     $('fb-p').textContent = t({
-      en:'Every formula here was written from public standards, not from a shop floor. If you use this daily, you will spot the error in 10 seconds. Send it — the corrected version ships and you get the paid tier free.',
-      zh:'这些公式是我按公开标准写的，没有在车间里对过。你天天干这个，10 秒就能看出哪儿错。发我一句，我改完版本给你，付费版直接送你。'
+      en:'Every formula here was written from public standards, not from a shop floor. If you use this daily, you will spot the error in 10 seconds. Send it — the corrected version ships, and Pro is free for you when it launches.',
+      zh:'这些公式是按公开标准写的，没在车间里对过。你天天干这个，10 秒就能看出哪儿错。发我一句，我改完版本给你，Pro 版上线后免费送你一份。'
     });
     // 反馈主通道：GitHub Issue，正文自动带当前输入与结果，对方只需写「实际是多少」
     var reportLines = function(){
@@ -964,8 +980,60 @@ var CONFIG = {"slug":"acrylic-panel-quote","priority":3,"version":"0.1.0","categ
     $('fb-mail-t').textContent = t({en:'or email me', zh:'或邮件'});
     $('fb-store').textContent = t({en:'Other tools →', zh:'其他工具 →'});
     $('fb-store').href = CONFIG.storeUrl || (CONFIG.base || '') + '/';
-    $('pay-price').textContent = CONFIG.price ? money(CONFIG.price.value, 0) : '';
-    $('pay-sub').textContent = CONFIG.price ? t(CONFIG.price.note) : '';
+    // Pro 版还没上线：不显示任何价格，只收候补邮箱
+    if (CONFIG.pro) {
+      var waitBox = $('wait'), noteEl = $('wait-n'), btnEl = $('wait-btn');
+      waitBox.hidden = false;
+      $('wait-h').textContent = t({en:'Pro — in progress', zh:'Pro 版在做的功能'});
+      $('wait-p').textContent = t(CONFIG.pro.note) + ' ' + t({
+        en:'It is not for sale yet. Leave an email and you get it the day it ships, at half price.',
+        zh:'现在还没开卖。留个邮箱，上线当天发你，半价。'
+      });
+      var label = {en:'Notify me', zh:'通知我'};
+      btnEl.textContent = t(label);
+      var mailHref = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent('Pro waitlist · ' + CONFIG.slug);
+      var baseNote = t({en:'One email when it ships, nothing else. Or <a href="' + mailHref + '">just email me</a>.',
+                        zh:'只在 Pro 上线时通知你一次，不发别的。也可以<a href="' + mailHref + '">直接发邮件</a>。'});
+      noteEl.innerHTML = baseNote;
+      var done = function(v){
+        $('wait-f').style.display = 'none';
+        noteEl.className = 'wn ok';
+        noteEl.textContent = t({en:'Got it — ' + v + '. You will hear from me when it ships.', zh:'记下了：' + v + '，上线那天我发你。'});
+      };
+      var fallback = function(v){
+        btnEl.disabled = false;
+        btnEl.textContent = t(label);
+        var href = 'mailto:' + CONFIG.email + '?subject=' + encodeURIComponent('Pro waitlist · ' + CONFIG.slug) +
+                   '&body=' + encodeURIComponent(v + '\n' + t(CONFIG.name) + '\n' + location.href);
+        noteEl.className = 'wn';
+        noteEl.innerHTML = t({en:'The form did not go through. ', zh:'表单没提交成功，'}) +
+          '<a href="' + href + '">' + t({en:'send it as an email instead', zh:'改用邮件发我'}) + '</a>' +
+          t({en:' (your address is already filled in).', zh:'（邮箱已填好）。'});
+      };
+      var submitWait = function(){
+        var v = ($('wait-email').value || '').trim();
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+          noteEl.className = 'wn';
+          noteEl.textContent = t({en:'That does not look like an email address.', zh:'这不像一个邮箱地址。'});
+          return;
+        }
+        if (!CONFIG.waitlistEndpoint) { fallback(v); return; }
+        btnEl.disabled = true;
+        btnEl.textContent = t({en:'Sending…', zh:'提交中…'});
+        fetch(CONFIG.waitlistEndpoint, {
+          method:'POST',
+          headers:{'Content-Type':'application/json','Accept':'application/json'},
+          body: JSON.stringify({
+            email: v, tool: CONFIG.slug, page: location.href,
+            _subject: 'Pro waitlist · ' + CONFIG.slug
+          })
+        }).then(function(r){ return r.json(); })
+          .then(function(j){ if (j && String(j.success) === 'true') { done(v); } else { fallback(v); } })
+          .catch(function(){ fallback(v); });
+      };
+      btnEl.onclick = submitWait;
+      $('wait-email').onkeydown = function(e){ if (e.key === 'Enter') { e.preventDefault(); submitWait(); } };
+    }
 
     $('rel-title').textContent = t({en:'Related tools', zh:'相关工具'});
     $('rel').innerHTML = (CONFIG.related || []).map(function(r){

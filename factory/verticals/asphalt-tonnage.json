@@ -368,13 +368,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks multi-layer jobs and milling volumes.",
-      "zh": "一次性买断。解锁多层结构和铣刨量计算。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: multi-layer jobs and milling volumes.", "zh": "Pro 版计划加入：多层结构和铣刨量计算。" } },
   "listing": {
     "long": "Order the right tonnage and see the whole job's number before the plant loads a truck. Area, compacted thickness, density presets, waste, mix cost, paving cost and finished ¥/m². Built for small paving crews and site engineers.",
     "bullets": [

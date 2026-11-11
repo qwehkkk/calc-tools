@@ -381,13 +381,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks mixed carton sizes, saved pallet presets and export.",
-      "zh": "一次性买断。解锁混合箱型、托盘预设和导出。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: mixed carton sizes, saved pallet presets and export.", "zh": "Pro 版计划加入：混合箱型、托盘预设和导出。" } },
   "listing": {
     "long": "Stop guessing how many cartons go on a pallet. Enter the pallet and carton footprint, and see both orientations side by side with the winner highlighted, layers within your height limit, total weight, and the pallet cost each carton carries.",
     "bullets": [

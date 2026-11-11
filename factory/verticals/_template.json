@@ -55,7 +55,7 @@
   "faq": [
     { "q": { "en": "Question a real user would ask", "zh": "真实用户会问的问题" }, "a": { "en": "Answer with a number in it.", "zh": "答案里要有具体的数。" } }
   ],
-  "price": { "value": 99, "note": { "en": "One-time.", "zh": "一次性买断。" } },
+  "pro": { "note": { "en": "Planned for Pro: saved presets and bulk runs.", "zh": "Pro 版计划加入：预设保存和批量计算。" } },
   "listing": {
     "long": "Store description.",
     "bullets": ["First benefit", "Second benefit"],

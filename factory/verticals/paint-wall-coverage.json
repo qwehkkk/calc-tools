@@ -387,13 +387,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks ceilings, multi-room totals and primer plans.",
-      "zh": "一次性买断。解锁天花、多房间汇总和底漆方案。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: ceilings, multi-room totals and primer plans.", "zh": "Pro 版计划加入：天花、多房间汇总和底漆方案。" } },
   "listing": {
     "long": "Know the litres, the buckets and the money before the painter quotes you. Built for renovators comparing quotes that all assume perfect coverage and never mention leftover paint.",
     "bullets": [

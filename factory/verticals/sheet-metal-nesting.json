@@ -94,7 +94,7 @@
     { "q": { "en": "Should thick sheets use a bigger gap?", "zh": "厚板要留更大的缝吗？" },
       "a": { "en": "Slightly — 6 mm plate wants 0.3–0.4 mm kerf and more heat, so practical separation goes to 2.5–3 mm. The bigger thick-sheet cost is cutting rate, which is why the laser rate input matters more than the gap above 3 mm.", "zh": "略宽——6mm 板割缝 0.3–0.4mm，热影响更大，实用分离间隙给 2.5–3mm。但厚板真正的成本大头是切割费率，超过 3mm 后激光单价的影响远大于缝隙。" } }
   ],
-  "price": { "value": 99, "note": { "en": "One-time. Unlocks multi-size nesting and offcut carry-over.", "zh": "一次性买断。解锁多尺寸混排和余料结转。" } },
+  "pro": { "note": { "en": "Planned for Pro: multi-size nesting and offcut carry-over.", "zh": "Pro 版计划加入：多尺寸混排和余料结转。" } },
   "listing": {
     "long": "See how many flat parts really fit on a standard sheet, what each part carries in material and laser time, and whether the nesting software pitch actually pays for itself. Built for small fabrication shops quoting laser-cut parts.",
     "bullets": [

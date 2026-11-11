@@ -108,7 +108,7 @@
     { "q": { "en": "Is the board cost accurate enough to quote from?", "zh": "这个纸钱能直接拿去报价吗？" },
       "a": { "en": "It is the raw board cost per box before waste at the corrugator and before your converting loss. Most shops add 3–8% depending on run length. Use it as the floor, not the final number.", "zh": "这是单箱原纸成本，不含瓦线损耗和你的后道损耗。多数厂按批量加 3–8%。把它当成下限，不是最终报价。" } }
   ],
-  "price": { "value": 99, "note": { "en": "One-time. Unlocks export, saved presets and bulk runs. First 30 days ¥49.", "zh": "一次性买断。解锁导出、预设保存和批量计算。前 30 天 ¥49。" } },
+  "pro": { "note": { "en": "Planned for Pro: export, saved presets and bulk runs.", "zh": "Pro 版计划加入：导出、预设保存和批量计算。" } },
   "listing": {
     "long": "Answer a carton price inquiry without opening CAD. Type the inner dimensions, pick the flute, and see the flat blank size, how many blanks come off one sheet of board, and the board cost per box.",
     "bullets": [

@@ -119,6 +119,7 @@ function render(v, lang) {
     repo: REPO,
     issueUrl: ISSUE,
     storeUrl: SITE.storeUrl || `${BASE}/`,
+    waitlistEndpoint: SITE.waitlist?.endpoint || '',
     langBase: '/zh',
     related: (v.related || []).map((s) => {
       const t = ALL.find((x) => x.slug === s);
@@ -136,7 +137,8 @@ function render(v, lang) {
         applicationCategory: 'BusinessApplication',
         operatingSystem: 'Any',
         description: desc,
-        offers: { '@type': 'Offer', price: String(v.price?.value ?? 0), priceCurrency: v.currency || 'USD' }
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        isAccessibleForFree: true
       },
       {
         '@type': 'FAQPage',
@@ -202,7 +204,7 @@ ${v.listing?.perms || 'No special permissions requested. Everything runs locally
 **Title tag:** ${pick(v.seo?.title, 'en')}
 
 ## Pricing
-${v.price ? `${v.currency || 'USD'} ${v.price.value} — ${v.price.note?.en || ''}` : 'Free'}
+Free. Every tool runs unlimited at no cost. A Pro tier is in development and is not on sale — the feature notes describe plans only.
 
 ## 首发动作（人工）
 1. 传给 3 个真实使用者，要一句具体反馈（哪一步算错了）
@@ -354,7 +356,9 @@ function legalPage(kind, lang) {
       body: isZh ? `
 <p>本站在你的浏览器里完成全部计算。你输入的尺寸、价格、数量<strong>不会被发送到任何服务器</strong>，也不会被保存到任何数据库。</p>
 <h2 style="font-size:15px;margin:22px 0 8px">我们不收集什么</h2>
-<ul><li>不收集输入数据</li><li>不设置追踪 Cookie</li><li>不接入第三方分析或广告脚本</li><li>不要求注册、不要邮箱</li></ul>
+<ul><li>不收集输入数据</li><li>不设置追踪 Cookie</li><li>不接入第三方分析或广告脚本</li><li>算数不需要注册、不要邮箱</li></ul>
+<h2 style="font-size:15px;margin:22px 0 8px">Pro 候补名单</h2>
+<p>Pro 版还没上线，页面上只收一个候补邮箱，且只有你主动填了才会提交。提交后邮箱会经由表单转发服务 FormSubmit 送到我们的邮箱，只用于 Pro 上线时通知你一次，不进营销名单、不转给第三方。任何时候回信说「删掉」，我们就把这条记录删除。页面上的计算输入仍然不出你的浏览器。</p>
 <h2 style="font-size:15px;margin:22px 0 8px">浏览器扩展</h2>
 <p>扩展在本机离线运行，不申请任何网站访问权限，不读取你正在浏览的页面。唯一申请的权限是本地存储，用于记住你上次填的参数，该数据只存在你自己的电脑上。</p>
 <h2 style="font-size:15px;margin:22px 0 8px">你要主动发邮件时</h2>
@@ -365,7 +369,9 @@ function legalPage(kind, lang) {
       : `
 <p>Every calculation on this site runs inside your browser. The dimensions, prices and quantities you type are <strong>never sent to a server</strong> and never written to a database.</p>
 <h2 style="font-size:15px;margin:22px 0 8px">What we do not collect</h2>
-<ul><li>No input data</li><li>No tracking cookies</li><li>No third-party analytics or ad scripts</li><li>No account, no email required</li></ul>
+<ul><li>No input data</li><li>No tracking cookies</li><li>No third-party analytics or ad scripts</li><li>No account, no email needed to calculate</li></ul>
+<h2 style="font-size:15px;margin:22px 0 8px">Pro waitlist</h2>
+<p>Pro is not released. Pages only ask for an email if you choose to leave one. It is delivered to our inbox through the form-forwarding service FormSubmit and used once, to tell you when Pro ships. It is not added to a marketing list and not shared. Reply “remove” at any time and the record is deleted. The numbers you type still never leave your browser.</p>
 <h2 style="font-size:15px;margin:22px 0 8px">Browser extension</h2>
 <p>The extension runs offline on your machine. It requests no host permissions and does not read the pages you browse. The only permission is local storage, used to remember your last inputs — that data stays on your computer.</p>
 <h2 style="font-size:15px;margin:22px 0 8px">When you email us</h2>
@@ -381,7 +387,7 @@ function legalPage(kind, lang) {
 <h2 style="font-size:15px;margin:22px 0 8px">你需要自己核对</h2>
 <p>在把结果用于报价、下料、开模、签约或任何有经济后果的决定之前，请用你自己的刀模、纸度、材料参数核对一遍。使用本站结果所造成的任何损失，本站不承担责任。</p>
 <h2 style="font-size:15px;margin:22px 0 8px">价格</h2>
-<p>免费版可无限使用核心计算。付费版为一次性买断，解锁导出、预设保存与批量计算。已支付的费用不退，但如果你发现公式错误并告知我们，我们将免费提供付费版。</p>
+<p>本站现在全部免费，所有工具无限次使用，不收任何费用，也不需要注册。Pro 版仍在开发中，页面上列的是<strong>计划中的功能</strong>，还没有开始销售；在它上线之前，我们不会向任何人收取任何费用。</p>
 <h2 style="font-size:15px;margin:22px 0 8px">内容归属</h2>
 <p>页面文案、公式实现与界面设计归本站所有。你可以自由使用计算结果，但不可整体复制本站页面作为自己的产品。</p>
 <p style="color:#8b95a3;font-size:12.5px;margin-top:22px">最后更新：${today}</p>`
@@ -390,7 +396,7 @@ function legalPage(kind, lang) {
 <h2 style="font-size:15px;margin:22px 0 8px">Verify before you commit</h2>
 <p>Before using any result for a quotation, a cut list, a die, a contract or any decision with financial consequence, check it against your own die, board sizes and material data. We accept no liability for losses arising from use of these results.</p>
 <h2 style="font-size:15px;margin:22px 0 8px">Pricing</h2>
-<p>The core calculation is free and unlimited. The paid tier is a one-time purchase that unlocks export, saved presets and bulk runs. Payments are non-refundable, but if you find a formula error and tell us, we will give you the paid tier free.</p>
+<p>Everything on this site is free right now — unlimited use, no account, no charge. Pro is still in development: the feature notes describe <strong>plans</strong>, not something on sale. Nobody will be charged anything before it ships.</p>
 <h2 style="font-size:15px;margin:22px 0 8px">Ownership</h2>
 <p>The copy, formula implementations and interface belong to us. You may use the results freely; you may not republish the site as your own product.</p>
 <p style="color:#8b95a3;font-size:12.5px;margin-top:22px">Last updated: ${today}</p>`

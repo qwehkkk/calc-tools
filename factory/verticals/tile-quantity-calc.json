@@ -93,7 +93,7 @@
     { "q": { "en": "Is the adhesive quantity realistic?", "zh": "瓷砖胶的量靠谱吗？" },
       "a": { "en": "The default ¥18/m² is a material cost for a 3–5 mm notched trowel bed, which suits most porcelain up to 600×600. Large-format tiles need a thicker bed and back-buttering — expect 1.5–2× that.", "zh": "默认 18 元/㎡ 对应 3–5mm 齿形刮板，适合 600×600 以内的瓷质砖。大板要更厚的胶层还要背涂，按 1.5–2 倍算。" } }
   ],
-  "price": { "value": 0, "note": { "en": "Free. It is the doorway to the paid contractor tools.", "zh": "免费。它是通往付费工程版的入口。" } },
+  "pro": { "note": { "en": "Planned for Pro: multi-room summaries and a job-wide shopping list.", "zh": "Pro 版计划加入：多房间汇总和整单采购清单。" } },
   "listing": {
     "long": "Work out how many tiles and boxes a room actually needs, including the edge cuts that area maths hides. Add adhesive and grout to see the real cost per square metre before you go to the store.",
     "bullets": [

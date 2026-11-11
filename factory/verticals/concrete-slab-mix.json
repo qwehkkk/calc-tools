@@ -439,13 +439,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks footings, columns and multi-pour totals.",
-      "zh": "一次性买断。解锁基础、柱和多批次合计。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: footings, columns and multi-pour totals.", "zh": "Pro 版计划加入：基础、柱和多批次合计。" } },
   "listing": {
     "long": "Order the right number of cubic metres and know what both paths cost before the truck books. Built for small contractors and homeowners pouring slabs, driveways and pads who keep getting quoted in units they cannot check.",
     "bullets": [

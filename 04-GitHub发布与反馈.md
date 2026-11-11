@@ -4,7 +4,7 @@
 
 ---
 
-## 0. 现在的状态（2026-11-10 23:0x）
+## 0. 现在的状态（2026-11-11 23:0x）
 
 | 项目 | 状态 |
 |---|---|
@@ -17,6 +17,7 @@
 | 正式地址 | ✅ <https://calc.getoolkit.com/>（HTTPS 已强制，http 301 到 https） |
 | 旧预览地址 | ✅ `qwehkkk.github.io/calc-tools/*` 已 301 到新域（权重不丢，但别再发这个链接） |
 | 反馈入口 | ✅ 按钮直接开一条**预填当前数字**的 GitHub Issue |
+| 付费 | ⛔ 没有付费版，也收不了钱：价格块已撤，改为 Pro 候补名单（见 4.4）。Chrome 商店本身不支持收款 |
 
 **已验收**（2026-11-10 23:20，12 条路径实测）：
 
@@ -31,7 +32,7 @@
 /nope-404-test/         404   1701   ← 真 404（自定义页），不是软 404
 ```
 
-**你只剩一件事**：把 sitemap 交到 Google Search Console（第 6 节）。Enforce HTTPS 我已经用 API 开好了，不用手动勾。
+**你只剩两件事**：① 点一下 FormSubmit 的激活链接（见 4.4）；② 把 sitemap 交到 Google Search Console（第 5 节）。Enforce HTTPS 我已经用 API 开好了，不用手动勾。
 
 ---
 
@@ -185,6 +186,25 @@ Issues → Labels → New label：Name `wrong-number`，颜色 `#d93f0b`。
 3. **A 类（公式真错）当天改**：改 `factory/verticals/<slug>.json` 的 `expr` → build → test → publish → 推送，commit 写 `fix: <slug> per issue #12`
 4. Issue 里回一句"已修，刷新即生效"，关掉
 5. 贴进 `data/反馈库.csv`
+
+---
+
+## 4.4 Pro 候补名单（2026-11-11 加，取代原来的价格块）
+
+**背景**：原来页面底部显示 `$99 一次性买断`，但既没有购买按钮也没有 Pro 功能 —— 有价无货。现已全部撤掉价格，改成只收候补邮箱。
+
+- 每个工具的 `price` 字段已改为 `pro.note`，文案由「一次性买断。解锁 X」改写为「Pro 版计划加入：X」，**不再出现任何金额**
+- 页面底部（深色反馈卡片里）出现：`Pro 版在做的功能` + 计划清单 + 一句「现在还没开卖，留个邮箱，上线当天发你，半价」+ 邮箱输入框 + `通知我`
+- 提交走 **FormSubmit**（`site.json` → `waitlist.endpoint`），只转发到 `asdzcc@gmail.com`，不需要账号、不需要后端
+- 提交失败（未激活 / 网络）时不会假装成功，而是露出「改用邮件发我」的兜底链接，邮箱已填好
+- 隐私页已写明：邮箱经 FormSubmit 转发、只用于通知一次、可随时要求删除；计算输入仍然不出浏览器
+- 条款页「价格」段已改为：现在全免费、Pro 仅列计划、上线前不向任何人收费
+
+**⚠️ 一次性动作**：FormSubmit 需要激活。`asdzcc@gmail.com` 里应有一封 `Activate Form` 邮件，点一次链接；不点的话所有提交都会走兜底（不会丢人，但拿不到记录）。
+
+**换收件邮箱**：只改 `site.json` 的 `waitlist.endpoint`，重新 build → publish。
+
+**为什么不是「上架扩展后就能收钱」**：Chrome 应用商店 2021 年已下线官方支付，上架扩展本身收不到钱。真要收钱得单独接 Gumroad / Paddle / Lemon Squeezy，并先有 Pro 功能。
 
 ---
 

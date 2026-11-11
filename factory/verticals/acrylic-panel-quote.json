@@ -87,7 +87,7 @@
     { "q": { "en": "Is 8% loss realistic for acrylic?", "zh": "亚克力 8% 损耗合理吗？" },
       "a": { "en": "For simple rectangles from a full sheet, 5–10% is normal and most of it is the unusable rim plus the offcut you will never match to another job. For odd shapes nested around each other it can drop under 5%; for small quantities it can hit 20%.", "zh": "整板切简单矩形，5–10% 是常态，主要是边条和永远配不上别的活的碎料。异形互相套料能降到 5% 以下；量小的时候能到 20%。" } }
   ],
-  "price": { "value": 99, "note": { "en": "One-time. Unlocks multi-size nesting, saved material prices and PDF quotes.", "zh": "一次性买断。解锁多尺寸套料、材料价保存和 PDF 报价单。" } },
+  "pro": { "note": { "en": "Planned for Pro: multi-size nesting, saved material prices and PDF quotes.", "zh": "Pro 版计划加入：多尺寸套料、材料价保存和 PDF 报价单。" } },
   "listing": {
     "long": "Quote acrylic jobs in under a minute. Type the finished size and quantity, and see how many come off a 1220×2440 sheet, how many boards to buy, the material and cutting cost per piece, and a sell price at your margin.",
     "bullets": [

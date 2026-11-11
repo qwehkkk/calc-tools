@@ -482,13 +482,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks ampacity check and multi-load runs.",
-      "zh": "一次性买断。解锁载流量校验和多负载线路。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: ampacity check and multi-load runs.", "zh": "Pro 版计划加入：载流量校验和多负载线路。" } },
   "listing": {
     "long": "Know the voltage at the far end of the run before the cable is pulled. Working current, drop in volts and percent, pass/fail against 5%, and the minimum standard cross-section — for single-phase 220V and three-phase 380V, copper or aluminium.",
     "bullets": [

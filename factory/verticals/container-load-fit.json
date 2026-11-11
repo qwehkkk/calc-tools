@@ -423,13 +423,7 @@
       }
     }
   ],
-  "price": {
-    "value": 99,
-    "note": {
-      "en": "One-time. Unlocks mixed carton sizes and saved container presets.",
-      "zh": "一次性买断。解锁混合箱型和柜型预设。"
-    }
-  },
+  "pro": { "note": { "en": "Planned for Pro: mixed carton sizes and saved container presets.", "zh": "Pro 版计划加入：混合箱型和柜型预设。" } },
   "listing": {
     "long": "Plan a container load in seconds. Six orientations, the space ceiling and the weight ceiling, and the freight each carton has to carry. Built for exporters who quote FOB and keep getting surprised by how few cartons actually fit.",
     "bullets": [

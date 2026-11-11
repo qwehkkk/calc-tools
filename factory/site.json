@@ -16,5 +16,9 @@
   "storeUrl": "https://calc.getoolkit.com/",
   "note": "deployMode: \"github\" = 挂在 github.io/<仓库名>/ 预览（自动加 base、不写 CNAME）；\"domain\" = 自定义域根目录（base 空、写 CNAME）。",
   "deployMode": "domain",
-  "indexNowKey": "1a096dcec3f0e3342e6adbaa4a4c98c7"
+  "indexNowKey": "1a096dcec3f0e3342e6adbaa4a4c98c7",
+  "waitlist": {
+    "endpoint": "https://formsubmit.co/ajax/asdzcc@gmail.com",
+    "note": "Pro 版候补名单提交地址。首次提交后，邮箱会收到一封 FormSubmit 激活信，点一次确认才开始真正转发；换邮箱只改这里。"
+  }
 }
