@@ -106,6 +106,20 @@ for (const d of dirs) {
     if (!noDia && !textOf(dia)) problems.push('图为空');
     if (/NaN|Infinity/.test(textOf(brk))) problems.push('成本表含 NaN');
 
+    // Pro 候补：有 pro 配置就必须真的露出候补卡（hidden 从 undefined 变 false 才说明代码跑到了）
+    const rawHtml = fs.readFileSync(f, 'utf8');
+    if (/"pro":\s*\{/.test(rawHtml)) {
+      const waitBox = reg.get('wait');
+      if (waitBox.hidden !== false) problems.push('候补卡没露出来（hidden 没被清掉）');
+      if (!textOf(reg.get('wait-p'))) problems.push('候补说明为空');
+      if (!textOf(reg.get('wait-btn'))) problems.push('候补按钮无文字');
+      if (/undefined|NaN/.test(textOf(reg.get('wait-p')))) problems.push('候补文案含 undefined/NaN');
+    }
+    // 页面上不该再出现任何金额或「付费版」承诺（脚本里的 endpoint 不算）
+    if (/一次性买断|付费版|\$99|¥99/.test(rawHtml.replace(/<script[\s\S]*?<\/script>/g, ''))) {
+      problems.push('页面残留价格/付费文案');
+    }
+
     // 反馈通道：按钮必须能生成一条带真实数字的 Issue 链接
     const issueBtn = reg.get('fb-issue');
     if (typeof issueBtn.onclick === 'function') {
